@@ -1,0 +1,102 @@
+html {
+  box-sizing: border-box !important;
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  color: color(black w(25%));
+  font-family: OpenSans, $fonts;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  margin: 0;
+}
+
+*, *:before, *:after {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: inherit !important;
+}
+
+h1, h2, h3, h4, h5, h6, address {
+  margin: 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+a {
+  color: color(black w(20%));
+  text-decoration: none;
+
+  &:hover {
+    color: $color-figure;
+    cursor: pointer;
+  }
+
+  &:focus, &:active {
+    outline: none;
+  }
+}
+
+ul, ol {
+  list-style-type: none;
+  margin:  0;
+  padding: 0;
+}
+
+svg {
+  display: block;
+}
+
+svg:not(.row) path {
+  fill: currentColor;
+}
+
+p {
+  margin: 0;
+}
+
+b {
+  font-weight: 500;
+}
+
+input[type="text"], input[type="search"] {
+  -webkit-appearance: textfield;
+  font-size: 16px;
+  padding: 0 10px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: color(white b(90%));
+  }
+}
+
+input[type="button"], button {
+  background-color: $color-figure;
+  border-radius: 3px;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}

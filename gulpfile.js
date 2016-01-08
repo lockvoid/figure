@@ -14,13 +14,13 @@ let ts = require('gulp-typescript');
 
 dotenv.load();
 
-gulp.task('default', gulp.series(clean, buildServer, startServer, gulp.parallel(watchServer)));
+gulp.task('default', gulp.series(clean, gulp.parallel(buildServer, buildCss, copyImages, copyFonts), startServer, gulp.parallel(watchServer, watchPublic)));
 
 function clean() {
   return del('dist');
 }
 
-// Build
+// Server
 
 let serverProject = ts.createProject('app/server/tsconfig.json', { typescript: typescript });
 var serverProcess = null;
@@ -43,4 +43,26 @@ function startServer(done) {
 function closeServer(done) {
   serverProcess && serverProcess.kill();
   done();
+}
+
+// Public
+
+function buildCss() {
+  let manifests = ['public/css/**/*.css', '!public/css/**/_*.css'];
+
+  return gulp.src(manifests).pipe(sourcemaps.init()).pipe(postcss([precss, autoprefixer])).pipe(sourcemaps.write()).pipe(gulp.dest('dist/public'));
+}
+
+function copyImages() {
+  return gulp.src('public/images/**/*.{png,svg,jpg}').pipe(gulp.dest('dist/public'));
+}
+
+function copyFonts() {
+  return gulp.src('public/fonts/**/*.woff').pipe(gulp.dest('dist/public'));
+}
+
+function watchPublic() {
+  gulp.watch('public/css/**/*.css', buildCss);
+  gulp.watch('public/images/**/*.{png,svg,jpg}', copyImages);
+  gulp.watch('public/fonts/**/*.woff', copyFonts);
 }
