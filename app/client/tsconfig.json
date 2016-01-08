@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "module": "umd",
+    "moduleResolution": "node",
+    "noExternalResolve": false,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es5"
+  }
+}

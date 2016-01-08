@@ -1,21 +1,29 @@
 import * as React from 'react';
 
+import Page from './layouts/page';
+
+class DevelopmentConfig extends React.Component<any, any> {
+  render() {
+    return (
+      <div style={{ position: "absolute", top: -9999 }}>
+        <script src="/jspm_packages/system.js"></script>
+        <script src="/config.js"></script>
+
+        <script dangerouslySetInnerHTML={{__html: `
+          System.import('/assets/app/client/app').catch(console.log.bind(console));
+        `}} />
+      </div>
+    );
+  }
+}
+
 export default class App extends React.Component<any, any> {
   render() {
     return (
-      <html>
-        <head>
-          <base href="/" />
-
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-          <link rel="stylesheet" media="screen" href="assets/app.css" />
-        </head>
-
-        <body>
-          <app id="app" />
-        </body>
-      </html>
+      <Page>
+        <app id="app">Loading...</app>
+        <DevelopmentConfig />
+      </Page>
     );
   }
 }

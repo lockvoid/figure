@@ -13,8 +13,7 @@
     "express": "^4.13.3",
     "firebase": "^2.3.2",
     "react": "^0.14.6",
-    "react-dom": "^0.14.6",
-    "systemjs": "^0.19.6"
+    "react-dom": "^0.14.6"
   },
   "devDependencies": {
     "autoprefixer": "^6.1.2",
@@ -26,6 +25,7 @@
     "gulp-preprocess": "^2.0.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.9.2",
+    "jspm": "^0.16.19",
     "precss": "^1.3.0",
     "systemjs-builder": "^0.14.11",
     "typescript": "^1.7.3"
@@ -33,5 +33,14 @@
   "engines": {
     "node": "^5.4.0",
     "npm": "^3.3.12"
+  },
+  "jspm": {
+    "dependencies": {
+      "firebase": "npm:firebase@^2.3.2",
+      "react": "npm:react@^0.14.6",
+      "react-dom": "npm:react-dom@^0.14.6",
+      "react-redux": "npm:react-redux@^4.0.6"
+    },
+    "devDependencies": {}
   }
 }

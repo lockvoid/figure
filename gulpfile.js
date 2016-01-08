@@ -14,7 +14,10 @@ let ts = require('gulp-typescript');
 
 dotenv.load();
 
-gulp.task('default', gulp.series(clean, gulp.parallel(buildServer, buildCss, copyImages, copyFonts), startServer, gulp.parallel(watchServer, watchPublic)));
+let buildTasks = gulp.parallel(buildServer, buildClient, buildCss, copyImages, copyFonts);
+let watchTasks = gulp.parallel(watchServer, watchClient, watchPublic);
+
+gulp.task('default', gulp.series(clean, buildTasks, startServer, watchTasks));
 
 function clean() {
   return del('dist');
@@ -43,6 +46,20 @@ function startServer(done) {
 function closeServer(done) {
   serverProcess && serverProcess.kill();
   done();
+}
+
+// Client
+//
+let clientProject = ts.createProject('app/client/tsconfig.json', { typescript: typescript });
+
+function buildClient() {
+  let result = gulp.src('{app/client,lib}/**/*.{ts,tsx}').pipe(sourcemaps.init()).pipe(preprocess({ context: { CLIENT: true } })).pipe(ts(clientProject));
+
+  return result.js.pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
+}
+
+function watchClient() {
+  gulp.watch('{app/client,lib}/**/*.{ts,tsx}', buildClient);
 }
 
 // Public

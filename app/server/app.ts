@@ -36,7 +36,13 @@ app.locals = {
 });
 
 if (app.get('env') === 'development') {
-  app.use('/node_modules', express.static('./node_modules'));
+  ['/node_modules', '/jspm_packages'].forEach(path => {
+    app.use(path, express.static(`.${path}`));
+  });
+
+  app.get('/config.js', (req, res) => {
+    res.sendFile('./config.js');
+  });
 }
 
 app.use((req, res, next) => {
