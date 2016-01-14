@@ -10,6 +10,7 @@ System.config({
   map: {
     "firebase": "npm:firebase@2.3.2",
     "history": "npm:history@2.0.0-rc2",
+    "immutable": "npm:immutable@3.7.6",
     "react": "npm:react@0.14.6",
     "react-dom": "npm:react-dom@0.14.6",
     "react-redux": "npm:react-redux@4.0.6",
@@ -477,5 +478,3 @@ System.config({
     }
   }
 });
-
-System.import('/assets/app/client/app').catch(console.log.bind(console));

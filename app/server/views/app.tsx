@@ -10,7 +10,12 @@ export default class App extends React.Component<any, any> {
 
         <script src="/jspm_packages/system.js"></script>
         <script src="/config.js"></script>
+
+        <script dangerouslySetInnerHTML={{__html: `
+          System.import('/assets/app/client/app').catch(console.log.bind(console));
+        `}} />
       </Page>
     );
   }
 }
+
