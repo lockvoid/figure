@@ -41,7 +41,7 @@ if (app.get('env') === 'development') {
   });
 
   app.get('/config.js', (req, res) => {
-    res.sendFile('./config.js');
+    res.sendFile(`${process.cwd()}/config.js`);
   });
 }
 

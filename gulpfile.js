@@ -29,7 +29,8 @@ let serverProject = ts.createProject('app/server/tsconfig.json', { typescript: t
 var serverProcess = null;
 
 function buildServer() {
-  let result = gulp.src('{app/server,lib}/**/*.{ts,tsx}').pipe(sourcemaps.init()).pipe(preprocess({ context: { SERVER: true } })).pipe(ts(serverProject));
+  let source = ['{app/server,lib}/**/*.{ts,tsx}', 'typings/main.d.ts'];
+  let result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ context: { SERVER: true } })).pipe(ts(serverProject));
 
   return result.js.pipe(sourcemaps.write()).pipe(gulp.dest('dist/server'));
 }
@@ -53,7 +54,8 @@ function closeServer(done) {
 let clientProject = ts.createProject('app/client/tsconfig.json', { typescript: typescript });
 
 function buildClient() {
-  let result = gulp.src('{app/client,lib}/**/*.{ts,tsx}').pipe(sourcemaps.init()).pipe(preprocess({ context: { CLIENT: true } })).pipe(ts(clientProject));
+  let source = ['{app/client,lib}/**/*.{ts,tsx}', 'typings/browser.d.ts'];
+  let result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ context: { CLIENT: true } })).pipe(ts(clientProject));
 
   return result.js.pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
 }

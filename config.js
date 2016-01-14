@@ -9,9 +9,14 @@ System.config({
 
   map: {
     "firebase": "npm:firebase@2.3.2",
+    "history": "npm:history@2.0.0-rc2",
     "react": "npm:react@0.14.6",
     "react-dom": "npm:react-dom@0.14.6",
     "react-redux": "npm:react-redux@4.0.6",
+    "react-router": "npm:react-router@1.0.3",
+    "redux": "npm:redux@3.0.5",
+    "redux-simple-router": "npm:redux-simple-router@1.0.2",
+    "redux-thunk": "npm:redux-thunk@1.0.3",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -272,6 +277,24 @@ System.config({
     "npm:hash.js@1.0.3": {
       "inherits": "npm:inherits@2.0.1"
     },
+    "npm:history@1.17.0": {
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "deep-equal": "npm:deep-equal@1.0.1",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "invariant": "npm:invariant@2.2.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "query-string": "npm:query-string@3.0.0",
+      "warning": "npm:warning@2.1.0"
+    },
+    "npm:history@2.0.0-rc2": {
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "deep-equal": "npm:deep-equal@1.0.1",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "invariant": "npm:invariant@2.2.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "query-string": "npm:query-string@3.0.0",
+      "warning": "npm:warning@2.1.0"
+    },
     "npm:https-browserify@0.0.0": {
       "http": "github:jspm/nodelibs-http@1.7.1"
     },
@@ -340,6 +363,9 @@ System.config({
     "npm:punycode@1.3.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:query-string@3.0.0": {
+      "strict-uri-encode": "npm:strict-uri-encode@1.1.0"
+    },
     "npm:randombytes@2.0.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
@@ -355,6 +381,14 @@ System.config({
       "react": "npm:react@0.14.6",
       "redux": "npm:redux@3.0.5"
     },
+    "npm:react-router@1.0.3": {
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "history": "npm:history@1.17.0",
+      "invariant": "npm:invariant@2.2.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "warning": "npm:warning@2.1.0"
+    },
     "npm:react@0.14.6": {
       "envify": "npm:envify@3.4.0",
       "fbjs": "npm:fbjs@0.6.1",
@@ -369,6 +403,9 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "stream-browserify": "npm:stream-browserify@1.0.0",
       "string_decoder": "npm:string_decoder@0.10.31"
+    },
+    "npm:redux-simple-router@1.0.2": {
+      "deep-equal": "npm:deep-equal@1.0.1"
     },
     "npm:redux@3.0.5": {
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -420,6 +457,10 @@ System.config({
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
     },
+    "npm:warning@2.1.0": {
+      "loose-envify": "npm:loose-envify@1.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:websocket-driver@0.6.4": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
@@ -436,3 +477,5 @@ System.config({
     }
   }
 });
+
+System.import('/assets/app/client/app').catch(console.log.bind(console));

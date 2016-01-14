@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "ambientDependencies": {
+    "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#52ef0043e7d64e5cdc63d56bd883e048ead05df0",
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#3b6d42912788a3b5b47edf271f551b80966fd9e6",
+    "firebase": "github:DefinitelyTyped/DefinitelyTyped/firebase/firebase.d.ts#e2251a6de4ec74c4c71cbb04baccdd261a643909",
+    "history": "github:DefinitelyTyped/DefinitelyTyped/react-router/history.d.ts#99f6493ffb1ef5479c6154ec9f82a47178bbf8b6",
+    "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#2b2353068b57c5f0e10439f5a7cbca5ae41aa3d5",
+    "react": "github:DefinitelyTyped/DefinitelyTyped/react/react.d.ts#8b2be7dbb22fb9042798c717d10a86a833643365",
+    "react-dom": "github:DefinitelyTyped/DefinitelyTyped/react/react-dom.d.ts#ca5bfe76d2d9bf6852cbc712d9f3e0047c93486e",
+    "react-redux": "github:DefinitelyTyped/DefinitelyTyped/react-redux/react-redux.d.ts#a513c4df6eb8505da8eef432891c8b69b73535d9",
+    "react-router": "github:DefinitelyTyped/DefinitelyTyped/react-router/react-router.d.ts#814e5ba4b19295c427df103ce4bf20857853f82d",
+    "redux": "github:DefinitelyTyped/DefinitelyTyped/redux/redux.d.ts#d4f3ed0cc7f7aba3b47dc6dbc68ead8a97052fe4",
+    "redux-thunk": "github:DefinitelyTyped/DefinitelyTyped/redux-thunk/redux-thunk.d.ts#ecc37ce4e9462740693cbc078d262262f89691ad",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f"
+  }
+}

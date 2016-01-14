@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 class App extends React.Component<any, any> {
   render() {
@@ -9,4 +9,8 @@ class App extends React.Component<any, any> {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+let bootstrap = (
+  <App />
+);
+
+render(bootstrap, document.getElementById('app'));
