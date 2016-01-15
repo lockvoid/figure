@@ -1,5 +1,6 @@
 import { ThunkInterface } from 'redux-thunk';
 import { routeActions } from 'redux-simple-router';
+import { FormAttrs } from '../../../lib/models/form.ts';
 
 export const CHILD_ADDED = 'CHILD_ADDED';
 export const CHILD_CHANGED = 'CHILD_CHANGED';
@@ -33,7 +34,7 @@ export function bindForms(): ThunkInterface {
   };
 }
 
-export function addForm(form: any) {
+export function addForm(form: FormAttrs) {
   return (dispatch: any, getState: any) => {
     const { firebase } = getState();
 

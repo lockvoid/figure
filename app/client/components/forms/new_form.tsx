@@ -5,6 +5,7 @@ import { addForm } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { EmailsInput, emailsValidator } from '../shared/emails_input';
+import { FormAttrs } from '../../../../lib/models/form.ts';
 
 const mapStateToProps = (state: any) => {
   return state;
@@ -12,8 +13,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    onNewForm: (data: any) => {
-      dispatch(addForm(data));
+    onNewForm: (form: FormAttrs) => {
+      dispatch(addForm(form));
     }
   }
 }
@@ -34,7 +35,7 @@ export class NewForm extends React.Component<any, any> {
     const { fields: { name, subscribers }, onNewForm, handleSubmit } = this.props;
 
     return (
-      <form onSubmit={handleSubmit((data: any) => onNewForm(data))}>
+      <form onSubmit={handleSubmit((form: FormAttrs) => onNewForm(form))}>
         <div>
           <label>Form Name</label>
           <input type="text" placeholder="Name" {...name}/>
