@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { List } from 'immutable';
 
-import { CHILD_ADDED, CHILD_CHANGED, CHILD_MOVED, CHILD_REMOVED } from '../actions/forms';
+import { CHILD_ADDED, CHILD_CHANGED, CHILD_MOVED, CHILD_REMOVED, REMOVE_FORM_AND_REDIRECT } from '../actions/forms';
 import { SET_FIREBASE_REF } from '../actions/firebase';
 
 export const forms: Reducer = (state = List(), action) => {
@@ -14,6 +14,8 @@ export const forms: Reducer = (state = List(), action) => {
       return childMoved(state, action.snapshot, action.prevChild);
     case CHILD_REMOVED:
       return childRemoved(state, action.snapshot);
+    case REMOVE_FORM_AND_REDIRECT:
+      return removeFormAndRedirect(state, action.formId);
     default:
       return state;
   }
@@ -53,7 +55,7 @@ function childMoved(list: List<any>, snapshot: FirebaseDataSnapshot, prevChild: 
 }
 
 function childRemoved(list: List<any>, snapshot: FirebaseDataSnapshot) {
-  let index = this._indexForChild(snapshot.key());
+  let index = indexForChild(list, snapshot.key());
 
   if (index > -1) {
     return list.delete(index)
@@ -83,4 +85,8 @@ function serializeChild(snapshot: any): any {
   return val;
 }
 
+function removeFormAndRedirect(list: List<any>, id: string) {
+  alert();
 
+  return list;
+}

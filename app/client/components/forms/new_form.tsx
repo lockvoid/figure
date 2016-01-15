@@ -9,21 +9,15 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    onRemove: (id: string) => {
-      dispatch(removeFormAndRedirect(id));
-    },
   }
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export class ShowForm extends React.Component<any, any> {
+export class NewForm extends React.Component<any, any> {
   render() {
-    const { params, onRemove } = this.props;
-
     return (
       <div>
-        { params.formId }
-        <button onClick={() => onRemove(params.formId)}>Remove</button>
+        NewFormComponent
       </div>
     );
   }

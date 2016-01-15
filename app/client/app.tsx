@@ -10,7 +10,7 @@ let thunk = require('redux-thunk');
 import { firebase } from './reducers/firebase';
 import { forms } from './reducers/forms';
 import { Main } from './components/main';
-import { ShowForm } from './components/forms';
+import { ShowForm, NewForm } from './components/forms';
 
 const history = createHistory();
 
@@ -22,6 +22,7 @@ const boot = (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={Main}>
+        <Route path="forms/new" component={NewForm} />
         <Route path="forms/:formId" component={ShowForm} />
       </Route>
     </Router>
