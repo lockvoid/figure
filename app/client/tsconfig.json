@@ -6,7 +6,7 @@
     "module": "umd",
     "moduleResolution": "node",
     "noExternalResolve": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "preserveConstEnums": true,
     "sourceMap": true,
     "suppressImplicitAnyIndexErrors": true,
