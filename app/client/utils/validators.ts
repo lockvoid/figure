@@ -1,22 +1,9 @@
 const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
 
-const EMAIL_REGEX = /^\S+@\S+\.\S+$/i;
 
 export function required(value: any): string {
   if (!value) {
     return 'Required';
-  }
-}
-
-export function emails(value) {
-  if (value) {
-    let emails = (value.split(',') as string[]).map(email => email.trim()).filter(email => !!email);
-
-    for (let email of emails) {
-      if (!EMAIL_REGEX.test(email)) {
-        return 'Emails';
-      }
-    }
   }
 }
 

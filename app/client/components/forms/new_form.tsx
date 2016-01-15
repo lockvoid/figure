@@ -3,10 +3,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { addForm } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
-import { createValidator, required, emails } from '../../utils/validators';
+import { createValidator, required } from '../../utils/validators';
+import { EmailsInput, emailsValidator } from '../shared/emails_input';
 
 const mapStateToProps = (state: any) => {
-//  return Object.assign(state, { initialValues: { subscribers: 'sd' } });
   return state;
 }
 
@@ -24,12 +24,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 
   validate: createValidator({
     name: [required],
-    subscribers: [emails],
+    subscribers: [emailsValidator],
   }),
-
-  initialValues: {
-    subscribers: '',
-  }
 })
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -47,7 +43,7 @@ export class NewForm extends React.Component<any, any> {
 
         <div>
           <label>Subscribers</label>
-          <input type="text" placeholder="Subscribers" {...subscribers}/>
+          <EmailsInput {...subscribers} />
           {subscribers.error && subscribers.touched && <div className="error">{subscribers.error}</div>}
         </div>
 
