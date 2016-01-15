@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { addForm } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
-import { createValidator, required } from '../../utils/validators';
+import { combineValidators, requiredValidator } from '../../utils/validators';
 import { EmailsInput, emailsValidator } from '../shared/emails_input';
 
 const mapStateToProps = (state: any) => {
@@ -22,8 +22,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   form: 'form',
   fields: ['name', 'subscribers'],
 
-  validate: createValidator({
-    name: [required],
+  validate: combineValidators({
+    name: [requiredValidator],
     subscribers: [emailsValidator],
   }),
 })

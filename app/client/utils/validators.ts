@@ -1,13 +1,13 @@
 const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
 
 
-export function required(value: any): string {
+export function requiredValidator(value: any): string {
   if (!value) {
     return 'Required';
   }
 }
 
-export function createValidator(rules: any) {
+export function combineValidators(rules: any) {
   return (data = {}) => {
     const errors = {};
     Object.keys(rules).forEach(key => {
