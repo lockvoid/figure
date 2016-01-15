@@ -37,6 +37,10 @@ export class AppHeader extends React.Component<any, any> {
         <nav className="forms">
           <ul>
             {formsList}
+
+            <li className="new">
+              <Link to="/forms/new" activeClassName="active">New Form</Link>
+            </li>
           </ul>
         </nav>
       </header>

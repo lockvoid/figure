@@ -13,7 +13,7 @@ export function bindForms(): ThunkInterface {
   return (dispatch: any, getState: any) => {
     const { firebase } = getState();
 
-    let ref = firebase.child('forms2');
+    let ref = firebase.child('forms2').orderByChild('name');
 
     ref.on(CHILD_ADDED.toLowerCase(), (snapshot: any, prevChild: string) => {
       dispatch({ type: CHILD_ADDED, snapshot: snapshot, prevChild });
@@ -37,7 +37,8 @@ export function addForm(form: any) {
   return (dispatch: any, getState: any) => {
     const { firebase } = getState();
 
-    firebase.child(FORMS_PATH).push(form);
+    let ref = firebase.child(FORMS_PATH).push(form);
+    dispatch(routeActions.push(`/forms/${ref.key()}`));
   }
 }
 
@@ -56,8 +57,9 @@ export function removeFormAndRedirect(id: string) {
         nextFormId = forms.get(currFormIndex - 1).$key;
       }
 
+      firebase.child(FORMS_PATH).child(id).remove();
+
       if (nextFormId !== null) {
-        firebase.child(FORMS_PATH).child(id).remove();
         dispatch(routeActions.push(`/forms/${nextFormId}`));
       } else {
         dispatch(routeActions.push('/forms/new'));

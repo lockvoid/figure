@@ -3,8 +3,10 @@ import { syncHistory, routeReducer } from 'redux-simple-router';
 import { createHistory } from 'history';
 import { Router, Route } from 'react-router';
 import { Provider } from 'react-redux';
+import {reducer as formReducer} from 'redux-form';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
 let thunk = require('redux-thunk');
 
 import { firebase } from './reducers/firebase';
@@ -16,7 +18,9 @@ const history = createHistory();
 
 const createCustomStore = applyMiddleware(thunk, syncHistory(history))(createStore);
 
-const store = createCustomStore(combineReducers({ firebase, forms, routing: routeReducer }));
+const store = createCustomStore(combineReducers({ firebase, forms, routing: routeReducer,
+  form: formReducer
+}));
 
 const boot = (
   <Provider store={store}>

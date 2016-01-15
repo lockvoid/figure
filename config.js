@@ -16,6 +16,7 @@ System.config({
     "react-redux": "npm:react-redux@4.0.6",
     "react-router": "npm:react-router@1.0.3",
     "redux": "npm:redux@3.0.5",
+    "redux-form": "npm:redux-form@4.1.2",
     "redux-simple-router": "npm:redux-simple-router@2.0.2",
     "redux-thunk": "npm:redux-thunk@1.0.3",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -375,6 +376,9 @@ System.config({
     "npm:react-dom@0.14.6": {
       "react": "npm:react@0.14.6"
     },
+    "npm:react-lazy-cache@3.0.0": {
+      "deep-equal": "npm:deep-equal@1.0.1"
+    },
     "npm:react-redux@4.0.6": {
       "hoist-non-react-statics": "npm:hoist-non-react-statics@1.0.3",
       "invariant": "npm:invariant@2.2.0",
@@ -404,6 +408,15 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "stream-browserify": "npm:stream-browserify@1.0.0",
       "string_decoder": "npm:string_decoder@0.10.31"
+    },
+    "npm:redux-form@4.1.2": {
+      "deep-equal": "npm:deep-equal@1.0.1",
+      "hoist-non-react-statics": "npm:hoist-non-react-statics@1.0.3",
+      "is-promise": "npm:is-promise@2.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "react-lazy-cache": "npm:react-lazy-cache@3.0.0",
+      "react-redux": "npm:react-redux@4.0.6",
+      "redux": "npm:redux@3.0.5"
     },
     "npm:redux@3.0.5": {
       "process": "github:jspm/nodelibs-process@0.1.2"
