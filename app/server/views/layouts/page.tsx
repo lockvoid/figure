@@ -2,6 +2,8 @@ import * as React from 'react';
 
 export default class Page extends React.Component<any, any> {
   render() {
+    let { children, className } = this.props;
+
     return (
       <html>
         <head>
@@ -12,8 +14,8 @@ export default class Page extends React.Component<any, any> {
           <link rel="stylesheet" media="screen" href="assets/app.css" />
         </head>
 
-        <body>
-          {this.props.children}
+        <body className={className}>
+          {children}
         </body>
       </html>
     );

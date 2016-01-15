@@ -2,13 +2,13 @@ body.app {
   height: 100%;
 }
 
-app {
+app, app > main {
   display: flex;
   height: 100%;
   width: 100%;
 }
 
-app > header {
+app > main > header {
   background-color: $color-figure;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@ app > header {
       transition: color .1s;
       white-space: nowrap;
 
-      &.router-link-active {
+      &.active {
         background-color: color(white a(10%));
         color: white;
       }
@@ -73,7 +73,7 @@ app > header {
   }
 }
 
-app main {
+app > main > viewport {
   background-color: color(white b(5%));
   display: flex;
   flex: 4;
