@@ -27,6 +27,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     name: [requiredValidator],
     subscribers: [emailsValidator],
   }),
+
+  initialValues: {
+    subscribers: [],
+  },
 })
 
 @connect(mapStateToProps, mapDispatchToProps)

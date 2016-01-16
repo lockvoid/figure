@@ -10,11 +10,15 @@ export const VALUE = 'VALUE';
 export const FORMS_PATH = 'forms2';
 export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 
+function formsRef(state): Firebase {
+  const { firebase, authReducer } = state;
+
+  return firebase.child('forms').child(authReducer.authData.uid);
+}
+
 export function bindForms(): ThunkInterface {
   return (dispatch: any, getState: any) => {
-    const { firebase } = getState();
-
-    let ref = firebase.child('forms2').orderByChild('name');
+    let ref = formsRef(getState()).orderByChild('name');
 
     ref.on(CHILD_ADDED.toLowerCase(), (snapshot: any, prevChild: string) => {
       dispatch({ type: CHILD_ADDED, snapshot: snapshot, prevChild });
@@ -36,9 +40,8 @@ export function bindForms(): ThunkInterface {
 
 export function addForm(form: FormAttrs) {
   return (dispatch: any, getState: any) => {
-    const { firebase } = getState();
+    let ref = formsRef(getState()).push(form);
 
-    let ref = firebase.child(FORMS_PATH).push(form);
     dispatch(routeActions.push(`/forms/${ref.key()}`));
   }
 }
@@ -58,7 +61,7 @@ export function removeFormAndRedirect(id: string) {
         nextFormId = forms.get(currFormIndex - 1).$key;
       }
 
-      firebase.child(FORMS_PATH).child(id).remove();
+      formsRef(getState()).child(id).remove();
 
       if (nextFormId !== null) {
         dispatch(routeActions.push(`/forms/${nextFormId}`));

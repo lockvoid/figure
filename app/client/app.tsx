@@ -1,33 +1,50 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { syncHistory, routeReducer } from 'redux-simple-router';
-import { createHistory } from 'history';
-import { Router, Route } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import {reducer as formReducer} from 'redux-form';
+import { reducer as formReducer } from 'redux-form';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 let thunk = require('redux-thunk');
 
+import { authRequired } from './utils/auth';
+import { setFirebase } from './actions/firebase';
+import { bindAuth } from './actions/auth_actions';
 import { firebase } from './reducers/firebase';
 import { forms } from './reducers/forms';
+import { authReducer } from './reducers/auth_reducer';
 import { Main } from './components/main';
+import { AppLogin } from './components/shared/app_login';
+import { AppLogout } from './components/shared/app_logout';
+import { AppHome } from './components/shared/app_home';
 import { ShowForm, NewForm } from './components/forms';
+import { Dashboard } from './components/main';
 
-const history = createHistory();
+import './utils/polyfills';
 
-const createCustomStore = applyMiddleware(thunk, syncHistory(history))(createStore);
+const createCustomStore = applyMiddleware(thunk, syncHistory(browserHistory))(createStore);
 
-const store = createCustomStore(combineReducers({ firebase, forms, routing: routeReducer,
+const store = createCustomStore(combineReducers({ firebase, forms, authReducer, routing: routeReducer,
   form: formReducer
 }));
 
+store.dispatch(setFirebase(new Firebase('https://figure-dev.firebaseio.com')));
+store.dispatch(bindAuth());
+
 const boot = (
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={browserHistory}>
       <Route path="/" component={Main}>
-        <Route path="forms/new" component={NewForm} />
-        <Route path="forms/:formId" component={ShowForm} />
+        <Route path="login" component={AppLogin} />
+        <Route path="logout" component={AppLogout} />
+
+        <Route component={Dashboard} onEnter={authRequired(store)}>
+          <IndexRoute component={AppHome} />
+
+          <Route path="forms/new" component={NewForm} />
+          <Route path="forms/:formId" component={ShowForm} />
+        </Route>
       </Route>
     </Router>
   </Provider>

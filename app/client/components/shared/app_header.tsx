@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { bindForms } from '../../actions/forms';
 
 const mapStateToProps = (state: any) => {
-  return state;
+  return { forms: state.forms, currentUserId: state.authReducer.authData.uid };
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -40,6 +40,14 @@ export class AppHeader extends React.Component<any, any> {
 
             <li className="new">
               <Link to="/forms/new" activeClassName="active">New Form</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <nav className="account">
+          <ul>
+            <li>
+              <Link to="/logout">Logout</Link>
             </li>
           </ul>
         </nav>

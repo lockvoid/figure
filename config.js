@@ -14,7 +14,7 @@ System.config({
     "react": "npm:react@0.14.6",
     "react-dom": "npm:react-dom@0.14.6",
     "react-redux": "npm:react-redux@4.0.6",
-    "react-router": "npm:react-router@1.0.3",
+    "react-router": "npm:react-router@2.0.0-rc5",
     "redux": "npm:redux@3.0.5",
     "redux-form": "npm:redux-form@4.1.2",
     "redux-simple-router": "npm:redux-simple-router@2.0.2",
@@ -279,15 +279,6 @@ System.config({
     "npm:hash.js@1.0.3": {
       "inherits": "npm:inherits@2.0.1"
     },
-    "npm:history@1.17.0": {
-      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
-      "deep-equal": "npm:deep-equal@1.0.1",
-      "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "invariant": "npm:invariant@2.2.0",
-      "process": "github:jspm/nodelibs-process@0.1.2",
-      "query-string": "npm:query-string@3.0.0",
-      "warning": "npm:warning@2.1.0"
-    },
     "npm:history@2.0.0-rc2": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "deep-equal": "npm:deep-equal@1.0.1",
@@ -386,10 +377,10 @@ System.config({
       "react": "npm:react@0.14.6",
       "redux": "npm:redux@3.0.5"
     },
-    "npm:react-router@1.0.3": {
+    "npm:react-router@2.0.0-rc5": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "history": "npm:history@1.17.0",
+      "history": "npm:history@2.0.0-rc2",
       "invariant": "npm:invariant@2.2.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "warning": "npm:warning@2.1.0"
