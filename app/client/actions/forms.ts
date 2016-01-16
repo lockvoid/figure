@@ -2,12 +2,11 @@ import { ThunkInterface } from 'redux-thunk';
 import { routeActions } from 'redux-simple-router';
 import { FormAttrs } from '../../../lib/models/form.ts';
 
-export const CHILD_ADDED = 'CHILD_ADDED';
-export const CHILD_CHANGED = 'CHILD_CHANGED';
-export const CHILD_MOVED = 'CHILD_MOVED';
-export const CHILD_REMOVED = 'CHILD_REMOVED';
-export const VALUE = 'VALUE';
-export const FORMS_PATH = 'forms2';
+export const RESET_FORMS = 'RESET_FORMS';
+export const FORM_ADDED = 'FORM_ADDED';
+export const FORM_CHANGED = 'FORM_CHANGED';
+export const FORM_MOVED = 'FORM_MOVED';
+export const FORM_REMOVED = 'FORM_REMOVED';
 export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 
 function formsRef(state): Firebase {
@@ -16,26 +15,41 @@ function formsRef(state): Firebase {
   return firebase.child('forms').child(authReducer.authData.uid);
 }
 
+const callbacks = {};
+
 export function bindForms(): ThunkInterface {
   return (dispatch: any, getState: any) => {
     let ref = formsRef(getState()).orderByChild('name');
 
-    ref.on(CHILD_ADDED.toLowerCase(), (snapshot: any, prevChild: string) => {
-      dispatch({ type: CHILD_ADDED, snapshot: snapshot, prevChild });
+    callbacks[FORM_ADDED] = ref.on('child_added', (snapshot: any, prevChild: string) => {
+      dispatch({ type: FORM_ADDED, snapshot: snapshot, prevChild });
     });
 
-    ref.on(CHILD_CHANGED.toLowerCase(), (snapshot: any) => {
-      dispatch({ type: CHILD_CHANGED, snapshot: snapshot });
+    callbacks[FORM_CHANGED] = ref.on('child_changed', (snapshot: any) => {
+      dispatch({ type: FORM_CHANGED, snapshot: snapshot });
     });
 
-    ref.on(CHILD_MOVED.toLowerCase(), (snapshot: any, prevChild: string) => {
-      dispatch({ type: CHILD_MOVED, snapshot: snapshot, prevChild });
+    callbacks[FORM_MOVED] = ref.on('child_moved', (snapshot: any, prevChild: string) => {
+      dispatch({ type: FORM_MOVED, snapshot: snapshot, prevChild });
     });
 
-    ref.on(CHILD_REMOVED.toLowerCase(), (snapshot: any) => {
-      dispatch({ type: CHILD_REMOVED, snapshot: snapshot });
+    callbacks[FORM_REMOVED]  =ref.on('child_removed', (snapshot: any) => {
+      dispatch({ type: FORM_REMOVED, snapshot: snapshot });
     });
   };
+}
+
+export function unbindForms(): ThunkInterface {
+  return (dispatch: any, getState: any) => {
+    let ref = formsRef(getState());
+
+    ref.off('child_added', callbacks[FORM_ADDED]);
+    ref.off('child_changed', callbacks[FORM_CHANGED]);
+    ref.off('child_moved', callbacks[FORM_MOVED]);
+    ref.off('child_removed', callbacks[FORM_REMOVED]);
+
+    dispatch({ type: RESET_FORMS })
+  }
 }
 
 export function addForm(form: FormAttrs) {

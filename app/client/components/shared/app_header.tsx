@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Link } from 'react-router';
-import { bindForms } from '../../actions/forms';
+import { bindForms, unbindForms } from '../../actions/forms';
 
 const mapStateToProps = (state: any) => {
   return { forms: state.forms, currentUserId: state.authReducer.authData.uid };
@@ -13,6 +13,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     mountForms: () => {
       dispatch(bindForms());
     },
+
+    unmountForms: () => {
+      dispatch(unbindForms());
+    },
   }
 }
 
@@ -21,6 +25,11 @@ export class AppHeader extends React.Component<any, any> {
   constructor({ mountForms }) {
     super();
     mountForms();
+  }
+
+  componentWillUnmount() {
+    let { unmountForms } = this.props;
+    unmountForms();
   }
 
   render() {

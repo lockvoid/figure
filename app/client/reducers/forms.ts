@@ -1,18 +1,20 @@
 import { Reducer } from 'redux';
 import { List } from 'immutable';
 
-import { CHILD_ADDED, CHILD_CHANGED, CHILD_MOVED, CHILD_REMOVED, REMOVE_FORM_AND_REDIRECT } from '../actions/forms';
+import { RESET_FORMS, FORM_ADDED, FORM_CHANGED, FORM_MOVED, FORM_REMOVED, REMOVE_FORM_AND_REDIRECT } from '../actions/forms';
 import { SET_FIREBASE_REF } from '../actions/firebase';
 
 export const forms: Reducer = (state = List(), action) => {
   switch (action.type) {
-    case CHILD_ADDED:
+    case RESET_FORMS:
+      return List();
+    case FORM_ADDED:
       return childAdded(state, action.snapshot, action.prevChild);
-    case CHILD_CHANGED:
+    case FORM_CHANGED:
       return childChanged(state, action.snapshot);
-    case CHILD_MOVED:
+    case FORM_MOVED:
       return childMoved(state, action.snapshot, action.prevChild);
-    case CHILD_REMOVED:
+    case FORM_REMOVED:
       return childRemoved(state, action.snapshot);
     case REMOVE_FORM_AND_REDIRECT:
       return removeFormAndRedirect(state, action.formId);
@@ -39,19 +41,19 @@ function childChanged(list: List<any>, snapshot: FirebaseDataSnapshot) {
 }
 
 function childMoved(list: List<any>, snapshot: FirebaseDataSnapshot, prevChild: string) {
-  // let currIndex = indexForChild(list, snapshot.key());
+  let currIndex = indexForChild(list, snapshot.key());
 
-  // if (currIndex > -1) {
-  //   let child = list.at(currIndex);
+  if (currIndex > -1) {
+    let child = list.get(currIndex);
+    list = list.delete(currIndex);
 
-  //
-  //   this._list.splice(currIndex, 1)[0];
-  //   let newIndex = this._nextChildIndex(prevChild);
+    let newIndex = nextChildIndex(list, prevChild);
+    list = list.splice(newIndex, 0, child).toList();
 
-  //   this._list.splice(newIndex, 0, child);
-  // } else {
-  //   return list;
-  // }
+    return list;
+  }
+
+  return list;
 }
 
 function childRemoved(list: List<any>, snapshot: FirebaseDataSnapshot) {
