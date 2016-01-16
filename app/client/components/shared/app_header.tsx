@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Link } from 'react-router';
+import { AppSpinner } from './app_spinner';
 import { bindForms, unbindForms } from '../../actions/forms';
 
 const mapStateToProps = (state: any) => {
@@ -35,22 +36,32 @@ export class AppHeader extends React.Component<any, any> {
   render() {
     let { forms } = this.props;
 
-    let formsList = forms.map((form: any) =>
+    let formItems = forms.map((form: any) =>
       <li key={form.$key}>
         <Link to={`/forms/${form.$key}`} activeClassName="active">{form.name}</Link>
       </li>
     );
 
+    var formList;
+
+    if (forms.size) {
+      formList = (
+        <ul>
+          {formItems}
+
+          <li className="new">
+            <Link to="/forms/new" activeClassName="active">New Form</Link>
+          </li>
+        </ul>
+      );
+    } else {
+      formList = <AppSpinner />;
+    }
+
     return (
       <header className="app">
         <nav className="forms">
-          <ul>
-            {formsList}
-
-            <li className="new">
-              <Link to="/forms/new" activeClassName="active">New Form</Link>
-            </li>
-          </ul>
+          {formList}
         </nav>
 
         <nav className="account">
