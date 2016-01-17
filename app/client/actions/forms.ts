@@ -1,6 +1,7 @@
 import { ThunkInterface } from 'redux-thunk';
 import { routeActions } from 'redux-simple-router';
 import { FormAttrs } from '../../../lib/models/form.ts';
+import * as Firebase from 'firebase';
 
 export const RESET_FORMS = 'RESET_FORMS';
 export const FORM_ADDED = 'FORM_ADDED';
@@ -10,9 +11,9 @@ export const FORM_REMOVED = 'FORM_REMOVED';
 export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 
 function formsRef(state): Firebase {
-  const { firebase, authReducer } = state;
+  const { firebase, auth } = state;
 
-  return firebase.child('forms').child(authReducer.authData.uid);
+  return firebase.child('forms').child(auth.authData.uid);
 }
 
 const callbacks = {};
@@ -33,7 +34,7 @@ export function bindForms(): ThunkInterface {
       dispatch({ type: FORM_MOVED, snapshot: snapshot, prevChild });
     });
 
-    callbacks[FORM_REMOVED]  =ref.on('child_removed', (snapshot: any) => {
+    callbacks[FORM_REMOVED] = ref.on('child_removed', (snapshot: any) => {
       dispatch({ type: FORM_REMOVED, snapshot: snapshot });
     });
   };
@@ -55,8 +56,15 @@ export function unbindForms(): ThunkInterface {
 export function addForm(form: FormAttrs) {
   return (dispatch: any, getState: any) => {
     let ref = formsRef(getState()).push(form);
+    console.log(form);
 
     dispatch(routeActions.push(`/forms/${ref.key()}`));
+  }
+}
+
+export function updateForm(id: string, attrs: FormAttrs) {
+  return (dispatch: any, getState: any) => {
+    formsRef(getState()).child(id).update(attrs);
   }
 }
 

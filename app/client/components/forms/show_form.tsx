@@ -1,29 +1,64 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
+import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
 import { removeFormAndRedirect } from '../../actions/forms';
+import { AppSpinner } from '../../components/shared/app_spinner';
+import { Link } from 'react-router';
 
-const mapStateToProps = (state: any) => {
-  return state;
+interface FormDashboardProps {
+  formId: string;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    onRemove: (id: string) => {
-      dispatch(removeFormAndRedirect(id));
-    },
+class FormDashboard extends React.Component<FormDashboardProps, {}> {
+  pathTo(path: string) {
+    return `forms/${this.props.formId}/${path}`;
+  }
+
+  render() {
+    let { formId } = this.props;
+
+    return (
+      <nav className="dashboard">
+        <ul>
+          <li>
+            <Link to={this.pathTo('submissions')} activeClassName="active">Submissions</Link>
+          </li>
+          <li>
+            <Link to={this.pathTo('setup')} activeClassName="active">Setup</Link>
+          </li>
+          <li>
+            <Link to={this.pathTo('settings')} activeClassName="active">Settings</Link>
+          </li>
+          <li>
+            <Link to={this.pathTo('notifications')} activeClassName="active">Notifications</Link>
+          </li>
+          <li>
+            <Link to={this.pathTo('webhooks')} activeClassName="active">Webhooks</Link>
+          </li>
+        </ul>
+      </nav>
+    );
   }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+const stateToProps = (state, props) => {
+  return { currentForm: state.forms.find(form => form.$key === props.params.formId) };
+}
+
+@connect(stateToProps)
 export class ShowForm extends React.Component<any, any> {
   render() {
-    const { params, onRemove } = this.props;
+    const { params, currentForm, children } = this.props;
+
+    if (!currentForm) {
+      return <AppSpinner />;
+    }
 
     return (
-      <div>
-        { params.formId }
-        <button onClick={() => onRemove(params.formId)}>Remove</button>
+      <div className="form show">
+        <FormDashboard formId={currentForm.$key} />
+        {children}
       </div>
     );
   }

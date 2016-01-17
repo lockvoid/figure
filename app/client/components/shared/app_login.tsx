@@ -4,10 +4,10 @@ import * as React from 'react';
 import * as Firebase from 'firebase';
 import { Link } from 'react-router';
 
-import { loginWithGithub } from '../../actions/auth_actions';
+import { loginWithGithub } from '../../actions/auth';
 
 const mapStateToProps = (state: any) => {
-  return { authError: state.authReducer.authError };
+  return { authError: state.auth.authError };
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {

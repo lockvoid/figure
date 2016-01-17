@@ -1,11 +1,24 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 import { addForm } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { EmailsInput, emailsValidator } from '../shared/emails_input';
 import { FormAttrs } from '../../../../lib/models/form.ts';
+
+const formConfig = {
+  form: 'form',
+  fields: ['name', 'subscribers'],
+
+  validate: combineValidators({
+    name: [requiredValidator],
+    subscribers: [emailsValidator],
+  }),
+
+  initialValues: {
+    subscribers: [],
+  },
+}
 
 const mapStateToProps = (state: any) => {
   return state;
@@ -19,21 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-@reduxForm({
-  form: 'form',
-  fields: ['name', 'subscribers'],
-
-  validate: combineValidators({
-    name: [requiredValidator],
-    subscribers: [emailsValidator],
-  }),
-
-  initialValues: {
-    subscribers: [],
-  },
-})
-
-@connect(mapStateToProps, mapDispatchToProps)
+@reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
 export class NewForm extends React.Component<any, any> {
   render() {
     const { fields: { name, subscribers }, onNewForm, handleSubmit } = this.props;

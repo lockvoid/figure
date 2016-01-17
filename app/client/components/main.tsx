@@ -1,43 +1,50 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { setFirebase } from '../actions/firebase';
-import { bindAuth } from '../actions/auth_actions';
 import { AppHeader } from './shared';
 import * as React from 'react';
-import * as Firebase from 'firebase';
-import { Link } from 'react-router';
+import { bindForms, unbindForms } from '../actions/forms';
 
-const mapStateToProps = (state: any) => {
-  return state;
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    onInit: (ref: Firebase) => {
-    },
-  }
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
 export class Main extends React.Component<any, any> {
-  constructor({ onInit }) {
-    super();
-    onInit(new Firebase('https://figure-dev.firebaseio.com'));
-  }
-
   render() {
     return this.props.children;
   }
 }
 
+const stateToProps = (state: any) => {
+  return { forms: state.forms };
+}
+
+const dispatchToProps = (dispatch: Dispatch) => {
+  return {
+    mountForms: () => {
+      dispatch(bindForms());
+    },
+
+    unmountForms: () => {
+      dispatch(unbindForms());
+    },
+  }
+}
+
+@connect(stateToProps, dispatchToProps)
 export class Dashboard extends React.Component<any, any> {
+  componentWillMount() {
+    let { mountForms } = this.props;
+    mountForms();
+  }
+
+  componentWillUnmount() {
+    let { unmountForms } = this.props;
+    unmountForms();
+  }
+
   render() {
-    let { children } = this.props;
+    let { forms, children } = this.props;
 
     return (
       <main>
-        <AppHeader />
-        <viewport>{children}</viewport>
+        <AppHeader forms={forms} />
+        <wrap>{children}</wrap>
       </main>
     );
   }

@@ -1,16 +1,16 @@
 export const authRequired = (store) => {
   return (nextState, replaceState, performState) => {
     function check() {
-      let authReducer = store.getState().authReducer;
+      let auth = store.getState().auth;
 
-      if (authReducer.loggedIn === false) {
+      if (auth.loggedIn === false) {
         replaceState({
           pathname: '/login',
           state: { nextPathname: nextState.location.pathname }
         })
       }
 
-      if (authReducer.loggedIn !== null) {
+      if (auth.loggedIn !== null) {
         performState();
         return true;
       }

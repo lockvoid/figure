@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 
-import { LOGIN_WITH_GITHUB, SET_AUTH_STATUS, LOGIN_FAILED } from '../actions/auth_actions';
+import { LOGIN_WITH_GITHUB, SET_AUTH_STATUS, LOGIN_FAILED } from '../actions/auth';
 
 const initialState = {
   loggedIn: null,
@@ -8,7 +8,7 @@ const initialState = {
   authData: null,
 }
 
-export const authReducer: Reducer = (state = initialState, action) => {
+export const auth: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_AUTH_STATUS:
       return setAuthStatus(state, action.authData);

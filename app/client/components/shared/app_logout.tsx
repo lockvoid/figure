@@ -4,10 +4,10 @@ import * as React from 'react';
 import * as Firebase from 'firebase';
 import { Link } from 'react-router';
 
-import { logout } from '../../actions/auth_actions';
+import { logout } from '../../actions/auth';
 
 const mapStateToProps = (state) => {
-  return state;
+  return {};
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
