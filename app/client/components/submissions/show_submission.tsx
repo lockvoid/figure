@@ -2,19 +2,27 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
-import { removeFormAndRedirect } from '../../actions/forms';
-import { findForm } from '../../reducers/forms';
+import { removeSubmissionAndRedirect } from '../../actions/submissions';
+import { findSubmission } from '../../reducers/submissions';
 import { AppSpinner } from '../../components/shared/app_spinner';
 import { Link } from 'react-router';
 
 const stateToProps = (state, props) => {
-  return { submission: findForm(state.submissions, props.params.submissionId) };
+  return { submission: findSubmission(state.submissions, props.params.submissionId) };
 }
 
-@connect(stateToProps)
+const dispatchToProps = (dispatch: Dispatch) => {
+  return {
+    onRemove: (formId: string, submissionId: string) => {
+      dispatch(removeSubmissionAndRedirect(formId, submissionId));
+    },
+  }
+}
+
+@connect(stateToProps, dispatchToProps)
 export class ShowSubmission extends React.Component<any, any> {
   render() {
-    let { submission } = this.props;
+    let { submission, onRemove, params } = this.props;
 
     if (!submission) {
       return <AppSpinner />;
@@ -26,7 +34,7 @@ export class ShowSubmission extends React.Component<any, any> {
           <datetime>Submitted on {submission.createdAt}</datetime>
 
           <nav className="right">
-            <button type="button" className="delete">Delete</button>
+            <button type="button" className="delete" onClick={() => onRemove(params.formId, submission.$key)}>Delete</button>
           </nav>
         </header>
 

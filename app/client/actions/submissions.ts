@@ -11,10 +11,10 @@ export const SUBMISSION_MOVED = 'SUBMISSION_MOVED';
 export const SUBMISSION_REMOVED = 'SUBMISSION_REMOVED';
 export const REMOVE_SUBMISSION_AND_REDIRECT = 'REMOVE_SUBMISSION_AND_REDIRECT';
 
-function submissionsRef(state): Firebase {
-  const { firebase, auth } = state;
+function submissionsRef(state, formId): Firebase {
+  const { firebase } = state;
 
-  return firebase.child('submissions').child(auth.authData.uid);
+  return firebase.child('submissions').child(formId);
 }
 
 const callbacks = {};
@@ -58,5 +58,33 @@ export function unbindSubmissions(): ThunkInterface {
     ref.off('child_removed', callbacks[SUBMISSION_REMOVED]);
 
     dispatch({ type: RESET_SUBMISSIONS })
+  }
+}
+
+export function removeSubmissionAndRedirect(formId: string, id: string) {
+  return (dispatch: any, getState: any) => {
+    const { firebase, submissions } = getState();
+
+    let list = submissions.value.reverse();
+
+    let currSubmissionIndex = list.findIndex((form: any) => form.$key == id);
+
+    if (currSubmissionIndex !== -1) {
+      var nextSubmissionId: string = null;
+
+      if (currSubmissionIndex + 1 < submissions.value.size) {
+        nextSubmissionId = list.get(currSubmissionIndex + 1).$key;
+      } else if (currSubmissionIndex - 1 >= 0) {
+        nextSubmissionId = list.get(currSubmissionIndex - 1).$key;
+      }
+
+      submissionsRef(getState(), formId).child(id).remove();
+
+      if (nextSubmissionId !== null) {
+        dispatch(routeActions.push(`/forms/${formId}/submissions/${nextSubmissionId}`));
+      } else {
+        dispatch(routeActions.push('/forms/${formId}/submissions'));
+      }
+    }
   }
 }
