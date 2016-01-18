@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { syncHistory, routeReducer } from 'redux-simple-router';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import * as React from 'react';
@@ -14,7 +14,7 @@ import { setFirebase } from './actions/firebase';
 import { bindAuth } from './actions/auth';
 import { firebase } from './reducers/firebase';
 import { forms } from './reducers/forms';
-import { submissions } from './reducers/submissions';
+import { submissions, redirectToFirstSubmission } from './reducers/submissions';
 import { auth } from './reducers/auth';
 import { AppMain, AppProtected, AppLogin, AppLogout, AppHome } from './components/shared';
 import { ShowForm, NewForm, FormSubmissions, FormSetup, FormSettings } from './components/forms';
@@ -46,7 +46,7 @@ const boot = (
             <Route path="setup" component={FormSetup} />
             <Route path="settings" component={FormSettings} />
 
-            <Route path="submissions" component={FormSubmissions}>
+            <Route path="submissions" component={FormSubmissions} onEnter={redirectToFirstSubmission(store)}>
               <Route path=":submissionId" component={ShowSubmission} />
             </Route>
           </Route>
