@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import * as React from 'react';
-import * as Firebase from 'firebase';
 import { Link } from 'react-router';
 
 import { logout } from '../../actions/auth';

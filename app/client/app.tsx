@@ -19,7 +19,7 @@ import { Main } from './components/main';
 import { AppLogin } from './components/shared/app_login';
 import { AppLogout } from './components/shared/app_logout';
 import { AppHome } from './components/shared/app_home';
-import { ShowForm, NewForm, FormSettings } from './components/forms';
+import { ShowForm, NewForm, FormSetup, FormSettings } from './components/forms';
 import { Dashboard } from './components/main';
 
 import './utils/polyfills';
@@ -45,6 +45,7 @@ const boot = (
 
           <Route path="forms/new" component={NewForm} />
           <Route path="forms/:formId" component={ShowForm}>
+            <Route path="setup" component={FormSetup} />
             <Route path="settings" component={FormSettings} />
           </Route>
         </Route>
