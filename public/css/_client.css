@@ -262,7 +262,7 @@ div.form.submissions {
       display: flex;
 
       datetime {
-        color: color(black w(40%));
+        color: color(white b(60%));
       }
 
       nav.right {

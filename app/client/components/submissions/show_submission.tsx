@@ -6,6 +6,7 @@ import { removeSubmissionAndRedirect } from '../../actions/submissions';
 import { findSubmission } from '../../reducers/submissions';
 import { AppSpinner } from '../../components/shared/app_spinner';
 import { Link } from 'react-router';
+import { formatDate } from '../../utils/format_date';
 
 const stateToProps = (state, props) => {
   return { submission: findSubmission(state.submissions, props.params.submissionId) };
@@ -21,6 +22,13 @@ const dispatchToProps = (dispatch: Dispatch) => {
 
 @connect(stateToProps, dispatchToProps)
 export class ShowSubmission extends React.Component<any, any> {
+  formatCreatedAt(createdAt: number) {
+    let date = new Date(createdAt);
+
+
+
+  }
+
   render() {
     let { submission, onRemove, params } = this.props;
 
@@ -31,7 +39,7 @@ export class ShowSubmission extends React.Component<any, any> {
     return (
       <div className="submission show">
         <header className="actions">
-          <datetime>Submitted on {submission.createdAt}</datetime>
+          <datetime>Submitted on {formatDate(submission.createdAt, 'ddd, mmm d, yyyy, h:MM TT')}</datetime>
 
           <nav className="right">
             <button type="button" className="delete" onClick={() => onRemove(params.formId, submission.$key)}>Delete</button>
