@@ -173,13 +173,14 @@ div.form.show {
     }
   }
 
-  wrap.dashboard {
+  div.form {
     overflow: auto;
   }
 }
 
-form-component.show form-dashboard.submissions {
+div.form.submissions {
   display: flex;
+  flex-direction: row;
   flex: 1;
 
   aside.submissions {
@@ -202,22 +203,22 @@ form-component.show form-dashboard.submissions {
       }
     }
 
-    section.excerpts {
+    ul.excerpts {
       flex: 1;
       overflow-y: auto;
       position: relative;
 
-      a.excerpt {
-        display: block;
+      li + li a {
+        background: linear-gradient(to right, color(white b(15%)), color(white b(5%))) no-repeat 0 0 / 100% 1px;
+      }
+
+      li a {
         padding: 15px;
+        display: block;
         position: relative;
         transition: color .1s;
 
-        & + a {
-          background: linear-gradient(to right, color(white b(15%)), color(white b(5%))) no-repeat 0 0 / 100% 1px;
-        }
-
-        &.router-link-active {
+        &.active {
           background-color: white;
         }
 
@@ -248,7 +249,7 @@ form-component.show form-dashboard.submissions {
     }
   }
 
-  submission {
+  div.submission.show {
     background-color: white;
     flex: 2;
     overflow-y: auto;
@@ -291,13 +292,13 @@ form-component.show form-dashboard.submissions {
         margin-top: 30px;
       }
 
-      key {
+      h4 {
         display: block;
         font-size: 17px;
         font-weight: 500;
       }
 
-      val {
+      div {
         margin-top: 10px;
         display: block;
         font-size: 15px;

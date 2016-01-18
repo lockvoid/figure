@@ -1,9 +1,10 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { findForm } from '../../reducers/forms';
 import * as React from 'react';
 
 const stateToProps = (state, props) => {
-  return { currentForm: state.forms.find(form => form.$key === props.params.formId) };
+  return { currentForm: findForm(state.forms, props.params.formId) };
 }
 
 @connect(stateToProps)

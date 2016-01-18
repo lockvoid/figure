@@ -4,6 +4,7 @@ import { FormAttrs } from '../../../lib/models/form.ts';
 import * as Firebase from 'firebase';
 
 export const RESET_FORMS = 'RESET_FORMS';
+export const FORMS_READY = 'FORMS_READY';
 export const FORM_ADDED = 'FORM_ADDED';
 export const FORM_CHANGED = 'FORM_CHANGED';
 export const FORM_MOVED = 'FORM_MOVED';
@@ -21,6 +22,10 @@ const callbacks = {};
 export function bindForms(): ThunkInterface {
   return (dispatch: any, getState: any) => {
     let ref = formsRef(getState()).orderByChild('name');
+
+    callbacks[FORMS_READY] = ref.once('value', (snapshot: any) => {
+      dispatch({ type: FORMS_READY });
+    });
 
     callbacks[FORM_ADDED] = ref.on('child_added', (snapshot: any, prevChild: string) => {
       dispatch({ type: FORM_ADDED, snapshot: snapshot, prevChild });
@@ -44,6 +49,7 @@ export function unbindForms(): ThunkInterface {
   return (dispatch: any, getState: any) => {
     let ref = formsRef(getState());
 
+    ref.off('value', callbacks[FORMS_READY]);
     ref.off('child_added', callbacks[FORM_ADDED]);
     ref.off('child_changed', callbacks[FORM_CHANGED]);
     ref.off('child_moved', callbacks[FORM_MOVED]);

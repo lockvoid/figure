@@ -5,6 +5,7 @@ import { updateForm, removeFormAndRedirect } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { FormAttrs } from '../../../../lib/models/form.ts';
+import { findForm } from '../../reducers/forms';
 
 const formConfig = {
   form: 'form',
@@ -17,7 +18,7 @@ const formConfig = {
 
 const stateToProps = (state, props) => {
   let currentFormId = props.params.formId;
-  let initialValues = state.forms.find(form => form.$key === currentFormId);
+  let initialValues = findForm(state.forms, currentFormId);
 
   return { currentFormId, initialValues };
 }

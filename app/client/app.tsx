@@ -14,39 +14,41 @@ import { setFirebase } from './actions/firebase';
 import { bindAuth } from './actions/auth';
 import { firebase } from './reducers/firebase';
 import { forms } from './reducers/forms';
+import { submissions } from './reducers/submissions';
 import { auth } from './reducers/auth';
-import { Main } from './components/main';
-import { AppLogin } from './components/shared/app_login';
-import { AppLogout } from './components/shared/app_logout';
-import { AppHome } from './components/shared/app_home';
-import { ShowForm, NewForm, FormSetup, FormSettings } from './components/forms';
-import { Dashboard } from './components/main';
+import { AppMain, AppProtected, AppLogin, AppLogout, AppHome } from './components/shared';
+import { ShowForm, NewForm, FormSubmissions, FormSetup, FormSettings } from './components/forms';
+import { ShowSubmission } from './components/submissions';
 
 import './utils/polyfills';
 
 const createCustomStore = applyMiddleware(thunk, syncHistory(browserHistory))(createStore);
 
-const store = createCustomStore(combineReducers({ firebase, forms, auth, routing: routeReducer,
+const store = createCustomStore(combineReducers({ firebase, forms, submissions, auth, routing: routeReducer,
   form: formReducer
 }));
 
-store.dispatch(setFirebase(new Firebase('https://figure-dev.firebaseio.com')));
+store.dispatch(setFirebase(new Firebase('/* @echo FIREBASE_URL */')));
 store.dispatch(bindAuth());
 
 const boot = (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Main}>
+      <Route path="/" component={AppMain}>
         <Route path="login" component={AppLogin} />
         <Route path="logout" component={AppLogout} />
 
-        <Route component={Dashboard} onEnter={authRequired(store)}>
+        <Route component={AppProtected} onEnter={authRequired(store)}>
           <IndexRoute component={AppHome} />
 
           <Route path="forms/new" component={NewForm} />
           <Route path="forms/:formId" component={ShowForm}>
             <Route path="setup" component={FormSetup} />
             <Route path="settings" component={FormSettings} />
+
+            <Route path="submissions" component={FormSubmissions}>
+              <Route path=":submissionId" component={ShowSubmission} />
+            </Route>
           </Route>
         </Route>
       </Route>

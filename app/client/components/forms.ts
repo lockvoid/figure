@@ -1,3 +1,4 @@
+export { FormSubmissions } from './forms/form_submissions';
 export { FormSetup } from './forms/form_setup';
 export { FormSettings } from './forms/form_settings';
 export { ShowForm } from './forms/show_form';

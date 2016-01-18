@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
 import { removeFormAndRedirect } from '../../actions/forms';
+import { findForm } from '../../reducers/forms';
 import { AppSpinner } from '../../components/shared/app_spinner';
 import { Link } from 'react-router';
 
@@ -43,7 +44,7 @@ class FormDashboard extends React.Component<FormDashboardProps, {}> {
 }
 
 const stateToProps = (state, props) => {
-  return { currentForm: state.forms.find(form => form.$key === props.params.formId) };
+  return { currentForm: findForm(state.forms, props.params.formId) };
 }
 
 @connect(stateToProps)

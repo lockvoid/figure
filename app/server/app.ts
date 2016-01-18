@@ -4,6 +4,9 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as Firebase from 'firebase';
+
+import { parseForm } from './lib/parse_form'
 
 export const app = express();
 
@@ -52,6 +55,14 @@ app.use((req, res, next) => {
 app.get('/home', (req, res) => {
   res.render('home');
 });
+
+app.post('/f/:id', (req, res) => {
+  let submissionsRef = new Firebase(process.env.FIREBASE_URL).child(`submissions/${req.params.id}`);
+
+  submissionsRef.push({ createdAt: Firebase.ServerValue.TIMESTAMP, fields: parseForm(req.body) });
+
+  res.send('ok');
+})
 
 app.get('/*', (req, res) => {
   res.render('app');

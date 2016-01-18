@@ -13,12 +13,14 @@ System.config({
     "immutable": "npm:immutable@3.7.6",
     "react": "npm:react@0.14.6",
     "react-dom": "npm:react-dom@0.14.6",
+    "react-intl": "npm:react-intl@1.2.2",
     "react-redux": "npm:react-redux@4.0.6",
     "react-router": "npm:react-router@2.0.0-rc5",
     "redux": "npm:redux@3.0.5",
     "redux-form": "npm:redux-form@4.1.2",
     "redux-simple-router": "npm:redux-simple-router@2.0.2",
     "redux-thunk": "npm:redux-thunk@1.0.3",
+    "yahoo/react-intl": "github:yahoo/react-intl@2.0.0-beta-2",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -294,6 +296,12 @@ System.config({
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
+    "npm:intl-messageformat@1.1.0": {
+      "intl-messageformat-parser": "npm:intl-messageformat-parser@1.1.0"
+    },
+    "npm:intl-relativeformat@1.1.0": {
+      "intl-messageformat": "npm:intl-messageformat@1.1.0"
+    },
     "npm:invariant@2.2.0": {
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -367,6 +375,13 @@ System.config({
     "npm:react-dom@0.14.6": {
       "react": "npm:react@0.14.6"
     },
+    "npm:react-intl@1.2.2": {
+      "intl-format-cache": "npm:intl-format-cache@2.0.5",
+      "intl-messageformat": "npm:intl-messageformat@1.1.0",
+      "intl-relativeformat": "npm:intl-relativeformat@1.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "react": "npm:react@0.13.3"
+    },
     "npm:react-lazy-cache@3.0.0": {
       "deep-equal": "npm:deep-equal@1.0.1"
     },
@@ -384,6 +399,11 @@ System.config({
       "invariant": "npm:invariant@2.2.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "warning": "npm:warning@2.1.0"
+    },
+    "npm:react@0.13.3": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "envify": "npm:envify@3.4.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:react@0.14.6": {
       "envify": "npm:envify@3.4.0",

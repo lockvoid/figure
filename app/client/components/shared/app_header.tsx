@@ -4,21 +4,21 @@ import { AppSpinner } from './app_spinner';
 import { List } from 'immutable';
 
 interface FormLinksProps {
-  forms: List<any>;
+  forms: { value: List<any>, ready: boolean };
 }
 
 class FormLinks extends React.Component<FormLinksProps, {}> {
   render() {
     let { forms } = this.props;
 
-    if (forms.size === 0) {
+    if (!forms.ready) {
       return <AppSpinner />
     }
 
     return (
       <ul>
         {
-          forms.map(form =>
+          forms.value.map(form =>
             <li key={form.$key}>
               <Link to={`/forms/${form.$key}`} activeClassName="active">{form.name}</Link>
             </li>
@@ -46,7 +46,7 @@ class AccountLinks extends React.Component<{}, {}> {
 }
 
 interface AppHeaderProps {
-  forms: List<any>;
+  forms: { value: List<any>, ready: boolean };
 }
 
 export class AppHeader extends React.Component<AppHeaderProps, {}> {

@@ -1,14 +1,8 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { AppHeader } from './shared';
+import { AppHeader } from './app_header';
 import * as React from 'react';
-import { bindForms, unbindForms } from '../actions/forms';
-
-export class Main extends React.Component<any, any> {
-  render() {
-    return this.props.children;
-  }
-}
+import { bindForms, unbindForms } from '../../actions/forms';
 
 const stateToProps = (state: any) => {
   return { forms: state.forms };
@@ -27,7 +21,7 @@ const dispatchToProps = (dispatch: Dispatch) => {
 }
 
 @connect(stateToProps, dispatchToProps)
-export class Dashboard extends React.Component<any, any> {
+export class AppProtected extends React.Component<any, any> {
   componentWillMount() {
     let { mountForms } = this.props;
     mountForms();
@@ -49,3 +43,4 @@ export class Dashboard extends React.Component<any, any> {
     );
   }
 }
+
