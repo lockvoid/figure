@@ -78,18 +78,21 @@ export function removeFormAndRedirect(id: string) {
   return (dispatch: any, getState: any) => {
     const { firebase, forms } = getState();
 
-    let currFormIndex = forms.findIndex((form: any) => form.$key == id);
+    let { value } = forms;
+
+    let currFormIndex = value.findIndex((form: any) => form.$key == id);
 
     if (currFormIndex !== -1) {
       var nextFormId: string = null;
 
-      if (currFormIndex + 1 < forms.size) {
-        nextFormId = forms.get(currFormIndex + 1).$key;
+      if (currFormIndex + 1 < value.size) {
+        nextFormId = value.get(currFormIndex + 1).$key;
       } else if (currFormIndex - 1 >= 0) {
-        nextFormId = forms.get(currFormIndex - 1).$key;
+        nextFormId = value.get(currFormIndex - 1).$key;
       }
 
       formsRef(getState()).child(id).remove();
+      firebase.child(`submissions/${id}`).remove();
 
       if (nextFormId !== null) {
         dispatch(routeActions.push(`/forms/${nextFormId}`));
