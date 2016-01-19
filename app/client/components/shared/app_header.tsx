@@ -33,6 +33,9 @@ class AccountLinks extends React.Component<{}, {}> {
     return (
       <ul>
         <li>
+          <Link to="/account" activeClassName="active">Account</Link>
+        </li>
+        <li>
           <Link to="/logout">Logout</Link>
         </li>
       </ul>

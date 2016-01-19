@@ -1,9 +1,16 @@
 const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
 
+export const EMAIL_REGEX = /^\S+@\S+\.\S+$/i;
 
 export function requiredValidator(value: any): string {
   if (!value) {
-    return 'Required';
+    return `Can't be blank`;
+  }
+}
+
+export function emailValidator(value: string): string {
+  if (!EMAIL_REGEX.test(value)) {
+    return `Should be an email address`;
   }
 }
 

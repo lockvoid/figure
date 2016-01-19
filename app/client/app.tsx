@@ -18,6 +18,7 @@ import { auth, authRequired } from './reducers/auth';
 import { AppMain, AppProtected, AppLogin, AppLogout, AppHome } from './components/shared';
 import { ShowForm, NewForm, FormSubmissions, FormSetup, FormSettings } from './components/forms';
 import { ShowSubmission } from './components/submissions';
+import { EditAccount } from './components/account';
 
 import './utils/polyfills';
 
@@ -54,6 +55,8 @@ const boot = (
               </Route>
             </Route>
           </Route>
+
+          <Route path="account" component={EditAccount} />
         </Route>
       </Route>
     </Router>
