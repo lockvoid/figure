@@ -6,7 +6,7 @@
 		};
 
 let masks = {
-	"default":      "ddd mmm dd yyyy HH:MM:ss",
+	"default":      "ddd, mmm d, yyyy, h:MM TT",
 	shortDate:      "m/d/yy",
 	mediumDate:     "mmm d, yyyy",
 	longDate:       "mmmm d, yyyy",
@@ -36,7 +36,7 @@ let i18n = {
 		timezoneClip = /[^-+\dA-Z]/g;
 
 	// Regexes and supporting functions are cached through closure
-export const formatDate = (date, mask, utc=false) =>  {
+export const absoluteTime = (date, mask = masks['default'], utc=false) =>  {
   // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
   // if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
   //   mask = date;

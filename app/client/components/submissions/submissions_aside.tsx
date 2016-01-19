@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { List } from 'immutable';
 import * as React from 'react';
 import { AppSpinner } from '../../../../lib/components/app_spinner';
-import { timeAgo } from '../../utils/time_ago';
+import { absoluteTime } from '../../utils/absolute_time';
 
 interface ExcerptsProps {
   submissions: { value: List<any>, ready: boolean }
@@ -27,7 +27,7 @@ class Excerpts extends React.Component<ExcerptsProps, {}> {
           submissions.value.map(submission =>
             <li key={submission.$key}>
               <Link to={`/forms/${formId}/submissions/${submission.$key}`} activeClassName="active">
-                <datetime>{timeAgo(submission.createdAt)}</datetime>
+                <datetime>{absoluteTime(submission.createdAt, 'shortDate')}</datetime>
 
                 <ol className="fields">
                   { submission.fields.slice(0, 2).map(field => <li key={field.$key}>{field.$value}}</li>) }

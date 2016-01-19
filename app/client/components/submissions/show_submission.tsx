@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { removeSubmissionAndRedirect } from '../../actions/submissions';
 import { findSubmission } from '../../reducers/submissions';
 import { Link } from 'react-router';
-import { formatDate } from '../../utils/format_date';
+import { absoluteTime } from '../../utils/absolute_time';
 
 const stateToProps = (state, props) => {
   let submission = findSubmission(state.submissions, props.params.submissionId)
@@ -32,7 +32,7 @@ export class ShowSubmission extends React.Component<any, any> {
     return (
       <div className="submission show">
         <header className="actions">
-          <datetime>Submitted on {formatDate(submission.createdAt, 'ddd, mmm d, yyyy, h:MM TT')}</datetime>
+          <datetime>Submitted on {absoluteTime(submission.createdAt)}</datetime>
 
           <nav className="right">
             <button type="button" className="delete" onClick={() => onRemove(params.formId, submission.$key)}>Delete</button>
