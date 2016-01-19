@@ -23,24 +23,26 @@ export function bindForms(): ThunkInterface {
   return (dispatch: any, getState: any) => {
     let ref = formsRef(getState()).orderByChild('name');
 
-    callbacks[FORMS_READY] = ref.once('value', (snapshot: any) => {
-      dispatch({ type: FORMS_READY });
-    });
+    setTimeout(() => {
+      callbacks[FORMS_READY] = ref.once('value', (snapshot: any) => {
+        dispatch({ type: FORMS_READY });
+      });
 
-    callbacks[FORM_ADDED] = ref.on('child_added', (snapshot: any, prevChild: string) => {
-      dispatch({ type: FORM_ADDED, snapshot: snapshot, prevChild });
-    });
+      callbacks[FORM_ADDED] = ref.on('child_added', (snapshot: any, prevChild: string) => {
+        dispatch({ type: FORM_ADDED, snapshot: snapshot, prevChild });
+      });
 
-    callbacks[FORM_CHANGED] = ref.on('child_changed', (snapshot: any) => {
-      dispatch({ type: FORM_CHANGED, snapshot: snapshot });
-    });
+      callbacks[FORM_CHANGED] = ref.on('child_changed', (snapshot: any) => {
+        dispatch({ type: FORM_CHANGED, snapshot: snapshot });
+      });
 
-    callbacks[FORM_MOVED] = ref.on('child_moved', (snapshot: any, prevChild: string) => {
-      dispatch({ type: FORM_MOVED, snapshot: snapshot, prevChild });
-    });
+      callbacks[FORM_MOVED] = ref.on('child_moved', (snapshot: any, prevChild: string) => {
+        dispatch({ type: FORM_MOVED, snapshot: snapshot, prevChild });
+      });
 
-    callbacks[FORM_REMOVED] = ref.on('child_removed', (snapshot: any) => {
-      dispatch({ type: FORM_REMOVED, snapshot: snapshot });
+      callbacks[FORM_REMOVED] = ref.on('child_removed', (snapshot: any) => {
+        dispatch({ type: FORM_REMOVED, snapshot: snapshot });
+      });
     });
   };
 }
@@ -64,7 +66,7 @@ export function addForm(form: FormAttrs) {
     let ref = formsRef(getState()).push(form);
     console.log(form);
 
-    dispatch(routeActions.push(`/forms/${ref.key()}`));
+    dispatch(routeActions.push(`/forms/${ref.key()}/setup`));
   }
 }
 

@@ -41,10 +41,7 @@ export class FormSubmissions extends React.Component<any, any> {
 
     if (this.props.params.formId !== nextProps.params.formId) {
       unmountSubmissions();
-
-      setTimeout(() => {
-        mountSubmissions(nextProps.params.formId);
-      });
+      mountSubmissions(nextProps.params.formId);
     } else {
       this.redirectToFirstSubmissions(nextProps);
     }
