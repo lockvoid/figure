@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Page from './layouts/page';
 
-export default class Home extends React.Component<any, any> {
+export default class Home extends React.Component<{}, {}> {
   render() {
     return (
       <Page>

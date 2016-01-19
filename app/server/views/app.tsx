@@ -3,10 +3,10 @@ import * as React from 'react';
 import Page from './layouts/page';
 import { AppSpinner } from '../../../lib/components/app_spinner';
 
-export default class App extends React.Component<any, any> {
+export default class App extends React.Component<{}, {}> {
   render() {
     return (
-      <Page className="app">
+      <Page bodyClass="app">
         <app id="app"><AppSpinner /></app>
 
         <script src="/jspm_packages/system.js"></script>
