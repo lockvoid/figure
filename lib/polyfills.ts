@@ -5,7 +5,7 @@ interface ObjectConstructor {
 
 if (typeof Object.assign != 'function') {
   (function () {
-    Object.assign = function (target) {
+    Object.assign = function (target: any) {
       'use strict';
       if (target === undefined || target === null) {
         throw new TypeError('Cannot convert undefined or null to object');

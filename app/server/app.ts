@@ -6,7 +6,10 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as Firebase from 'firebase';
 
-import { parseForm } from './lib/parse_form'
+import { parseFields } from './lib/parse_fiels';
+import { firebase } from './lib/firebase_ref';
+
+import '../../lib/polyfills';
 
 export const app = express();
 
@@ -56,12 +59,27 @@ app.get('/home', (req, res) => {
   res.render('home');
 });
 
-app.post('/f/:id', (req, res) => {
-  let submissionsRef = new Firebase(process.env.FIREBASE_URL).child(`submissions/${req.params.id}`);
+app.get('/thankyou', (req, res) => {
+  res.render('thankyou');
+});
 
-  submissionsRef.push({ createdAt: Firebase.ServerValue.TIMESTAMP, fields: parseForm(req.body) });
+app.post('/f/:formId', ({ params, body }, res) => {
+  firebase.child('forms').child(params.formId).once('value', form => {
+    if (form.exists()) {
+      let attrs = { createdAt: Firebase.ServerValue.TIMESTAMP, fields: parseFields(body) };
 
-  res.send('ok');
+      firebase.child('submissions').child(params.formId).push(attrs, (error) => {
+        if (error) {
+          res.status(503).send('Something is technically wrong');
+        } else {
+          res.redirect('/thankyou');
+        }
+      });
+
+    } else {
+      res.status(404).send('Form not found')
+    }
+  });
 })
 
 app.get('/*', (req, res) => {

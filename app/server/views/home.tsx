@@ -6,7 +6,7 @@ export default class Home extends React.Component<{}, {}> {
   render() {
     return (
       <Page>
-        <div>Home</div>
+        <div onClick={() => alert()}>Home</div>
       </Page>
     );
   }

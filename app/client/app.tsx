@@ -20,7 +20,7 @@ import { ShowForm, NewForm, FormSubmissions, SetupForm, EditForm } from './compo
 import { ShowSubmission } from './components/submissions';
 import { EditAccount } from './components/account';
 
-import './utils/polyfills';
+import '../../lib/polyfills';
 
 const createCustomStore = applyMiddleware(thunk, syncHistory(browserHistory))(createStore);
 
