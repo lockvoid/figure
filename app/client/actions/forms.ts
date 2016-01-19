@@ -1,4 +1,5 @@
 import { ThunkInterface } from 'redux-thunk';
+import { Dispatch } from 'redux';
 import { routeActions } from 'redux-simple-router';
 import { FormAttrs } from '../../../lib/models/form.ts';
 import * as Firebase from 'firebase';
@@ -11,17 +12,13 @@ export const FORM_MOVED = 'FORM_MOVED';
 export const FORM_REMOVED = 'FORM_REMOVED';
 export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 
-function formsRef(state): Firebase {
-  const { firebase, auth } = state;
-
-  return firebase.child('forms').child(auth.status.uid);
-}
-
 const callbacks = {};
 
-export function bindForms(): ThunkInterface {
-  return (dispatch: any, getState: any) => {
-    let ref = formsRef(getState()).orderByChild('name');
+export function bindForms(): Function {
+  return (dispatch, getState) => {
+    const { firebase, auth } = getState();;
+
+    let ref = firebase.child('forms').orderByChild('user').equalTo(auth.status.uid);
 
     setTimeout(() => {
       callbacks[FORMS_READY] = ref.once('value', (snapshot: any) => {
@@ -47,9 +44,11 @@ export function bindForms(): ThunkInterface {
   };
 }
 
-export function unbindForms(): ThunkInterface {
-  return (dispatch: any, getState: any) => {
-    let ref = formsRef(getState());
+export function unbindForms(): Function {
+  return (dispatch, getState) => {
+    const { firebase, auth } = getState();
+
+    let ref = firebase.child('forms');
 
     ref.off('value', callbacks[FORMS_READY]);
     ref.off('child_added', callbacks[FORM_ADDED]);
@@ -61,41 +60,43 @@ export function unbindForms(): ThunkInterface {
   }
 }
 
-export function addForm(form: FormAttrs) {
-  return (dispatch: any, getState: any) => {
-    let ref = formsRef(getState()).push(form);
-    console.log(form);
+export const addForm = (attrs: FormAttrs): Function => {
+  return (dispatch: Dispatch, getState) => {
+    const { firebase, auth } = getState();
 
-    dispatch(routeActions.push(`/forms/${ref.key()}/setup`));
+    let form = firebase.child('forms').push(Object.assign({}, attrs, { user: auth.status.uid }));
+
+    dispatch(routeActions.push(`/forms/${form.key()}/setup`));
   }
 }
 
-export function updateForm(id: string, attrs: FormAttrs) {
-  return (dispatch: any, getState: any) => {
-    formsRef(getState()).child(id).update(attrs);
+export function updateForm(id: string, attrs: FormAttrs): Function {
+  return (dispatch: Dispatch, getState) => {
+    const { firebase, auth } = getState();
+
+    firebase.child('forms').child(id).update(attrs);
   }
 }
 
-export function removeFormAndRedirect(id: string) {
-  return (dispatch: any, getState: any) => {
+export function removeFormAndRedirect(id: string): Function {
+  return (dispatch: Dispatch, getState) => {
     const { firebase, forms } = getState();
-    const { value } = forms;
 
-    let currFormIndex = value.findIndex((form: any) => form.$key == id);
+    let currFormIndex = forms.value.findIndex(form => form.$key == id);
 
     if (currFormIndex !== -1) {
-      var nextFormId: string = null;
+      var nextFormId: string;
 
-      if (currFormIndex + 1 < value.size) {
-        nextFormId = value.get(currFormIndex + 1).$key;
+      if (currFormIndex + 1 < forms.value.size) {
+        nextFormId = forms.value.get(currFormIndex + 1).$key;
       } else if (currFormIndex - 1 >= 0) {
-        nextFormId = value.get(currFormIndex - 1).$key;
+        nextFormId = forms.value.get(currFormIndex - 1).$key;
       }
 
-      formsRef(getState()).child(id).remove();
-      firebase.child(`submissions/${id}`).remove();
+      firebase.child('forms').child(id).remove();
+      firebase.child('submissions').child(id).remove();
 
-      if (nextFormId !== null) {
+      if (nextFormId) {
         dispatch(routeActions.push(`/forms/${nextFormId}`));
       } else {
         dispatch(routeActions.push('/forms/new'));
