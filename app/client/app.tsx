@@ -41,13 +41,18 @@ const boot = (
         <Route component={AppProtected} onEnter={authRequired(store)}>
           <IndexRoute component={AppHome} />
 
-          <Route path="forms/new" component={NewForm} />
-          <Route path="forms/:formId" component={ShowForm}>
-            <Route path="setup" component={FormSetup} />
-            <Route path="settings" component={FormSettings} />
+          <Route path="forms">
+            <Route path="new" component={NewForm} />
 
-            <Route path="submissions" component={FormSubmissions} onEnter={redirectToFirstSubmission(store)}>
-              <Route path=":submissionId" component={ShowSubmission} />
+            <Route path=":formId" component={ShowForm}>
+              <IndexRedirect to="submissions" />
+
+              <Route path="setup" component={FormSetup} />
+              <Route path="settings" component={FormSettings} />
+
+              <Route path="submissions" component={FormSubmissions}>
+                <Route path=":submissionId" component={ShowSubmission} />
+              </Route>
             </Route>
           </Route>
         </Route>

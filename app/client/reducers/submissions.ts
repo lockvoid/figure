@@ -17,7 +17,6 @@ export const findSubmission = (state, submissionId: string) => {
 
 export const redirectToFirstSubmission = (store) => {
   return (nextState, replaceState, performState) => {
-    console.log('sd');
     let { firebase } = store.getState();
     let { formId, submissionId } = nextState.params;
 

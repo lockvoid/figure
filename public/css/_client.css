@@ -189,6 +189,7 @@ div.form.submissions {
     flex: 1.5;
     max-width: 400px;
     min-width: 200px;
+    position: relative;
 
     header.search {
       border-bottom: 1px solid color(white b(10%));

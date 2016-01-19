@@ -9,7 +9,8 @@ import { Link } from 'react-router';
 import { formatDate } from '../../utils/format_date';
 
 const stateToProps = (state, props) => {
-  return { submission: findSubmission(state.submissions, props.params.submissionId) };
+  let submission = findSubmission(state.submissions, props.params.submissionId)
+  return { submission };
 }
 
 const dispatchToProps = (dispatch: Dispatch) => {
@@ -22,18 +23,11 @@ const dispatchToProps = (dispatch: Dispatch) => {
 
 @connect(stateToProps, dispatchToProps)
 export class ShowSubmission extends React.Component<any, any> {
-  formatCreatedAt(createdAt: number) {
-    let date = new Date(createdAt);
-
-
-
-  }
-
   render() {
     let { submission, onRemove, params } = this.props;
 
     if (!submission) {
-      return <AppSpinner />;
+      return null;
     }
 
     return (
