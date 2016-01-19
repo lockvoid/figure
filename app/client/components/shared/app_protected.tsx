@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppHeader } from './app_header';
+import { AppSpinner } from '../../../../lib/components/app_spinner';
 import * as React from 'react';
 import { bindForms, unbindForms } from '../../actions/forms';
 
@@ -34,6 +35,10 @@ export class AppProtected extends React.Component<any, any> {
 
   render() {
     let { forms, children } = this.props;
+
+    if (!forms.ready) {
+      return <AppSpinner />;
+    }
 
     return (
       <main>

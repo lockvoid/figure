@@ -71,6 +71,8 @@ app > main > header {
   }
 
   nav.forms {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     overflow-y: auto;
     position: relative;
@@ -109,11 +111,7 @@ app > main > wrap {
 
 app spinner {
   display: flex;
-  left: 50%;
-  margin-left: -12px;
-  margin-top: -3px;
-  position: absolute;
-  top: 50%;
+  margin: auto;
 
   & > div {
     @mixin size 6px, 6px;
@@ -202,6 +200,13 @@ div.form.submissions {
         flex: 1;
         margin: 12px 10px;
       }
+    }
+
+    div.prestine {
+      margin: auto;
+      text-transform: uppercase;
+      color: color(white b(40%));
+      font-weight: 500;
     }
 
     ul.excerpts {

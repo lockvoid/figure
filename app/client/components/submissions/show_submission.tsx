@@ -4,7 +4,6 @@ import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
 import { removeSubmissionAndRedirect } from '../../actions/submissions';
 import { findSubmission } from '../../reducers/submissions';
-import { AppSpinner } from '../../components/shared/app_spinner';
 import { Link } from 'react-router';
 import { formatDate } from '../../utils/format_date';
 
@@ -27,7 +26,7 @@ export class ShowSubmission extends React.Component<any, any> {
     let { submission, onRemove, params } = this.props;
 
     if (!submission) {
-      return null;
+      return <div className="submission show" />
     }
 
     return (

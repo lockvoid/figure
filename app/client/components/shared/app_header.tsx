@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router';
-import { AppSpinner } from './app_spinner';
 import { List } from 'immutable';
 
 interface FormLinksProps {
@@ -10,10 +9,6 @@ interface FormLinksProps {
 class FormLinks extends React.Component<FormLinksProps, {}> {
   render() {
     let { forms } = this.props;
-
-    if (!forms.ready) {
-      return <AppSpinner />
-    }
 
     return (
       <ul>

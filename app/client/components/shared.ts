@@ -1,4 +1,3 @@
-export { AppSpinner } from './shared/app_spinner';
 export { AppMain } from './shared/app_main';
 export { AppHome } from './shared/app_home';
 export { AppLogin } from './shared/app_login';

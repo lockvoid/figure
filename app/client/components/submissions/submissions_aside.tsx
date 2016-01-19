@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { List } from 'immutable';
 import * as React from 'react';
-import { AppSpinner } from '../shared/app_spinner';
+import { AppSpinner } from '../../../../lib/components/app_spinner';
 import { timeAgo } from '../../utils/time_ago';
 
 interface ExcerptsProps {
@@ -15,6 +15,10 @@ class Excerpts extends React.Component<ExcerptsProps, {}> {
 
     if (!submissions.ready) {
       return <AppSpinner />
+    }
+
+    if (submissions.value.size === 0) {
+      return <div className="prestine">Waiting for a submission</div>
     }
 
     return (

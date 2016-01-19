@@ -4,7 +4,6 @@ import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
 import { removeFormAndRedirect } from '../../actions/forms';
 import { findForm } from '../../reducers/forms';
-import { AppSpinner } from '../../components/shared/app_spinner';
 import { Link } from 'react-router';
 
 interface FormDashboardProps {
@@ -51,10 +50,6 @@ const stateToProps = (state, props) => {
 export class ShowForm extends React.Component<any, any> {
   render() {
     const { params, currentForm, children } = this.props;
-
-    if (!currentForm) {
-      return <AppSpinner />;
-    }
 
     return (
       <div className="form show">
