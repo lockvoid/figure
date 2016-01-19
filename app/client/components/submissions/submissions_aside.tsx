@@ -24,7 +24,7 @@ class Excerpts extends React.Component<ExcerptsProps, {}> {
     return (
       <ul className="excerpts">
         {
-          submissions.value.reverse().map(submission =>
+          submissions.value.map(submission =>
             <li key={submission.$key}>
               <Link to={`/forms/${formId}/submissions/${submission.$key}`} activeClassName="active">
                 <datetime>{timeAgo(submission.createdAt)}</datetime>

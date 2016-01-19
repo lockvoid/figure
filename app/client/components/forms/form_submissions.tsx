@@ -51,7 +51,7 @@ export class FormSubmissions extends React.Component<any, any> {
     let { params, submissions, onRedirectToFirstSubmission } = props;
 
     if (!params.submissionId && submissions.ready && submissions.value.size > 0) {
-      onRedirectToFirstSubmission(params.formId, submissions.value.last().$key);
+      onRedirectToFirstSubmission(params.formId, submissions.value.first().$key);
     }
   }
 

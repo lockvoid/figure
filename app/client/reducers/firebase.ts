@@ -20,11 +20,11 @@ export const firebaseArray = (types, serializer) => {
       case resetChildrenType:
         return initialState();
       case childAddedType:
-        return childAdded(state, action.snapshot, action.prevChild, serializer);
+        return childAdded(state, action.snapshot, action.prevChild, serializer, action.reverse);
       case childChangedType:
         return childChanged(state, action.snapshot, serializer);
       case childMovedType:
-        return childMoved(state, action.snapshot, action.prevChild);
+        return childMoved(state, action.snapshot, action.prevChild, action.reverse);
       case childRemovedType:
         return childRemoved(state, action.snapshot);
     default:
@@ -50,8 +50,8 @@ function initialState() {
   return List();
 }
 
-function childAdded(list: List<any>, snapshot: any, prevChild: string, serializeChild: Function): any {
-  let index = nextChildIndex(list, prevChild);
+function childAdded(list: List<any>, snapshot: any, prevChild: string, serializeChild: Function, reverse: boolean): any {
+  let index = nextChildIndex(list, prevChild, reverse);
   let child = serializeChild(snapshot);
 
   return list.splice(index, 0, child);
@@ -67,14 +67,14 @@ function childChanged(list: List<any>, snapshot: FirebaseDataSnapshot, serialize
   }
 }
 
-function childMoved(list: List<any>, snapshot: FirebaseDataSnapshot, prevChild: string) {
+function childMoved(list: List<any>, snapshot: FirebaseDataSnapshot, prevChild: string, reverse: boolean) {
   let currIndex = indexForChild(list, snapshot.key());
 
   if (currIndex > -1) {
     let child = list.get(currIndex);
     list = list.delete(currIndex);
 
-    let newIndex = nextChildIndex(list, prevChild);
+    let newIndex = nextChildIndex(list, prevChild, reverse);
     list = list.splice(newIndex, 0, child).toList();
 
     return list;
@@ -93,13 +93,31 @@ function childRemoved(list: List<any>, snapshot: FirebaseDataSnapshot) {
   }
 }
 
-function nextChildIndex(list: List<any>, key: string): number {
+function nextChildIndex(list: List<any>, key: string, reverse: boolean = false): number {
   let index = indexForChild(list, key);
 
-  if (index === -1) {
-    return list.size;
+  if (reverse) {
+    if (key === null) {
+      return list.size;
+    }
+
+    if (index === -1) {
+      return index + 1;
+    } else {
+      return 0;
+    }
   } else {
-    return index + 1;
+    if (key === null ) {
+      return 0;
+    }
+
+    let index = indexForChild(list, key);
+
+    if (index === -1) {
+      return list.size;
+    } else {
+      return index + 1;
+    }
   }
 }
 

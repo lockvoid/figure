@@ -79,8 +79,7 @@ export function updateForm(id: string, attrs: FormAttrs) {
 export function removeFormAndRedirect(id: string) {
   return (dispatch: any, getState: any) => {
     const { firebase, forms } = getState();
-
-    let { value } = forms;
+    const { value } = forms;
 
     let currFormIndex = value.findIndex((form: any) => form.$key == id);
 

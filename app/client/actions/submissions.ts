@@ -25,10 +25,10 @@ export function bindSubmissions(formId: string): ThunkInterface {
   return (dispatch: any, getState: any) => {
     const { firebase } = getState();
 
-    ref = firebase.child('submissions').child(formId);
+    ref = firebase.child('submissions').child(formId).orderByChild('createdAt');
 
     callbacks[SUBMISSION_ADDED] = ref.on('child_added', (snapshot: any, prevChild: string) => {
-      dispatch({ type: SUBMISSION_ADDED, snapshot: snapshot, prevChild });
+      dispatch({ type: SUBMISSION_ADDED, snapshot: snapshot, prevChild, reverse: true });
     });
 
     callbacks[SUBMISSION_CHANGED] = ref.on('child_changed', (snapshot: any) => {
@@ -36,7 +36,7 @@ export function bindSubmissions(formId: string): ThunkInterface {
     });
 
     callbacks[SUBMISSION_MOVED] = ref.on('child_moved', (snapshot: any, prevChild: string) => {
-      dispatch({ type: SUBMISSION_MOVED, snapshot: snapshot, prevChild });
+      dispatch({ type: SUBMISSION_MOVED, snapshot: snapshot, prevChild, reverse: true });
     });
 
     callbacks[SUBMISSION_REMOVED] = ref.on('child_removed', (snapshot: any) => {
@@ -64,18 +64,17 @@ export function unbindSubmissions(): ThunkInterface {
 export function removeSubmissionAndRedirect(formId: string, id: string) {
   return (dispatch: any, getState: any) => {
     const { firebase, submissions } = getState();
+    const { value } = submissions;
 
-    let list = submissions.value.reverse();
-
-    let currSubmissionIndex = list.findIndex((form: any) => form.$key == id);
+    let currSubmissionIndex = value.findIndex((form: any) => form.$key == id);
 
     if (currSubmissionIndex !== -1) {
       var nextSubmissionId: string = null;
 
       if (currSubmissionIndex + 1 < submissions.value.size) {
-        nextSubmissionId = list.get(currSubmissionIndex + 1).$key;
+        nextSubmissionId = value.get(currSubmissionIndex + 1).$key;
       } else if (currSubmissionIndex - 1 >= 0) {
-        nextSubmissionId = list.get(currSubmissionIndex - 1).$key;
+        nextSubmissionId = value.get(currSubmissionIndex - 1).$key;
       }
 
       submissionsRef(getState(), formId).child(id).remove();
