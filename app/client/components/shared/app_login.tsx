@@ -5,11 +5,11 @@ import { Link } from 'react-router';
 
 import { loginWithGithub } from '../../actions/auth';
 
-const mapStateToProps = (state: any) => {
-  return { authError: state.auth.authError };
+const stateToProps = (state) => {
+  return { error: state.auth.status.error };
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const dispatchToProps = (dispatch: Dispatch) => {
   return {
     onGithubLogin: () => {
       dispatch(loginWithGithub());
@@ -17,10 +17,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(stateToProps, dispatchToProps)
 export class AppLogin extends React.Component<any, any> {
   render() {
-    let { onGithubLogin, authError  } = this.props;
+    let { onGithubLogin, error } = this.props;
 
     return (
       <div>
@@ -30,7 +30,7 @@ export class AppLogin extends React.Component<any, any> {
           <button onClick={onGithubLogin}>Login with GitHub</button>
         </div>
 
-         {authError && <div className="error">{authError.toString()}</div>}
+         {error && <div className="error">{error.toString()}</div>}
       </div>
     );
   }

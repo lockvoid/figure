@@ -2,18 +2,56 @@ import { routeActions } from 'redux-simple-router'
 import { ThunkInterface } from 'redux-thunk';
 import * as Firebase from 'firebase';
 
-export const LOGIN_WITH_GITHUB = 'LOGIN_WITH_GITHUB';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const LOGGET_OUT = 'LOGGET_OUT';
+export const LOGIN_SUCCEED = 'LOGIN_SUCCEED';
 export const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
+export const USER_VALUE = 'USER_VALUE';
 
 export function bindAuth(): ThunkInterface {
   return (dispatch: any, getState: any) => {
     const { firebase } = getState();
 
     firebase.onAuth((authData) => {
+      if (authData) {
+        dispatch(bindUser());
+      } else {
+        dispatch(unbindUser());
+      }
+
       dispatch({ type: SET_AUTH_STATUS, authData });
     });
+  };
+}
+
+let userValueCallback: Function = () => {};
+
+function bindUser(): ThunkInterface {
+  return (dispatch, getState) => {
+    const { firebase } = getState();
+
+    userValueCallback = firebase.child('users').child(firebase.getAuth().uid).on('value', (snapshot) => {
+      dispatch({ type: USER_VALUE, snapshot: snapshot });
+    });
+  };
+}
+
+function unbindUser(): ThunkInterface {
+  return (dispatch, getState) => {
+    const { firebase, auth } = getState();
+
+    let uid = auth.status.uid;
+
+    if (uid) {
+      firebase.child('users').child(uid).off('value', userValueCallback);
+    }
+  };
+}
+
+export function updateUser(data: { email: string }): ThunkInterface {
+  return (dispatch, getState) => {
+    const { firebase, auth } = getState();
+
+    firebase.child('users').child(auth.status.uid).update(data);
   };
 }
 
@@ -24,6 +62,15 @@ export function loginWithGithub() {
       if (authError) {
         dispatch({ type: LOGIN_FAILED, authError });
       } else {
+        dispatch({ type: LOGIN_SUCCEED, authData });
+
+        firebase.child('users').child(authData.uid).once('value', snapshot => {
+          let currentUser = snapshot.val()
+
+          if (!currentUser || !currentUser.email) {
+            snapshot.ref().update({ email: authData.github.email });
+          }
+        });
 
         if (routing.location.state && routing.location.state.nextPathname) {
           dispatch(routeActions.push(routing.location.state.nextPathname));
@@ -43,3 +90,4 @@ export function logout() {
     dispatch(routeActions.push('/login'));
   }
 }
+

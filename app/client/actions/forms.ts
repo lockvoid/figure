@@ -14,7 +14,7 @@ export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 function formsRef(state): Firebase {
   const { firebase, auth } = state;
 
-  return firebase.child('forms').child(auth.authData.uid);
+  return firebase.child('forms').child(auth.status.uid);
 }
 
 const callbacks = {};

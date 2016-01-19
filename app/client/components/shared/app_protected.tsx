@@ -5,8 +5,8 @@ import { AppSpinner } from '../../../../lib/components/app_spinner';
 import * as React from 'react';
 import { bindForms, unbindForms } from '../../actions/forms';
 
-const stateToProps = (state: any) => {
-  return { forms: state.forms };
+const stateToProps = (state) => {
+  return { forms: state.forms, auth: state.auth };
 }
 
 const dispatchToProps = (dispatch: Dispatch) => {
@@ -34,9 +34,9 @@ export class AppProtected extends React.Component<any, any> {
   }
 
   render() {
-    let { forms, children } = this.props;
+    let { auth, forms, children } = this.props;
 
-    if (!forms.ready) {
+    if (!auth.user || !forms.ready ) {
       return <AppSpinner />;
     }
 

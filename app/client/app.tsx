@@ -9,13 +9,12 @@ import * as ReactDOM from 'react-dom';
 
 let thunk = require('redux-thunk');
 
-import { authRequired } from './utils/auth';
 import { setFirebase } from './actions/firebase';
 import { bindAuth } from './actions/auth';
 import { firebase } from './reducers/firebase';
 import { forms } from './reducers/forms';
 import { submissions } from './reducers/submissions';
-import { auth } from './reducers/auth';
+import { auth, authRequired } from './reducers/auth';
 import { AppMain, AppProtected, AppLogin, AppLogout, AppHome } from './components/shared';
 import { ShowForm, NewForm, FormSubmissions, FormSetup, FormSettings } from './components/forms';
 import { ShowSubmission } from './components/submissions';
