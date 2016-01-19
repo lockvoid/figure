@@ -36,7 +36,7 @@ const dispatchToProps = (dispatch: Dispatch) => {
 }
 
 @reduxForm(formConfig, stateToProps, dispatchToProps)
-export class FormSettings extends React.Component<any, any> {
+export class EditForm extends React.Component<any, any> {
   render() {
     const { fields: { name }, currentFormId, onUpdate, onRemove, handleSubmit } = this.props;
 

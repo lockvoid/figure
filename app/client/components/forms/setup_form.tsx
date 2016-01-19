@@ -8,7 +8,7 @@ const stateToProps = (state, props) => {
 }
 
 @connect(stateToProps)
-export class FormSetup extends React.Component<any, any> {
+export class SetupForm extends React.Component<any, any> {
   render() {
     return (
       <div>

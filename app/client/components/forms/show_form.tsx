@@ -28,7 +28,7 @@ class FormDashboard extends React.Component<FormDashboardProps, {}> {
             <Link to={this.pathTo('setup')} activeClassName="active">Setup</Link>
           </li>
           <li>
-            <Link to={this.pathTo('settings')} activeClassName="active">Settings</Link>
+            <Link to={this.pathTo('edit')} activeClassName="active">Edit</Link>
           </li>
           <li>
             <Link to={this.pathTo('notifications')} activeClassName="active">Notifications</Link>
