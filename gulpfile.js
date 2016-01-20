@@ -73,7 +73,7 @@ function buildCss() {
 }
 
 function copyImages() {
-  return gulp.src('public/images/**/*.{png,svg,jpg}').pipe(gulp.dest('dist/public'));
+  return gulp.src('public/images/**/*.jpg').pipe(gulp.dest('dist/public'));
 }
 
 function copyFonts() {
@@ -82,6 +82,6 @@ function copyFonts() {
 
 function watchPublic() {
   gulp.watch('public/css/**/*.css', buildCss);
-  gulp.watch('public/images/**/*.{png,svg,jpg}', copyImages);
   gulp.watch('public/fonts/**/*.woff', copyFonts);
+  gulp.watch('public/images/**/*.jpg', copyImages);
 }
