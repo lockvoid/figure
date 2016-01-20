@@ -10,7 +10,7 @@ export function requiredValidator(value: any): string {
 
 export function emailValidator(value: string): string {
   if (!EMAIL_REGEX.test(value)) {
-    return `Should be an email address`;
+    return `Must look like an email address`;
   }
 }
 

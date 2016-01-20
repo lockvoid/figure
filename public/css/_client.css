@@ -111,6 +111,7 @@ app > main > wrap {
 
 app spinner {
   display: flex;
+  justify-content: center;
   margin: auto;
 
   & > div {
@@ -137,6 +138,10 @@ div.form {
 }
 
 div.form.show {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
   nav.dashboard {
     background-color: white;
     padding: 0 20px;
@@ -173,13 +178,15 @@ div.form.show {
 
   div.form {
     overflow: auto;
+
+    h1 {
+      margin-bottom: 25px;
+    }
   }
 }
 
 div.form.submissions {
-  display: flex;
   flex-direction: row;
-  flex: 1;
 
   aside.submissions {
     display: flex;
@@ -280,6 +287,7 @@ div.form.submissions {
         border: 2px solid color(white b(25%));
         color: color(black w(70%));
         font-size: 13px;
+        min-width: auto;
         padding: 5px 10px;
 
         &:hover {
@@ -308,6 +316,29 @@ div.form.submissions {
         margin-top: 10px;
         display: block;
         font-size: 15px;
+      }
+    }
+  }
+}
+
+div.form.edit {
+  padding: 40px 40px 0 40px;
+
+  form {
+    margin-bottom: 40px;
+
+    div.buttons {
+      button.delete {
+        background-color: transparent;
+        border: 2px solid color(white b(25%));
+        color: color(black w(70%));
+        margin-left: auto;
+        padding: 8px 10px;
+
+        &:hover {
+          background-color: color(white b(25%));
+          color: white;
+        }
       }
     }
   }

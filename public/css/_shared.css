@@ -87,7 +87,7 @@ input[type="text"], input[type="search"] {
   }
 
   &::placeholder {
-    color: color(white b(90%));
+    color: color(white b(50%));
   }
 }
 
@@ -99,9 +99,65 @@ input[type="button"], button {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  min-width: 90px;
+  padding: 10px 12px;
 
   &:focus {
     outline: none;
   }
+}
 
+form.classic {
+  $color-invalid: #dd2800;
+
+  label.field {
+    display: block;
+    max-width: 450px;
+
+    label {
+      color: color(white b(90%));
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      margin: 16px 0px 0px;
+      text-transform: uppercase;
+    }
+
+    input[type="text"] {
+      border: 0;
+      border-bottom: 1px solid color(white b(20%));
+      background: transparent;
+      margin-bottom: 8px;
+      padding: 8px 0px;
+      width: 100%;
+
+      &:focus {
+        border-bottom: 2px solid $color-figure;
+        margin-bottom: 7px;
+      }
+    }
+
+    div.error {
+      color: $color-invalid;
+      font-size: 12px;
+      line-height: 17px;
+      min-height: 17px;
+    }
+
+    &.invalid {
+      label {
+        color: $color-invalid;
+      }
+
+      input[type="text"] {
+        border-bottom-color: $color-invalid;
+      }
+    }
+  }
+
+  div.buttons {
+    display: flex;
+    margin-top: 16px;
+    max-width: 450px;
+  }
 }
