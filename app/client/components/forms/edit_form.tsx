@@ -18,6 +18,7 @@ const formConfig = {
 
   initialValues: {
     redirectTo: '',
+    subscribers: '',
   }
 }
 

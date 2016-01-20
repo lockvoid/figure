@@ -3,20 +3,20 @@ import { Dispatch } from 'redux';
 import { addForm } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
-import { EmailsInput, emailsValidator } from '../shared/emails_input';
 import { FormAttrs } from '../../../../lib/models/form.ts';
+import { FieldBox } from '../shared/field_box';
 
 const formConfig = {
   form: 'form',
-  fields: ['name', 'subscribers'],
+  fields: ['name'],
 
   validate: combineValidators({
     name: [requiredValidator],
-    subscribers: [emailsValidator],
   }),
 
   initialValues: {
-    subscribers: [],
+    redirectTo: '',
+    subscribers: '',
   },
 }
 
@@ -35,24 +35,26 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 @reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
 export class NewForm extends React.Component<any, any> {
   render() {
-    const { fields: { name, subscribers }, onNewForm, handleSubmit } = this.props;
+    const { fields: { name }, onNewForm, handleSubmit } = this.props;
 
     return (
-      <form onSubmit={handleSubmit((form: FormAttrs) => onNewForm(form))}>
-        <div>
-          <label>Form Name</label>
-          <input type="text" placeholder="Name" {...name}/>
-          {name.error && name.touched && <div className="error">{name.error}</div>}
-        </div>
+      <div className="form new">
+        <header className="main">
+          <h1>Create a new form</h1>
+          <h3>You can configure it later, now just enter the name.</h3>
+        </header>
 
-        <div>
-          <label>Subscribers</label>
-          <EmailsInput {...subscribers} />
-          {subscribers.error && subscribers.touched && <div className="error">{subscribers.error}</div>}
-        </div>
+        <form className="classic" onSubmit={handleSubmit((form: FormAttrs) => onNewForm(form))}>
+          <FieldBox {...name}>
+            <label>Form Name</label>
+            <input type="text" {...name} autoFocus={true} />
+          </FieldBox>
 
-        <button type="submit">Submit</button>
-      </form>
+          <div className="buttons">
+            <button type="submit">Continue</button>
+          </div>
+        </form>
+      </div>
     );
   }
 }

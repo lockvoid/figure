@@ -34,6 +34,7 @@ app > main > header {
     height: 65px;
     justify-content: center;
     margin-bottom: 15px;
+    min-height: 65px;
     position: relative;
     width: 100%;
 
@@ -349,6 +350,26 @@ div.form.submissions {
         font-size: 15px;
       }
     }
+  }
+}
+
+
+div.form.new {
+  display: block;
+  overflow: auto;
+
+  header.main {
+    background-color: white;
+    padding: 25px 40px 30px 40px;
+
+    h1 {
+      color: $color-figure;
+      margin-bottom: 8px;
+    }
+  }
+
+  form {
+    margin: 40px;
   }
 }
 
