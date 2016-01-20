@@ -35,13 +35,31 @@ const dispatchToProps = (dispatch: Dispatch) => {
     },
 
     onRemove: (id: string) => {
-      dispatch(removeFormAndRedirect(id));
+      if (window.confirm("Do you really want to delete?")) {
+        dispatch(removeFormAndRedirect(id));
+      }
     },
   }
 }
 
 @reduxForm(formConfig, stateToProps, dispatchToProps)
 export class EditForm extends React.Component<any, any> {
+  context: any;
+
+  static contextTypes: React.ValidationMap<any> = {
+    router: React.PropTypes.object.isRequired
+  }
+
+  componentDidMount() {
+    this.context.router.setRouteLeaveHook(this.props.route, this.routerWillLeave.bind(this));
+  }
+
+  routerWillLeave(route) {
+    if (this.props.dirty && !window.confirm("You have unsaved changed. Do you really want to leave?")) {
+      return false;
+    }
+  }
+
   render() {
     const { fields: { name, redirectTo }, currentFormId, onUpdate, onRemove, handleSubmit } = this.props;
 
