@@ -19,27 +19,8 @@ class FormLinks extends React.Component<FormLinksProps, {}> {
             </li>
           )
         }
-
-        <li className="new">
-          <Link to="/forms/new" activeClassName="active">New Form</Link>
-        </li>
       </ul>
     )
-  }
-}
-
-class AccountLinks extends React.Component<{}, {}> {
-  render() {
-    return (
-      <ul>
-        <li>
-          <Link to="/account" activeClassName="active">Account</Link>
-        </li>
-        <li>
-          <Link to="/logout">Logout</Link>
-        </li>
-      </ul>
-    );
   }
 }
 
@@ -51,12 +32,31 @@ export class AppHeader extends React.Component<AppHeaderProps, {}> {
   render() {
     return (
       <header className="app">
+        <Link to="/" className="logo">/* @include /public/images/figure.svg */</Link>
+
+        <nav className="actions">
+          <ul>
+            <li>
+              <Link to="/forms/new" activeClassName="active" className="new">
+                /* @include /public/images/icons/new_form.svg */ <span>New Form</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
         <nav className="forms">
           <FormLinks {...this.props} />
         </nav>
 
         <nav className="account">
-          <AccountLinks />
+          <ul>
+            <li>
+              <Link to="/account" activeClassName="active">Account</Link>
+            </li>
+            <li>
+              <Link to="/logout">Logout</Link>
+            </li>
+          </ul>
         </nav>
       </header>
     );
