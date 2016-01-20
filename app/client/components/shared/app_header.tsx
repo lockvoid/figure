@@ -38,7 +38,7 @@ export class AppHeader extends React.Component<AppHeaderProps, {}> {
           <ul>
             <li>
               <Link to="/forms/new" activeClassName="active" className="new">
-                /* @include /public/images/icons/new_form.svg */ <span>New Form</span>
+                /* @include /public/images/icons/plus.svg */ <span>New Form</span>
               </Link>
             </li>
           </ul>
