@@ -30,7 +30,7 @@ class Excerpts extends React.Component<ExcerptsProps, {}> {
                 <datetime>{absoluteTime(submission.createdAt, 'shortDate')}</datetime>
 
                 <ol className="fields">
-                  { submission.fields.slice(0, 2).map(field => <li key={field.$key}>{field.$value}}</li>) }
+                  { submission.fields.slice(0, 2).map(field => <li key={field.$key}>{field.$value}</li>) }
                 </ol>
               </Link>
             </li>

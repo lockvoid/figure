@@ -27,16 +27,16 @@ export function bindSubmissions(formId: string): ThunkInterface {
 
     ref = firebase.child('submissions').child(formId).orderByChild('createdAt');
 
-    callbacks[SUBMISSION_ADDED] = ref.on('child_added', (snapshot: any, prevChild: string) => {
-      dispatch({ type: SUBMISSION_ADDED, snapshot: snapshot, prevChild, reverse: true });
+    callbacks[SUBMISSION_ADDED] = ref.on('child_added', (snapshot: any, comparator: string) => {
+      dispatch({ type: SUBMISSION_ADDED, snapshot: snapshot, comparator, reverse: true });
     });
 
     callbacks[SUBMISSION_CHANGED] = ref.on('child_changed', (snapshot: any) => {
       dispatch({ type: SUBMISSION_CHANGED, snapshot: snapshot });
     });
 
-    callbacks[SUBMISSION_MOVED] = ref.on('child_moved', (snapshot: any, prevChild: string) => {
-      dispatch({ type: SUBMISSION_MOVED, snapshot: snapshot, prevChild, reverse: true });
+    callbacks[SUBMISSION_MOVED] = ref.on('child_moved', (snapshot: any, comparator: string) => {
+      dispatch({ type: SUBMISSION_MOVED, snapshot: snapshot, comparator, reverse: true });
     });
 
     callbacks[SUBMISSION_REMOVED] = ref.on('child_removed', (snapshot: any) => {

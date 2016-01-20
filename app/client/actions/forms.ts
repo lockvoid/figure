@@ -14,27 +14,29 @@ export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 
 const callbacks = {};
 
+
 export function bindForms(): Function {
   return (dispatch, getState) => {
     const { firebase, auth } = getState();;
 
     let ref = firebase.child('forms').orderByChild('user').equalTo(auth.status.uid);
 
+    let comparator = (lhs, rhs): number =>  {
+       return lhs.name.localeCompare(rhs.name);
+     }
+
     setTimeout(() => {
       callbacks[FORMS_READY] = ref.once('value', (snapshot: any) => {
         dispatch({ type: FORMS_READY });
       });
 
-      callbacks[FORM_ADDED] = ref.on('child_added', (snapshot: any, prevChild: string) => {
-        dispatch({ type: FORM_ADDED, snapshot: snapshot, prevChild });
+      callbacks[FORM_ADDED] = ref.on('child_added', (snapshot: any) => {
+        dispatch({ type: FORM_ADDED, snapshot: snapshot, comparator });
       });
 
       callbacks[FORM_CHANGED] = ref.on('child_changed', (snapshot: any) => {
         dispatch({ type: FORM_CHANGED, snapshot: snapshot });
-      });
-
-      callbacks[FORM_MOVED] = ref.on('child_moved', (snapshot: any, prevChild: string) => {
-        dispatch({ type: FORM_MOVED, snapshot: snapshot, prevChild });
+        dispatch({ type: FORM_MOVED, snapshot: snapshot, comparator });
       });
 
       callbacks[FORM_REMOVED] = ref.on('child_removed', (snapshot: any) => {
