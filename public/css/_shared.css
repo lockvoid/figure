@@ -112,6 +112,12 @@ input[type="button"], button, a.button {
   &:focus {
     outline: none;
   }
+
+  &:active, &:active:hover {
+    background-color: color($color-figure l(-5%));
+    color: color(white a(0.8));
+    transition: none;
+  }
 }
 
 form.classic {
