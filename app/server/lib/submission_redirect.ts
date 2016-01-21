@@ -2,11 +2,11 @@ import * as url from 'url';
 import * as qs from 'qs';
 
 export class SubmissionRedirect {
-  constructor(private formId: string, private formAttrs: any, private submissionId: string, private submissionAttrs: any) {
+  constructor(private form: FirebaseDataSnapshot, private submission: FirebaseDataSnapshot) {
   }
 
   url(): string {
-    let { redirectTo } = this.formAttrs;
+    let { redirectTo } = this.form.val();
 
     if (redirectTo) {
       let parsed = url.parse(redirectTo, true);
@@ -28,9 +28,13 @@ export class SubmissionRedirect {
     return '/thankyou';
   }
 
-  private redirectSearchString(joinParams: any): string {
-    let { formId, submissionId, submissionAttrs: { createdAt, fields } } = this;
+  private redirectSearchString(userParams: any): string {
+    let { createdAt, fields } = this.submission.val();
 
-    return qs.stringify(Object.assign(joinParams, { formId, submissionId, createdAt, fields }));
+    let params = {
+      formId: this.form.key(), submissionId: this.submission.key(), createdAt, fields
+    }
+
+    return qs.stringify(Object.assign(userParams, params));
   }
 }

@@ -74,7 +74,9 @@ app.post('/f/:formId', ({ params, body }, res) => {
           res.status(503).send('Something is technically wrong');
         } else {
           submission.once('value', submission => {
-            res.redirect(new SubmissionRedirect(form.key(), form.val(), submission.key(), submission.val()).url());
+            let redirectUrl = new SubmissionRedirect(form, submission).url();
+
+            res.redirect(redirectUrl);
           }, (error: any) => {
             res.status(503).send('Something is technically wrong');
           });
