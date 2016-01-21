@@ -26,7 +26,7 @@ class Excerpts extends React.Component<ExcerptsProps, {}> {
         {
           submissions.value.map(submission =>
             <li key={submission.$key}>
-              <Link to={`/forms/${formId}/submissions/${submission.$key}`} activeClassName="active">
+              <Link to={`/forms/${formId}/submissions/${submission.$key}`} activeClassName="active" className={submission.read ? '' : 'unread'}>
                 <datetime>{absoluteTime(submission.createdAt, 'shortDate')}</datetime>
 
                 <ol className="fields">

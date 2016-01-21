@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
-import { removeSubmissionAndRedirect } from '../../actions/submissions';
+import { removeSubmissionAndRedirect, markSubmissionAsRead } from '../../actions/submissions';
 import { findSubmission } from '../../reducers/submissions';
 import { Link } from 'react-router';
 import { absoluteTime } from '../../utils/absolute_time';
@@ -14,6 +14,10 @@ const stateToProps = (state, props) => {
 
 const dispatchToProps = (dispatch: Dispatch) => {
   return {
+    onRead: (formId: string, submissionId: string) => {
+      dispatch(markSubmissionAsRead(formId, submissionId));
+    },
+
     onRemove: (formId: string, submissionId: string) => {
       dispatch(removeSubmissionAndRedirect(formId, submissionId));
     },
@@ -22,6 +26,14 @@ const dispatchToProps = (dispatch: Dispatch) => {
 
 @connect(stateToProps, dispatchToProps)
 export class ShowSubmission extends React.Component<any, any> {
+  componentDidMount() {
+    this.markAsRead(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.markAsRead(nextProps);
+  }
+
   render() {
     let { submission, onRemove, params } = this.props;
 
@@ -51,5 +63,13 @@ export class ShowSubmission extends React.Component<any, any> {
         </ol>
       </div>
     );
+  }
+
+  private markAsRead(props) {
+    let { onRead, params, submission } = props
+
+    if (submission && !submission.read) {
+      onRead(params.formId, submission.$key);
+    }
   }
 }

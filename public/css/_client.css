@@ -65,7 +65,7 @@ app > main > header {
     a {
       align-items: center;
       color: color(white a(0.8));
-      display: flex;
+      display: inline-flex;
       font-weight: 500;
       height: 60px;
       overflow: hidden;
@@ -267,6 +267,12 @@ div.form.submissions {
           background-color: white;
         }
 
+        &.unread {
+          ol.fields li:nth-of-type(1) {
+            font-weight: 500;
+          }
+        }
+
         datetime {
           color: color(black w(40%));
           font-size: 11px;
@@ -281,13 +287,13 @@ div.form.submissions {
           white-space: nowrap;
 
           &:nth-of-type(1) {
-            font-weight: 500;
             margin-bottom: 5px;
             margin-right: 65px;
           }
 
           &:nth-of-type(2) {
             color: color(black w(40%));
+            font-size: 12px;
           }
         }
       }
