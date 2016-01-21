@@ -15,7 +15,9 @@ class FormLinks extends React.Component<FormLinksProps, {}> {
         {
           forms.value.map(form =>
             <li key={form.$key}>
-              <Link to={`/forms/${form.$key}`} activeClassName="active">{form.name}</Link>
+              <Link to={`/forms/${form.$key}`} activeClassName="active">
+                <div>{form.name}</div>
+              </Link>
             </li>
           )
         }
@@ -38,7 +40,7 @@ export class AppHeader extends React.Component<AppHeaderProps, {}> {
           <ul>
             <li>
               <Link to="/forms/new" activeClassName="active" className="new">
-                /* @include /public/images/icons/plus.svg */ <span>New Form</span>
+                /* @include /public/images/icons/plus.svg */ <div>New Form</div>
               </Link>
             </li>
           </ul>
@@ -51,10 +53,14 @@ export class AppHeader extends React.Component<AppHeaderProps, {}> {
         <nav className="account">
           <ul>
             <li>
-              <Link to="/account" activeClassName="active">Account</Link>
+              <Link to="/account" activeClassName="active">
+                <div>Account</div>
+              </Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link to="/logout">
+                <div>Logout</div>
+              </Link>
             </li>
           </ul>
         </nav>

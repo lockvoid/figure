@@ -65,14 +65,17 @@ app > main > header {
     a {
       align-items: center;
       color: color(white a(0.8));
-      display: inline-flex;
+      display: flex;
       font-weight: 500;
       height: 60px;
-      overflow: hidden;
       padding: 0px 30px;
-      text-overflow: ellipsis;
       transition: color .1s;
-      white-space: nowrap;
+
+      div {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
       &.active {
         background-color: color(white a(10%));
