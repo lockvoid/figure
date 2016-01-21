@@ -10,6 +10,7 @@
     "immutable": "npm:immutable/dist/immutable.d.ts",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#2b2353068b57c5f0e10439f5a7cbca5ae41aa3d5",
+    "qs": "github:DefinitelyTyped/DefinitelyTyped/qs/qs.d.ts#cc925de312d06d904d6100ed16b4c973afebeb37",
     "react": "github:DefinitelyTyped/DefinitelyTyped/react/react.d.ts#8b2be7dbb22fb9042798c717d10a86a833643365",
     "react-dom": "github:DefinitelyTyped/DefinitelyTyped/react/react-dom.d.ts#ca5bfe76d2d9bf6852cbc712d9f3e0047c93486e",
     "react-intl": "github:DefinitelyTyped/DefinitelyTyped/react-intl/react-intl.d.ts#7884038616599a8db549c32e6c9d398bdc4ca51a",

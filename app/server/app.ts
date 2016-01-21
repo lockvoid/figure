@@ -8,6 +8,7 @@ import * as Firebase from 'firebase';
 
 import { parseFields } from './lib/parse_fiels';
 import { firebase } from './lib/firebase_ref';
+import { SubmissionRedirect } from './lib/submission_redirect';
 
 import '../../lib/polyfills';
 
@@ -68,17 +69,22 @@ app.post('/f/:formId', ({ params, body }, res) => {
     if (form.exists()) {
       let attrs = { createdAt: Firebase.ServerValue.TIMESTAMP, fields: parseFields(body) };
 
-      firebase.child('submissions').child(params.formId).push(attrs, (error) => {
+      let submission = firebase.child('submissions').child(params.formId).push(attrs, (error) => {
         if (error) {
           res.status(503).send('Something is technically wrong');
         } else {
-          res.redirect('/thankyou');
+          submission.once('value', submission => {
+            res.redirect(new SubmissionRedirect(form.key(), form.val(), submission.key(), submission.val()).url());
+          }, (error: any) => {
+            res.status(503).send('Something is technically wrong');
+          });
         }
       });
-
     } else {
       res.status(404).send('Form not found')
     }
+  }, (error: any) => {
+    res.status(503).send('Something is technically wrong');
   });
 })
 
