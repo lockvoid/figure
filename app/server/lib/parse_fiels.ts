@@ -1,5 +1,5 @@
 export const parseFields = (data: any): Object => {
-  return Object.keys(data).reduce((fields, key, index) => {
+  return Object.keys(data).slice(0, 30).reduce((fields, key, index) => {
     if (key === 'utf8') {
       return fields;
     }
