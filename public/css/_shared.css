@@ -125,7 +125,7 @@ form.classic {
 
   label.field {
     display: block;
-    max-width: 450px;
+    max-width: 500px;
 
     label {
       color: color(white b(90%));
@@ -220,6 +220,6 @@ form.classic {
   div.buttons {
     display: flex;
     margin-top: 16px;
-    max-width: 450px;
+    max-width: 500px;
   }
 }
