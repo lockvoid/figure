@@ -103,6 +103,11 @@ input[type="button"], button, a.button {
   min-width: 90px;
   padding: 10px 12px;
   text-align: center;
+  transition: color .1s;
+
+  &:hover {
+    color: white;
+  }
 
   &:focus {
     outline: none;

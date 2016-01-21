@@ -321,6 +321,7 @@ div.form.submissions {
         font-size: 13px;
         min-width: auto;
         padding: 5px 10px;
+        transition: none;
 
         &:hover {
           background-color: color(white b(25%));
@@ -386,6 +387,7 @@ div.form.edit {
         color: color(black w(70%));
         margin-left: auto;
         padding: 8px 10px;
+        transition: none;
 
         &:hover {
           background-color: color(white b(25%));
