@@ -5,6 +5,7 @@ import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { FormAttrs } from '../../../../lib/models/form.ts';
 import { FieldBox } from '../shared/field_box';
+import { formInitialValues } from './form_initial_values';
 
 const formConfig = {
   form: 'form',
@@ -14,10 +15,7 @@ const formConfig = {
     name: [requiredValidator],
   }),
 
-  initialValues: {
-    redirectTo: '',
-    subscribers: '',
-  },
+  initialValues: formInitialValues,
 }
 
 const mapStateToProps = (state: any) => {

@@ -7,15 +7,12 @@ import { combineValidators, requiredValidator } from '../../utils/validators';
 import { FormAttrs } from '../../../../lib/models/form.ts';
 import { findForm } from '../../reducers/forms';
 import { FieldBox } from '../shared/field_box';
+import { CheckboxField } from '../shared/checkbox_field';
 import { formInitialValues } from './form_initial_values';
 
 const formConfig = {
   form: 'form',
-  fields: ['name', 'redirectTo'],
-
-  validate: combineValidators({
-    name: [requiredValidator],
-  }),
+  fields: ['notifyMe', 'notifications'],
 }
 
 const stateToProps = (state, props) => {
@@ -40,7 +37,7 @@ const dispatchToProps = (dispatch: Dispatch) => {
 }
 
 @reduxForm(formConfig, stateToProps, dispatchToProps)
-export class EditForm extends React.Component<any, any> {
+export class FormNotifications extends React.Component<any, any> {
   context: any;
 
   static contextTypes: React.ValidationMap<any> = {
@@ -58,26 +55,26 @@ export class EditForm extends React.Component<any, any> {
   }
 
   render() {
-    const { fields: { name, redirectTo }, currentFormId, onUpdate, onRemove, handleSubmit } = this.props;
+    const { fields: { notifyMe, notifications }, currentFormId, onUpdate, onRemove, handleSubmit } = this.props;
 
     return (
       <div className="form edit">
-        <h1>Edit Form</h1>
+        <h1>Notifications Center</h1>
 
         <form className="classic" onSubmit={handleSubmit((attrs: FormAttrs) => onUpdate(currentFormId, attrs))}>
-          <FieldBox {...name}>
-            <label>Form Name</label>
-            <input type="text" {...name} />
+          <FieldBox {...notifyMe}>
+            <CheckboxField {...notifyMe}>Notify me?</CheckboxField>
+            <div className="hint">Send email notifications on a new submission</div>
           </FieldBox>
 
-          <FieldBox {...redirectTo}>
-            <label>Redirect Url</label>
-            <input type="text" placeholder="http://example.com/thankyou" {...redirectTo} />
+          <FieldBox {...notifications}>
+            <label>Additional email addresses</label>
+            <input type="text" placeholder="email@gmail.com, email@hotmail.com, etc..." {...notifications} />
+            <div className="hint">Use comma to set multiple email addresses</div>
           </FieldBox>
 
           <div className="buttons">
-            <button type="submit">Update Form</button>
-            <button type="button" className="delete" onClick={() => onRemove(currentFormId)}>Remove</button>
+            <button type="submit">Update Notifications</button>
           </div>
        </form>
       </div>

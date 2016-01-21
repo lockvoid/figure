@@ -16,7 +16,7 @@ import { forms } from './reducers/forms';
 import { submissions } from './reducers/submissions';
 import { auth, authRequired } from './reducers/auth';
 import { AppMain, AppProtected, AppLogin, AppLogout, AppHome } from './components/shared';
-import { ShowForm, NewForm, FormSubmissions, SetupForm, EditForm } from './components/forms';
+import { ShowForm, NewForm, FormSubmissions, SetupForm, EditForm, FormNotifications } from './components/forms';
 import { ShowSubmission } from './components/submissions';
 import { EditAccount } from './components/account';
 
@@ -49,6 +49,7 @@ const boot = (
 
               <Route path="setup" component={SetupForm} />
               <Route path="edit" component={EditForm} />
+              <Route path="notifications" component={FormNotifications} />
 
               <Route path="submissions" component={FormSubmissions}>
                 <Route path=":submissionId" component={ShowSubmission} />

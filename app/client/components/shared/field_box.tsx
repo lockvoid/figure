@@ -37,5 +37,3 @@ export class FieldBox extends React.Component<FieldBoxProps, {}> {
     );
   }
 }
-
-
