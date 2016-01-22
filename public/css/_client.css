@@ -156,7 +156,7 @@ app spinner {
 }
 
 div.login {
-  align-items: center;
+  align-items: justify;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -168,13 +168,16 @@ div.login {
     border-radius: 3px;
     flex-direction: column;
     flex: none;
+    margin: auto;
+    max-width: 370px;
+    min-width: 370px;
     padding: 40px;
   }
 
   a.logo {
     color: $color-figure;
     height: 30px;
-    margin: 10px auto 30px;
+    margin: 20px auto 45px;
   }
 
   div.providers {
@@ -201,14 +204,12 @@ div.login {
         background-color: color(#3b5998 l(-5%));
       }
     }
+  }
 
-    button.google {
-      background-color: #df4a32;
-
-      &:active, &:active:hover {
-        background-color: color(#df4a32 l(-5%));
-      }
-    }
+  div.error {
+    color: $color-invalid;
+    margin-top: 20px;
+    text-align: center;
   }
 }
 

@@ -121,8 +121,6 @@ input[type="button"], button, a.button {
 }
 
 form.classic {
-  $color-invalid: #dd2800;
-
   label.field {
     display: block;
     max-width: 500px;

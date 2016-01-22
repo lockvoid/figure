@@ -63,5 +63,7 @@ function setAuthStatus(state, authData) {
 }
 
 function loginFailed(state, error) {
+  error.name = '';
+
   return { loggedIn: false, error };
 }

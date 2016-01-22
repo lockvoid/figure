@@ -63,21 +63,25 @@ export function loginWithGithub() {
         dispatch({ type: LOGIN_FAILED, authError });
       } else {
         dispatch({ type: LOGIN_SUCCEED, authData });
-
-        firebase.child('users').child(authData.uid).once('value', snapshot => {
-          let currentUser = snapshot.val()
-
-          if (!currentUser || !currentUser.email) {
-            snapshot.ref().update({ email: authData.github.email });
-          }
-        });
-
-        if (routing.location.state && routing.location.state.nextPathname) {
-          dispatch(routeActions.push(routing.location.state.nextPathname));
-        } else {
-          dispatch(routeActions.push('/'));
-        }
+        dispatch(continueLogin({ uid: authData.uid, email: authData.github.email }));
       }
+    });
+  };
+}
+
+export function loginWithFacebook() {
+  return (dispatch: any, getState: any) => {
+    const { firebase, routing } = getState();
+
+    firebase.authWithOAuthPopup('facebook', (authError, authData) => {
+      if (authError) {
+        dispatch({ type: LOGIN_FAILED, authError });
+      } else {
+        dispatch({ type: LOGIN_SUCCEED, authData });
+        dispatch(continueLogin({ uid: authData.uid, email: authData.facebook.email }));
+      }
+    }, {
+      scope: 'email'
     });
   };
 }
@@ -91,3 +95,22 @@ export function logout() {
   }
 }
 
+const continueLogin = (userData: { uid: string, email: string }) => {
+  return (dispatch: any, getState: any) => {
+    const { firebase, routing } = getState();
+
+    firebase.child('users').child(userData.uid).once('value', snapshot => {
+      let currentUser = snapshot.val()
+
+      if (!currentUser || !currentUser.email) {
+        snapshot.ref().update({ email: userData.email });
+      }
+    });
+
+    if (routing.location.state && routing.location.state.nextPathname) {
+      dispatch(routeActions.push(routing.location.state.nextPathname));
+    } else {
+      dispatch(routeActions.push('/'));
+    }
+  }
+}

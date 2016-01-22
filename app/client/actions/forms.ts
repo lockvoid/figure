@@ -110,7 +110,6 @@ export function removeFormAndRedirect(id: string): Function {
 export const redirectToFirstForm = () => {
   return (dispatch: Dispatch, getState) => {
     let { forms } = getState();
-    console.log(forms);
 
     if (forms.ready && forms.value.size > 0) {
       let firstFormId = forms.value.get(0).$key;
