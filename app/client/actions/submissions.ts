@@ -92,7 +92,7 @@ export function markSubmissionAsRead(formId: string, submissionId: string) {
   return (dispatch: any, getState: any) => {
     const { firebase, submissions } = getState();
 
-    firebase.child('submissions').child(formId).child(submissionId).update({ read: true });
+    firebase.child('submissions').child(formId).child(submissionId).update({ unread: false });
   }
 }
 

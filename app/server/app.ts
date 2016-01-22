@@ -9,6 +9,9 @@ import * as Firebase from 'firebase';
 import { parseFields } from './lib/parse_fiels';
 import { firebase } from './lib/firebase_ref';
 import { SubmissionRedirect } from './lib/submission_redirect';
+import { SubmissionMailer } from './lib/submission_mailer';
+import { BaseRecord } from '../../lib/models/base_record';
+import { SubmissionRecord } from '../../lib/models/submission';
 
 import '../../lib/polyfills';
 
@@ -67,16 +70,21 @@ app.get('/thankyou', (req, res) => {
 app.post('/f/:formId', ({ params, body }, res) => {
   firebase.child('forms').child(params.formId).once('value', form => {
     if (form.exists()) {
-      let attrs = { createdAt: Firebase.ServerValue.TIMESTAMP, fields: parseFields(body) };
+      let attrs = { createdAt: Firebase.ServerValue.TIMESTAMP, unread: true, fields: parseFields(body) };
 
       let submission = firebase.child('submissions').child(params.formId).push(attrs, (error) => {
         if (error) {
           res.status(503).send('Something is technically wrong');
         } else {
           submission.once('value', submission => {
-            let redirectUrl = new SubmissionRedirect(form, submission).url();
+            let formRecord = new BaseRecord(form);
+            let submissionRecord = new SubmissionRecord(submission);
 
-            res.redirect(redirectUrl);
+            if (form.val().notifyMe) {
+              new SubmissionMailer(formRecord, submissionRecord).deliver();
+            }
+
+            res.redirect(new SubmissionRedirect(form, submission).url());
           }, (error: any) => {
             res.status(503).send('Something is technically wrong');
           });
@@ -89,6 +97,26 @@ app.post('/f/:formId', ({ params, body }, res) => {
     res.status(503).send('Something is technically wrong');
   });
 })
+
+const image = new Buffer([
+  0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x01, 0x00,
+  0x80, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x2c,
+  0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0x02,
+  0x02, 0x44, 0x01, 0x00, 0x3b
+]);
+
+app.get('/submissions/track/:keys.gif', ({ params, body }, res) => {
+  let [formId, submissionId] = params.keys.match(/.{1,20}/g);
+
+  firebase.child('submissions').child(formId).child(submissionId).once('value', submission => {
+    if (submission.exists()) {
+      submission.ref().update({ unread: false });
+    };
+  });
+
+  res.writeHead(200, { 'Content-Type': 'image/gif' });
+  res.end(image, 'binary');
+});
 
 app.get('/*', (req, res) => {
   res.render('app');
