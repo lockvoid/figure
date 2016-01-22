@@ -14,7 +14,7 @@ export default class Thankyou extends React.Component<{}, {}> {
           </section>
 
           <footer className="copyright">
-            <p>Powered by <a href="https://figureapp.com" target="_blank">Figure</a></p>
+            <p>Powered by <a href={process.env.FIGURE_URL} target="_blank">Figure</a></p>
           </footer>
         </main>
       </Page>
