@@ -32,7 +32,7 @@ export class SubmissionRedirect {
     let { createdAt, fields } = this.submission.val();
 
     let params = {
-      formId: this.form.key(), submissionId: this.submission.key(), createdAt, fields
+      form_id: this.form.key(), submission_id: this.submission.key(), created_at: createdAt, fields
     }
 
     return qs.stringify(Object.assign(userParams, params));
