@@ -363,7 +363,6 @@ div.form.submissions {
   }
 }
 
-
 div.form.new {
   display: block;
   overflow: auto;
@@ -404,5 +403,24 @@ div.form.edit {
         }
       }
     }
+  }
+}
+
+div.account.edit {
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+
+  header.main {
+    background-color: white;
+    padding: 25px 40px 25px 40px;
+
+    h1 {
+      color: $color-figure;
+    }
+  }
+
+  form {
+    margin: 40px;
   }
 }

@@ -5,6 +5,7 @@ import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator, emailValidator } from '../../utils/validators';
 import { UserAttrs } from '../../../../lib/models/user.ts';
 import { updateUser } from '../../actions/auth';
+import { FieldBox } from '../shared/field_box';
 
 const userFormConfig = {
   form: 'user',
@@ -35,14 +36,20 @@ export class EditAccount extends React.Component<any, {}> {
 
     return (
       <div className="account edit">
-        <form onSubmit={handleSubmit((attrs: UserAttrs) => onUpdate(attrs))}>
-          <div>
-            <label>Your email</label>
-            <input type="text" placeholder="Email" {...email}/>
-            {email.error && email.touched && <div className="error">{email.error}</div>}
-          </div>
+        <header className="main">
+          <h1>Manage your account</h1>
+        </header>
 
-          <button type="submit">Update</button>
+        <form className="classic" onSubmit={handleSubmit((attrs: UserAttrs) => onUpdate(attrs))}>
+          <FieldBox {...email}>
+            <label>Your Email</label>
+            <input type="text" placeholder="Email" {...email}/>
+          </FieldBox>
+
+
+          <div className="buttons">
+            <button type="submit">Update</button>
+          </div>
         </form>
       </div>
     );
