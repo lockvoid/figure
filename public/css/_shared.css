@@ -133,6 +133,7 @@ form.classic {
       font-size: 12px;
       font-weight: 500;
       margin: 16px 0px 0px;
+      pointer-events: none;
       text-transform: uppercase;
     }
 
@@ -187,20 +188,20 @@ form.classic {
     }
 
     i {
-      border-radius: 3px;
+      border-radius: 1px;
       border: 2px solid color(white b(50%));
       color: transparent;
       display: block;
-      height: 18px;
+      height: 17px;
       position: relative;
-      width: 18px;
+      width: 17px;
 
       svg {
-        height: 18px;
+        height: 17px;
         left: -2px;
         position: absolute;
         top: -2px;
-        width: 18px;
+        width: 17px;
       }
     }
 
@@ -213,7 +214,7 @@ form.classic {
     &.checked i {
       background-color: $color-figure;
       border-color: $color-figure;
-      color: white;
+  color: color(white a(0.8));
     }
   }
 

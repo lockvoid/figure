@@ -7,11 +7,12 @@ import { combineValidators, requiredValidator } from '../../utils/validators';
 import { FormAttrs } from '../../../../lib/models/form.ts';
 import { findForm } from '../../reducers/forms';
 import { FieldBox } from '../shared/field_box';
+import { CheckboxField } from '../shared/checkbox_field';
 import { formInitialValues } from './form_initial_values';
 
 const formConfig = {
   form: 'form',
-  fields: ['name', 'redirectTo'],
+  fields: ['name', 'redirectTo', 'notifyMe'],
 
   validate: combineValidators({
     name: [requiredValidator],
@@ -58,7 +59,7 @@ export class EditForm extends React.Component<any, any> {
   }
 
   render() {
-    const { fields: { name, redirectTo }, currentFormId, onUpdate, onRemove, handleSubmit } = this.props;
+    const { fields: { name, redirectTo, notifyMe }, currentFormId, onUpdate, onRemove, handleSubmit } = this.props;
 
     return (
       <div className="form edit">
@@ -73,6 +74,11 @@ export class EditForm extends React.Component<any, any> {
           <FieldBox {...redirectTo}>
             <label>Redirect Url</label>
             <input type="text" placeholder="http://example.com/thankyou" {...redirectTo} />
+          </FieldBox>
+
+          <FieldBox {...notifyMe}>
+            <CheckboxField {...notifyMe}>Notify me?</CheckboxField>
+            <div className="hint">Send email notifications on a new submission</div>
           </FieldBox>
 
           <div className="buttons">

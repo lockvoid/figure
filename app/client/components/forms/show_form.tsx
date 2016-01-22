@@ -31,10 +31,10 @@ class FormDashboard extends React.Component<FormDashboardProps, {}> {
             <Link to={this.pathTo('edit')} activeClassName="active">Edit</Link>
           </li>
           <li>
-            <Link to={this.pathTo('notifications')} activeClassName="active">Notifications</Link>
+            <Link to={this.pathTo('webhooks')} activeClassName="active">Webhooks</Link>
           </li>
           <li>
-            <Link to={this.pathTo('webhooks')} activeClassName="active">Webhooks</Link>
+            <Link to={this.pathTo('reducers')} activeClassName="active">Reducers</Link>
           </li>
         </ul>
       </nav>
