@@ -1,4 +1,5 @@
 body.app {
+  background-color: color(white b(5%));
   height: 100%;
 }
 
@@ -113,7 +114,6 @@ app > main > header {
 }
 
 app > main > wrap {
-  background-color: color(white b(5%));
   display: flex;
   flex: 4;
   min-width: 700px;
@@ -151,6 +151,63 @@ app spinner {
 
     &:nth-child(2) {
       animation-delay: -0.16s;
+    }
+  }
+}
+
+div.login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+
+  wrap {
+    background-color: white;
+    border-radius: 3px;
+    flex-direction: column;
+    flex: none;
+    padding: 40px;
+  }
+
+  a.logo {
+    color: $color-figure;
+    height: 30px;
+    margin: 10px auto 30px;
+  }
+
+  div.providers {
+    button {
+      width: 100%;
+    }
+
+    button + button {
+      margin-top: 20px;
+    }
+
+    button.github {
+      background-color: #444444;
+
+      &:active, &:active:hover {
+        background-color: color(#444444 l(-5%));
+      }
+    }
+
+    button.facebook {
+      background-color: #3b5998;
+
+      &:active, &:active:hover {
+        background-color: color(#3b5998 l(-5%));
+      }
+    }
+
+    button.google {
+      background-color: #df4a32;
+
+      &:active, &:active:hover {
+        background-color: color(#df4a32 l(-5%));
+      }
     }
   }
 }
@@ -355,9 +412,9 @@ div.form.submissions {
       }
 
       div {
-        margin-top: 10px;
         display: block;
         font-size: 15px;
+        margin-top: 10px;
       }
     }
   }

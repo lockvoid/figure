@@ -23,14 +23,17 @@ export class AppLogin extends React.Component<any, any> {
     let { onGithubLogin, error } = this.props;
 
     return (
-      <div>
-        <h1>Login</h1>
+      <div className="login">
+        <wrap>
+          <Link to="/" className="logo">/* @include /public/images/figure.svg */</Link>
+          <div className="providers">
+            <button className="github" onClick={onGithubLogin}>Login with GitHub</button>
+            <button className="facebook" onClick={onGithubLogin}>Login with Facebook</button>
+            <button className="google" onClick={onGithubLogin}>Login with Google</button>
+          </div>
 
-        <div>
-          <button onClick={onGithubLogin}>Login with GitHub</button>
-        </div>
-
-         {error && <div className="error">{error.toString()}</div>}
+          {error && <div className="error">{error.toString()}</div>}
+        </wrap>
       </div>
     );
   }
