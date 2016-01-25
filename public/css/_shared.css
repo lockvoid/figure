@@ -92,31 +92,34 @@ input[type="text"], input[type="search"] {
 }
 
 input[type="button"], button, a.button {
-  background-color: $color-figure;
-  border-radius: 3px;
   border: 0;
-  color: color(white a(0.8));
-  cursor: pointer;
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  min-width: 90px;
-  padding: 10px 13px;
-  text-align: center;
-  transition: color .1s;
-
-  &:hover {
-    color: white;
-  }
 
   &:focus {
     outline: none;
   }
 
-  &:active, &:active:hover {
-    background-color: color($color-figure l(-5%));
+  &:not(.reset) {
+    background-color: $color-figure;
+    border-radius: 3px;
     color: color(white a(0.8));
-    transition: none;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 90px;
+    padding: 10px 13px;
+    text-align: center;
+    transition: color .1s;
+
+    &:hover {
+      color: white;
+    }
+
+    &:active, &:active:hover {
+      background-color: color($color-figure l(-5%));
+      color: color(white a(0.8));
+      transition: none;
+    }
   }
 }
 

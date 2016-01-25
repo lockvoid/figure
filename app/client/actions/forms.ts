@@ -1,7 +1,7 @@
 import { ThunkInterface } from 'redux-thunk';
 import { Dispatch } from 'redux';
 import { routeActions } from 'redux-simple-router';
-import { FormAttrs } from '../../../lib/models/form.ts';
+import { FormAttrs } from '../../../lib/models/form';
 import * as Firebase from 'firebase';
 
 export const RESET_FORMS = 'RESET_FORMS';
@@ -13,7 +13,6 @@ export const FORM_REMOVED = 'FORM_REMOVED';
 export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 
 const callbacks = {};
-
 
 export function bindForms(): Function {
   return (dispatch, getState) => {

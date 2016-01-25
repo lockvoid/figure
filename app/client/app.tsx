@@ -13,10 +13,11 @@ import { setFirebase } from './actions/firebase';
 import { bindAuth } from './actions/auth';
 import { firebase } from './reducers/firebase';
 import { forms } from './reducers/forms';
+import { webhook } from './reducers/webhooks';
 import { submissions } from './reducers/submissions';
 import { auth, authRequired } from './reducers/auth';
 import { AppMain, AppProtected, AppLogin, AppLogout, AppHome } from './components/shared';
-import { ShowForm, NewForm, FormSubmissions, SetupForm, EditForm } from './components/forms';
+import { ShowForm, NewForm, FormSubmissions, SetupForm, EditForm, FormWebhooks } from './components/forms';
 import { ShowSubmission } from './components/submissions';
 import { EditAccount } from './components/account';
 
@@ -24,7 +25,7 @@ import '../../lib/polyfills';
 
 const createCustomStore = applyMiddleware(thunk, syncHistory(browserHistory))(createStore);
 
-const store = createCustomStore(combineReducers({ firebase, forms, submissions, auth, routing: routeReducer,
+const store = createCustomStore(combineReducers({ firebase, forms, submissions, webhook, auth, routing: routeReducer,
   form: formReducer
 }));
 
@@ -49,6 +50,7 @@ const boot = (
 
               <Route path="setup" component={SetupForm} />
               <Route path="edit" component={EditForm} />
+              <Route path="webhooks" component={FormWebhooks} />
 
               <Route path="submissions" component={FormSubmissions}>
                 <Route path=":submissionId" component={ShowSubmission} />

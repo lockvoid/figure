@@ -2,18 +2,6 @@ const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).fi
 
 export const EMAIL_REGEX = /^\S+@\S+\.\S+$/i;
 
-export function requiredValidator(value: any): string {
-  if (!value) {
-    return `Can't be blank`;
-  }
-}
-
-export function emailValidator(value: string): string {
-  if (!EMAIL_REGEX.test(value)) {
-    return `Must look like an email address`;
-  }
-}
-
 export function combineValidators(rules: any) {
   return (data = {}) => {
     const errors = {};
@@ -27,3 +15,22 @@ export function combineValidators(rules: any) {
     return errors;
   };
 }
+export function requiredValidator(value: any): string {
+  if (!value) {
+    return `Can't be blank`;
+  }
+}
+
+export function emailValidator(value: string): string {
+  if (!EMAIL_REGEX.test(value)) {
+    return `Must look like an email address`;
+  }
+}
+
+export function secureUrlValidator(value: string): string {
+  if (value && value.trim().indexOf('https://') !== 0)  {
+    return `Must be a secure url`;
+  }
+}
+
+
