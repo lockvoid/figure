@@ -19,7 +19,7 @@ export function bindForms(): Function {
   return (dispatch, getState) => {
     const { firebase, auth } = getState();;
 
-    let ref = firebase.child('forms').orderByChild('user').equalTo(auth.status.uid);
+    let ref = firebase.child('forms').orderByChild('userId').equalTo(auth.status.uid);
 
     let comparator = (lhs, rhs): number =>  {
        return lhs.name.localeCompare(rhs.name);
@@ -66,7 +66,7 @@ export const addForm = (attrs: FormAttrs): Function => {
   return (dispatch: Dispatch, getState) => {
     const { firebase, auth } = getState();
 
-    let form = firebase.child('forms').push(Object.assign({}, attrs, { user: auth.status.uid }));
+    let form = firebase.child('forms').push(Object.assign({}, attrs, { userId: auth.status.uid }));
 
     dispatch(routeActions.push(`/forms/${form.key()}/setup`));
   }

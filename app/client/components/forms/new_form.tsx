@@ -39,7 +39,7 @@ export class NewForm extends React.Component<any, any> {
       <div className="form new">
         <header className="main">
           <h1>Create a new form</h1>
-          <h3>You can configure it later, now just enter the name.</h3>
+          <h3>You can configure it later, now just enter a name.</h3>
         </header>
 
         <form className="classic" onSubmit={handleSubmit((form: FormAttrs) => onNewForm(form))}>
