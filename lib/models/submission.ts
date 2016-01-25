@@ -4,12 +4,17 @@ import { List } from 'immutable';
 export interface SubmissionAttrs {
 }
 
+export class FieldRecord extends BaseRecord {
+}
+
 export class SubmissionRecord extends BaseRecord {
-  get fields(): List<{ $key: string, $value: string }> {
-    var list = List<{$key: string, $value: string }>();
+  createdAt: number;
+
+  get fields(): List<FieldRecord> {
+    var list = List<FieldRecord>();
 
     this.$snapshot.child('fields').forEach(snapshot => {
-      list = list.push(new BaseRecord(snapshot));
+      list = list.push(new FieldRecord(snapshot));
     });
 
     return list;

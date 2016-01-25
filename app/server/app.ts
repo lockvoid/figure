@@ -5,6 +5,8 @@ import * as ReactDOMServer from 'react-dom/server';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as Firebase from 'firebase';
+import * as request from 'request';
+import * as crypto from 'crypto';
 
 import { parseFields } from './lib/parse_fiels';
 import { firebase } from './lib/firebase_ref';
@@ -12,6 +14,7 @@ import { SubmissionRedirect } from './lib/submission_redirect';
 import { SubmissionMailer } from './lib/submission_mailer';
 import { BaseRecord } from '../../lib/models/base_record';
 import { SubmissionRecord } from '../../lib/models/submission';
+import { WebhookRecord } from '../../lib/models/webhook';
 
 import '../../lib/polyfills';
 
@@ -80,9 +83,44 @@ app.post('/f/:formId', ({ params, body }, res) => {
             let formRecord = new BaseRecord(form);
             let submissionRecord = new SubmissionRecord(submission);
 
+            // Mail
+
             if (form.val().notifyMe) {
               new SubmissionMailer(formRecord, submissionRecord).deliver();
             }
+
+            // Webhook
+
+            firebase.child('webhooks').child(params.formId).once('value', webhook => {
+              let webhookRecord = new WebhookRecord(webhook);
+
+              if (webhookRecord.url && webhookRecord.url.trim().indexOf('https://') === 0 ) {
+                let submissionJson = {
+                  form_id: formRecord.$key,
+                  submission_id: submissionRecord.$key,
+                  created_at: submissionRecord.createdAt,
+                  fields: submission.val().fields,
+               }
+
+                let headers= {
+                  'X-Figure-Event': 'new_submission',
+                }
+
+                if (webhookRecord.secret) {
+                  headers['X-Figure-Signature'] = crypto.createHmac('sha1', 'key').update(JSON.stringify(submissionJson)).digest('hex')
+                }
+
+                request.post({
+                  url: webhookRecord.url,
+                  headers: headers,
+                  form: {
+                    submission: submissionJson
+                  }
+                }, (err) => {});
+              }
+            });
+
+            // Redirect
 
             res.redirect(new SubmissionRedirect(form, submission).url());
           }, (error: any) => {

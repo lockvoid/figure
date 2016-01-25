@@ -6,6 +6,7 @@
     "es6-promise": "github:DefinitelyTyped/DefinitelyTyped/es6-promise/es6-promise.d.ts#1dd3cfcdfc08da5515a32fc0d8a7528c3d6bf82d",
     "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#3b6d42912788a3b5b47edf271f551b80966fd9e6",
     "firebase": "github:DefinitelyTyped/DefinitelyTyped/firebase/firebase.d.ts#e2251a6de4ec74c4c71cbb04baccdd261a643909",
+    "form-data": "github:DefinitelyTyped/DefinitelyTyped/form-data/form-data.d.ts#bb1b99052bf1d697f0368fbff56898bc1f5a525c",
     "history": "github:DefinitelyTyped/DefinitelyTyped/react-router/history.d.ts#99f6493ffb1ef5479c6154ec9f82a47178bbf8b6",
     "immutable": "npm:immutable/dist/immutable.d.ts",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
@@ -22,6 +23,7 @@
     "redux": "github:DefinitelyTyped/DefinitelyTyped/redux/redux.d.ts#d4f3ed0cc7f7aba3b47dc6dbc68ead8a97052fe4",
     "redux-form": "github:DefinitelyTyped/DefinitelyTyped/redux-form/redux-form.d.ts#238f865081801c42d6fcf0465019328ca606895e",
     "redux-thunk": "github:DefinitelyTyped/DefinitelyTyped/redux-thunk/redux-thunk.d.ts#ecc37ce4e9462740693cbc078d262262f89691ad",
+    "request": "github:DefinitelyTyped/DefinitelyTyped/request/request.d.ts#0b23833fb157916c5e9eefdb06827a8a9fef69a2",
     "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f"
   }
 }
