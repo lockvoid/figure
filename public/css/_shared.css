@@ -93,6 +93,8 @@ input[type="text"], input[type="search"] {
 
 input[type="button"], button, a.button {
   border: 0;
+  padding: 0;
+  transition: color .1s;
 
   &:focus {
     outline: none;
@@ -109,7 +111,6 @@ input[type="button"], button, a.button {
     min-width: 90px;
     padding: 10px 13px;
     text-align: center;
-    transition: color .1s;
 
     &:hover {
       color: white;

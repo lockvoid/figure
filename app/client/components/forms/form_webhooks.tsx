@@ -6,15 +6,8 @@ import { updateWebhook, bindWebhook, unbindWebhook } from '../../actions/webhook
 import { combineValidators, secureUrlValidator } from '../../utils/validators';
 import { AppSpinner } from '../../../../lib/components/app_spinner';
 import { WebhookAttrs } from '../../../../lib/models/webhook.ts';
+import { generateSecret } from '../../utils/secure';
 import * as React from 'react';
-
-function rStr() { var s=Math.random().toString(36).slice(2); return s.length===16 ? s : rStr(); }
-
-const generateSecret = (): string => {
-  let secret = Math.random().toString(36).slice(2)
-
-  return secret.length === 16 ? secret : generateSecret();
-}
 
 const formConfig = {
   form: 'webhook',
@@ -103,7 +96,7 @@ export class FormWebhooks extends React.Component<any, any> {
 
             <div className="generator">
               <input type="text" {...secret} />
-              <button type="button" className="reset generate" onClick={() => secret.onChange(generateSecret())}>/* @include /public/images/icons/secure.svg */</button>
+              <button type="button" className="reset generate" title="Generate random key" onClick={this.resetKey.bind(this)}>Reset Key</button>
             </div>
 
             <div className="hint">Append a X-Figure-Signature header with a HMAC hex digest of the payload if configured.</div>
@@ -115,5 +108,17 @@ export class FormWebhooks extends React.Component<any, any> {
        </form>
       </div>
     );
+  }
+
+  private resetKey() {
+    const { fields: { secret } } = this.props;
+
+    if (secret.value && !secret.dirty) {
+      if (window.confirm("Do you really want to reset the secret key?")) {
+        secret.onChange(generateSecret(16));
+      }
+    } else {
+      secret.onChange(generateSecret(16));
+    }
   }
 }

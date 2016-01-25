@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator, emailValidator } from '../../utils/validators';
 import { UserAttrs } from '../../../../lib/models/user.ts';
-import { updateUser } from '../../actions/auth';
+import { updateUser, resetApiKey } from '../../actions/auth';
 import { FieldBox } from '../shared/field_box';
 
 const userFormConfig = {
@@ -18,7 +18,7 @@ const userFormConfig = {
 }
 
 const stateToProps = (state) => {
-  return { initialValues: state.auth.user };
+  return { initialValues: state.auth.user, user: state.auth.user };
 }
 
 const dispatchToProps = (dispatch: Dispatch) => {
@@ -26,13 +26,19 @@ const dispatchToProps = (dispatch: Dispatch) => {
     onUpdate: (attrs: UserAttrs) => {
       dispatch(updateUser(attrs));
     },
+
+    onResetApiKey: () => {
+      if (window.confirm("Do you really want to reset the API key?")) {
+        dispatch(resetApiKey());
+      }
+    }
   }
 }
 
 @reduxForm(userFormConfig, stateToProps, dispatchToProps)
 export class EditAccount extends React.Component<any, {}> {
   render() {
-    let { fields: { email }, handleSubmit, onUpdate } = this.props;
+    let { user, fields: { email }, handleSubmit, onUpdate, onResetApiKey } = this.props;
 
     return (
       <div className="account edit">
@@ -40,7 +46,7 @@ export class EditAccount extends React.Component<any, {}> {
           <h1>Manage your account</h1>
         </header>
 
-        <form className="classic" onSubmit={handleSubmit((attrs: UserAttrs) => onUpdate(attrs))}>
+        <form className="classic email" onSubmit={handleSubmit((attrs: UserAttrs) => onUpdate(attrs))}>
           <FieldBox {...email}>
             <label>Your Email</label>
             <input type="text" placeholder="Email" {...email}/>
@@ -51,6 +57,14 @@ export class EditAccount extends React.Component<any, {}> {
             <button type="submit">Update</button>
           </div>
         </form>
+
+        <div className="api">
+          <h1>API Key</h1>
+          <div className="secret">
+            <span>{user.apiKey}</span>
+            <button type="button" className="reset generate" title="Regenerate API Key" onClick={onResetApiKey.bind(this)}>Reset Key</button>
+          </div>
+        </div>
       </div>
     );
   }

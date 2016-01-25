@@ -474,21 +474,20 @@ div.form.webhooks {
       position: relative;
 
       input[type="text"] {
-        padding-right: 45px;
+        padding-right: 80px;
         font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
         font-size: 14px;
-        line-height: 18px;
+        line-height: 19px;
       }
 
       button.generate {
         background-color: transparent;
-        color: color(white b(70%));
+        color: color(black w(25%));
         cursor: pointer;
-        height: 29px;
+        font-size: 13px;
         position: absolute;
         right: 0px;
-        top: 3px;
-        width: 29px;
+        top: 8px;
 
         &:hover {
           color: $color-figure;
@@ -516,7 +515,43 @@ div.account.edit {
     }
   }
 
-  form {
+  form.email {
     margin: 40px;
+  }
+
+  div.api {
+    margin: 0 40px 40px;
+
+    div.secret {
+      background-color: white;
+      border-radius: 3px;
+      font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+      font-size: 15px;
+      line-height: 18px;
+      line-height: 19px;
+      margin-top: 25px;
+      max-width: 500px;
+      padding: 8px;
+      position: relative;
+
+      button.generate {
+        background-color: transparent;
+        color: color(white b(80%));
+        cursor: pointer;
+        font-size: 13px;
+        height: 29px;
+        position: absolute;
+        right: 10px;
+        top: 2px;
+
+        &:hover {
+          color: $color-figure;
+        }
+
+        &:active, &:active:hover {
+          color: color($color-figure l(-15%));
+        }
+      }
+    }
   }
 }
