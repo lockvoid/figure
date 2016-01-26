@@ -74,10 +74,13 @@ export const addForm = (attrs: FormAttrs): Function => {
 
     const { firebase, forms, auth } = getState();
 
-    let formKey = ref.push(Object.assign(FORM_INITIAL_VALUES, attrs)).key();
+    let form = ref.push(Object.assign(FORM_INITIAL_VALUES, attrs), error => {
+      if (!error) {
+        firebase.child('forms_users').child(form.key()).set(auth.status.uid);
+      }
+    });
 
-    firebase.child('forms_users').child(formKey).set(auth.status.uid);
-    dispatch(routeActions.push(`/forms/${formKey}/setup`));
+    dispatch(routeActions.push(`/forms/${form.key()}/setup`));
   }
 }
 
@@ -106,9 +109,19 @@ export function removeFormAndRedirect(id: string): Function {
         nextFormId = forms.value.get(currFormIndex - 1).$key;
       }
 
-      ref.child(id).remove();
-      firebase.child('forms_users').child(id).remove();
-      firebase.child('submissions').child(id).remove();
+      firebase.child('submissions').child(id).remove(error => {
+        if (error) return;
+
+        firebase.child('webhooks').child(id).remove(error => {
+          if (error) return;
+
+          firebase.child('forms_users').child(id).remove(error => {
+            if (error) return;
+
+            ref.child(id).remove();
+          });
+        });
+      });
 
       if (nextFormId) {
         dispatch(routeActions.push(`/forms/${nextFormId}`));
