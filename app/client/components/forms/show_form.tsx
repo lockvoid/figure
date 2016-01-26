@@ -31,6 +31,10 @@ class FormDashboard extends React.Component<FormDashboardProps, {}> {
             <Link to={this.pathTo('edit')} activeClassName="active">Edit</Link>
           </li>
           <li>
+            <Link to={this.pathTo('plugins')} activeClassName="active">Plugins</Link>
+          </li>
+
+          <li>
             <Link to={this.pathTo('webhooks')} activeClassName="active">Webhooks</Link>
           </li>
           <li>
