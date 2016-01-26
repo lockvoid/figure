@@ -82,7 +82,7 @@ export function removeSubmissionAndRedirect(formId: string, id: string) {
       if (nextSubmissionId !== null) {
         dispatch(routeActions.push(`/forms/${formId}/submissions/${nextSubmissionId}`));
       } else {
-        dispatch(routeActions.push('/forms/${formId}/submissions'));
+        dispatch(routeActions.push(`/forms/${formId}/submissions`));
       }
     }
   }
