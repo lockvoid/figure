@@ -1,5 +1,5 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
-import { syncHistory, routeReducer } from 'redux-simple-router';
+import { syncHistory, routeReducer } from 'react-router-redux';
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';

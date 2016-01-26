@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
-import { routeActions } from 'redux-simple-router';
+import { routeActions } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { removeSubmissionAndRedirect, markSubmissionAsRead } from '../../actions/submissions';
 import { findSubmission } from '../../reducers/submissions';

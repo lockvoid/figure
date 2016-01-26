@@ -1,4 +1,4 @@
-declare module ReduxSimpleRouter {
+declare module ReactRouterRedux {
   import R = Redux;
   import H = HistoryModule;
 
@@ -32,7 +32,7 @@ declare module ReduxSimpleRouter {
   const routeActions: RouteActions;
 }
 
-declare module "redux-simple-router" {
-  export = ReduxSimpleRouter;
+declare module "react-router-redux" {
+  export = ReactRouterRedux;
 }
 

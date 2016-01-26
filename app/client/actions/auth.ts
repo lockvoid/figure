@@ -1,4 +1,4 @@
-import { routeActions } from 'redux-simple-router'
+import { routeActions } from 'react-router-redux'
 import { ThunkInterface } from 'redux-thunk';
 import * as Firebase from 'firebase';
 import { generateSecret } from '../utils/secure';

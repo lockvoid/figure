@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
-import { routeActions } from 'redux-simple-router';
+import { routeActions } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { removeFormAndRedirect } from '../../actions/forms';
 import { findForm } from '../../reducers/forms';

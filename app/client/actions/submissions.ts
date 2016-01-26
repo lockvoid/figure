@@ -1,5 +1,5 @@
 import { ThunkInterface } from 'redux-thunk';
-import { routeActions } from 'redux-simple-router';
+import { routeActions } from 'react-router-redux';
 import { SubmissionAttrs } from '../../../lib/models/submission.ts';
 import * as Firebase from 'firebase';
 

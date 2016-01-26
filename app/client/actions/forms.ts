@@ -1,6 +1,6 @@
 import { ThunkInterface } from 'redux-thunk';
 import { Dispatch } from 'redux';
-import { routeActions } from 'redux-simple-router';
+import { routeActions } from 'react-router-redux';
 import { FormAttrs } from '../../../lib/models/form';
 import * as Firebase from 'firebase';
 
