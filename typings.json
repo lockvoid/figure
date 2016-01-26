@@ -3,6 +3,7 @@
   "devDependencies": {},
   "ambientDependencies": {
     "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#52ef0043e7d64e5cdc63d56bd883e048ead05df0",
+    "cookie-parser": "github:DefinitelyTyped/DefinitelyTyped/cookie-parser/cookie-parser.d.ts#e2001653ffbd99c2fc80a272ca80d8c958136de4",
     "es6-promise": "github:DefinitelyTyped/DefinitelyTyped/es6-promise/es6-promise.d.ts#1dd3cfcdfc08da5515a32fc0d8a7528c3d6bf82d",
     "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#3b6d42912788a3b5b47edf271f551b80966fd9e6",
     "firebase": "github:DefinitelyTyped/DefinitelyTyped/firebase/firebase.d.ts#e2251a6de4ec74c4c71cbb04baccdd261a643909",

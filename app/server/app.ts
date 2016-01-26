@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 import * as Firebase from 'firebase';
 import * as request from 'request';
 import * as crypto from 'crypto';
@@ -39,6 +40,8 @@ app.set('view engine', 'js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser())
 
 app.locals = {
   development: app.get('env') === 'development',
@@ -154,6 +157,14 @@ app.get('/submissions/track/:keys.gif', ({ params, body }, res) => {
 
   res.writeHead(200, { 'Content-Type': 'image/gif' });
   res.end(image, 'binary');
+});
+
+app.get('/', (req, res) => {
+  if (req.cookies.figureAuth === true) {
+    res.render('app');
+  } else {
+    res.render('home');
+  }
 });
 
 app.get('/*', (req, res) => {

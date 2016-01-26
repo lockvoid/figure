@@ -17,6 +17,7 @@ export function bindAuth(): ThunkInterface {
         dispatch(bindUser());
       } else {
         dispatch(unbindUser());
+        dispatch(routeActions.push('/login'));
       }
 
       dispatch({ type: SET_AUTH_STATUS, authData });
@@ -92,7 +93,6 @@ export function logout() {
     const { firebase } = getState();
 
     firebase.unauth();
-    dispatch(routeActions.push('/login'));
   }
 }
 

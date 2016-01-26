@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.3",
     "firebase": "^2.3.2",
     "immutable": "^3.7.6",
@@ -46,7 +47,7 @@
       "redux": "npm:redux@^3.0.5",
       "redux-form": "npm:redux-form@^4.1.2",
       "redux-simple-router": "npm:redux-simple-router@^2.0.2",
-      "redux-thunk": "npm:redux-thunk@^1.0.3",
+      "redux-thunk": "npm:redux-thunk@^1.0.3"
     },
     "devDependencies": {}
   },

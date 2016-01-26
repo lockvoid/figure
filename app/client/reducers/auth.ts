@@ -1,6 +1,6 @@
 import { Reducer, combineReducers } from 'redux';
 
-import { SET_AUTH_STATUS, LOGIN_FAILED, USER_VALUE } from '../actions/auth';
+import { SET_AUTH_STATUS, LOGIN_SUCCEED, LOGIN_FAILED, USER_VALUE } from '../actions/auth';
 
 const status: Reducer = (state = { loggedIn: null }, action) => {
   switch (action.type) {
@@ -8,6 +8,8 @@ const status: Reducer = (state = { loggedIn: null }, action) => {
       return setAuthStatus(state, action.authData);
     case LOGIN_FAILED:
       return loginFailed(state, action.authError);
+    case LOGIN_SUCCEED:
+      return setAuthCookie(state, action.authData);
     default:
       return state;
   }
@@ -54,16 +56,39 @@ export const authRequired = (store) => {
   }
 }
 
-function setAuthStatus(state, authData) {
+const setAuthStatus = (state, authData) => {
   if (authData) {
     return Object.assign({}, authData, { loggedIn: true });
+  } else {
+    clearCookie('figureAuth');
   }
 
   return { loggedIn: false };
 }
 
-function loginFailed(state, error) {
+const loginFailed = (state, error) => {
   error.name = '';
 
   return { loggedIn: false, error };
+}
+
+const setAuthCookie = (state, authData) => {
+  createCookie('figureAuth', true, (authData.expires - 10) * 1000);
+  return state;
+}
+
+const createCookie = (name: string, value: any, expiresAt: number) => {
+  let expires: string;
+
+  if (expiresAt) {
+    expires = `; expires=${new Date(expiresAt).toUTCString()}`;
+  } else {
+    expires = ''
+  }
+
+  document.cookie = `${name}=${value}${expires}; path=/`;
+}
+
+const clearCookie = (name: string) => {
+  createCookie(name, '', -1);
 }
