@@ -174,7 +174,7 @@ app.get('/submissions/track/:keys.gif', ({ params, body }, res) => {
 });
 
 app.get('/', (req, res) => {
-  if (req.cookies.figureAuth === true) {
+  if (req.cookies.figureAuth === 'true') {
     res.render('app');
   } else {
     res.render('home');
