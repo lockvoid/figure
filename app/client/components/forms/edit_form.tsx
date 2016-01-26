@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { updateForm, removeFormAndRedirect } from '../../actions/forms';
+import { FORM_INITIAL_VALUES, updateForm, removeFormAndRedirect } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { FormAttrs } from '../../../../lib/models/form.ts';
 import { findForm } from '../../reducers/forms';
 import { FieldBox } from '../shared/field_box';
 import { CheckboxField } from '../shared/checkbox_field';
-import { formInitialValues } from './form_initial_values';
 
 const formConfig = {
   form: 'form',
@@ -21,7 +20,7 @@ const formConfig = {
 
 const stateToProps = (state, props) => {
   let currentFormId = props.params.formId;
-  let initialValues = Object.assign({}, formInitialValues, findForm(state.forms, currentFormId));
+  let initialValues = Object.assign({}, FORM_INITIAL_VALUES, findForm(state.forms, currentFormId));
 
   return { currentFormId, initialValues };
 }

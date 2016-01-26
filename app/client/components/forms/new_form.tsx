@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
-import { addForm } from '../../actions/forms';
+import { FORM_INITIAL_VALUES, addForm } from '../../actions/forms';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { FormAttrs } from '../../../../lib/models/form.ts';
 import { FieldBox } from '../shared/field_box';
-import { formInitialValues } from './form_initial_values';
 
 const formConfig = {
   form: 'form',
@@ -15,7 +14,7 @@ const formConfig = {
     name: [requiredValidator],
   }),
 
-  initialValues: formInitialValues,
+  initialValues: FORM_INITIAL_VALUES,
 }
 
 const mapStateToProps = (state: any) => {

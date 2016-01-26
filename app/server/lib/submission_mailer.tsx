@@ -43,11 +43,11 @@ class NewSubmissionMail extends React.Component<NewSubmissionMailProps, {}> {
 }
 
 export class SubmissionMailer {
-  constructor(private form: any, private submission: SubmissionRecord) {
+  constructor(private userId: string, private form: any, private submission: SubmissionRecord) {
   }
 
   deliver() {
-    firebase.child('users').child(this.form.user).once('value', (user) => {
+    firebase.child('users').child(this.userId).once('value', (user) => {
       if (user.exists()) {
         mailer.sendMail({ to: user.val().email, subject: this.subject(), html: this.render() });
       }

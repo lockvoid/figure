@@ -13,7 +13,7 @@ import { parseFields } from './lib/parse_fiels';
 import { firebase } from './lib/firebase_ref';
 import { SubmissionRedirect } from './lib/submission_redirect';
 import { SubmissionMailer } from './lib/submission_mailer';
-import { BaseRecord } from '../../lib/models/base_record';
+import { FormRecord } from '../../lib/models/form';
 import { SubmissionRecord } from '../../lib/models/submission';
 import { WebhookRecord } from '../../lib/models/webhook';
 
@@ -73,70 +73,78 @@ app.get('/thankyou', (req, res) => {
   res.render('thankyou');
 });
 
-app.post('/f/:formId', ({ params, body }, res) => {
-  firebase.child('forms').child(params.formId).once('value', form => {
-    if (form.exists()) {
-      let attrs = { createdAt: Firebase.ServerValue.TIMESTAMP, unread: true, fields: parseFields(body) };
-
-      let submission = firebase.child('submissions').child(params.formId).push(attrs, (error) => {
-        if (error) {
-          res.status(503).send('Something is technically wrong');
-        } else {
-          submission.once('value', submission => {
-            let formRecord = new BaseRecord(form);
-            let submissionRecord = new SubmissionRecord(submission);
-
-            // Mail
-
-            if (form.val().notifyMe) {
-              new SubmissionMailer(formRecord, submissionRecord).deliver();
-            }
-
-            // Webhook
-
-            firebase.child('webhooks').child(params.formId).once('value', webhook => {
-              let webhookRecord = new WebhookRecord(webhook);
-
-              if (webhookRecord.url && webhookRecord.url.trim().indexOf('https://') === 0 ) {
-                let submissionJson = {
-                  form_id: formRecord.$key,
-                  submission_id: submissionRecord.$key,
-                  created_at: submissionRecord.createdAt,
-                  fields: submission.val().fields,
-               }
-
-                let headers= {
-                  'X-Figure-Event': 'new_submission',
-                }
-
-                if (webhookRecord.secret) {
-                  headers['X-Figure-Signature'] = crypto.createHmac('sha1', 'key').update(JSON.stringify(submissionJson)).digest('hex')
-                }
-
-                request.post({
-                  url: webhookRecord.url,
-                  headers: headers,
-                  form: {
-                    submission: submissionJson
-                  }
-                }, (err) => {});
-              }
-            });
-
-            // Redirect
-
-            res.redirect(new SubmissionRedirect(form, submission).url());
-          }, (error: any) => {
-            res.status(503).send('Something is technically wrong');
-          });
-        }
-      });
-    } else {
-      res.status(404).send('Form not found')
-    }
-  }, (error: any) => {
+app.post('/f/:formId', ({ params: { formId }, body }, res) => {
+  const onError = (error: any) => {
     res.status(503).send('Something is technically wrong');
-  });
+  }
+
+  firebase.child('forms_users').child(formId).once('value', snapshot => {
+    if (!snapshot.exists()) {
+      return res.status(404).send('Form not found')
+    }
+
+    let userId = snapshot.val();
+
+    firebase.child('forms').child(userId).child(formId).once('value', formSnapshot => {
+      if (!snapshot.exists()) {
+        return res.status(404).send('Form not found')
+      }
+
+      let submissionAttrs = { createdAt: Firebase.ServerValue.TIMESTAMP, unread: true, fields: parseFields(body) };
+
+      let submissionRef = firebase.child('submissions').child(formId).push(submissionAttrs, (error) => {
+        if (error) {
+          return onError(error);
+        }
+
+        submissionRef.once('value', submissionSnapshot => {
+          let formRecord = new FormRecord(formSnapshot);
+          let submissionRecord = new SubmissionRecord(submissionSnapshot);
+
+          // Mail
+
+          if (formRecord.notifyMe) {
+            new SubmissionMailer(userId, formRecord, submissionRecord).deliver();
+          }
+
+          // Webhook
+
+          firebase.child('webhooks').child(formId).once('value', webhookSnapshot => {
+            let webhookRecord = new WebhookRecord(webhookSnapshot);
+
+            if (webhookRecord.url && webhookRecord.url.trim().indexOf('https://') === 0 ) {
+              let submissionJson = {
+                form_id: formRecord.$key,
+                submission_id: submissionRecord.$key,
+                created_at: submissionRecord.createdAt,
+                fields: submissionSnapshot.val().fields,
+              }
+
+              let headers= {
+                'X-Figure-Event': 'new_submission',
+              }
+
+              if (webhookRecord.secret) {
+                headers['X-Figure-Signature'] = crypto.createHmac('sha1', 'key').update(JSON.stringify(submissionJson)).digest('hex')
+              }
+
+              request.post({
+                url: webhookRecord.url,
+                headers: headers,
+                form: {
+                  submission: submissionJson
+                }
+              }, (err) => {});
+            }
+          });
+
+          // Redirect
+
+          res.redirect(new SubmissionRedirect(formSnapshot, submissionSnapshot).url());
+        }, onError);
+      });
+    }, onError);
+  }, onError);
 })
 
 const image = new Buffer([

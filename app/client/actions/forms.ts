@@ -12,33 +12,41 @@ export const FORM_MOVED = 'FORM_MOVED';
 export const FORM_REMOVED = 'FORM_REMOVED';
 export const REMOVE_FORM_AND_REDIRECT = 'REMOVE_FORM_AND_REDIRECT';
 
+export const FORM_INITIAL_VALUES =  {
+  redirectTo: '',
+  notifyMe: true,
+}
+
 const callbacks = {};
+
+var ref: Firebase = null;
 
 export function bindForms(): Function {
   return (dispatch, getState) => {
     const { firebase, auth } = getState();;
 
-    let ref = firebase.child('forms').orderByChild('userId').equalTo(auth.status.uid);
+    ref = firebase.child('forms').child(auth.status.uid)
 
-    let comparator = (lhs, rhs): number =>  {
-       return lhs.name.localeCompare(rhs.name);
-     }
+    let query = ref.orderByChild('name');
 
     setTimeout(() => {
-      callbacks[FORMS_READY] = ref.once('value', (snapshot: any) => {
+      callbacks[FORMS_READY] = query.once('value', (snapshot: any) => {
         dispatch({ type: FORMS_READY });
       });
 
-      callbacks[FORM_ADDED] = ref.on('child_added', (snapshot: any) => {
+      callbacks[FORM_ADDED] = query.on('child_added', (snapshot: any, comparator) => {
         dispatch({ type: FORM_ADDED, snapshot: snapshot, comparator });
       });
 
-      callbacks[FORM_CHANGED] = ref.on('child_changed', (snapshot: any) => {
+      callbacks[FORM_CHANGED] = query.on('child_changed', (snapshot: any) => {
         dispatch({ type: FORM_CHANGED, snapshot: snapshot });
+      });
+
+      callbacks[FORM_MOVED] = query.on('child_moved', (snapshot: any, comparator: string) => {
         dispatch({ type: FORM_MOVED, snapshot: snapshot, comparator });
       });
 
-      callbacks[FORM_REMOVED] = ref.on('child_removed', (snapshot: any) => {
+      callbacks[FORM_REMOVED] = query.on('child_removed', (snapshot: any) => {
         dispatch({ type: FORM_REMOVED, snapshot: snapshot });
       });
     });
@@ -47,15 +55,14 @@ export function bindForms(): Function {
 
 export function unbindForms(): Function {
   return (dispatch, getState) => {
-    const { firebase, auth } = getState();
-
-    let ref = firebase.child('forms');
+    if (!ref) return;
 
     ref.off('value', callbacks[FORMS_READY]);
     ref.off('child_added', callbacks[FORM_ADDED]);
     ref.off('child_changed', callbacks[FORM_CHANGED]);
     ref.off('child_moved', callbacks[FORM_MOVED]);
     ref.off('child_removed', callbacks[FORM_REMOVED]);
+    ref = null;
 
     dispatch({ type: RESET_FORMS })
   }
@@ -63,24 +70,29 @@ export function unbindForms(): Function {
 
 export const addForm = (attrs: FormAttrs): Function => {
   return (dispatch: Dispatch, getState) => {
-    const { firebase, auth } = getState();
+    if (!ref) return;
 
-    let form = firebase.child('forms').push(Object.assign({}, attrs, { userId: auth.status.uid }));
+    const { firebase, forms, auth } = getState();
 
-    dispatch(routeActions.push(`/forms/${form.key()}/setup`));
+    let formKey = ref.push(Object.assign(FORM_INITIAL_VALUES, attrs)).key();
+
+    firebase.child('forms_users').child(formKey).set(auth.status.uid);
+    dispatch(routeActions.push(`/forms/${formKey}/setup`));
   }
 }
 
 export function updateForm(id: string, attrs: FormAttrs): Function {
   return (dispatch: Dispatch, getState) => {
-    const { firebase, auth } = getState();
+    if (!ref) return;
 
-    firebase.child('forms').child(id).update(attrs);
+    ref.child(id).update(attrs);
   }
 }
 
 export function removeFormAndRedirect(id: string): Function {
   return (dispatch: Dispatch, getState) => {
+    if (!ref) return;
+
     const { firebase, forms } = getState();
 
     let currFormIndex = forms.value.findIndex(form => form.$key == id);
@@ -94,7 +106,8 @@ export function removeFormAndRedirect(id: string): Function {
         nextFormId = forms.value.get(currFormIndex - 1).$key;
       }
 
-      firebase.child('forms').child(id).remove();
+      ref.child(id).remove();
+      firebase.child('forms_users').child(id).remove();
       firebase.child('submissions').child(id).remove();
 
       if (nextFormId) {
