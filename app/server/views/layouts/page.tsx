@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { assetPath } from '../../lib/asset_path';
 
 export interface PageProps extends React.Props<Page> {
   title?: string;
@@ -18,7 +19,7 @@ export default class Page extends React.Component<PageProps, {}> {
 
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-          <link rel="stylesheet" media="screen" href="assets/app.css" />
+          <link rel="stylesheet" media="screen" href={assetPath('app.css')} />
         </head>
 
         <body className={bodyClass}>

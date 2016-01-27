@@ -4,20 +4,25 @@ let autoprefixer = require('autoprefixer');
 let cprocess = require('child_process');
 let del = require('del');
 let dotenv = require('dotenv');
-let precss = require('precss')
-let typescript = require('typescript');
 let gulp = require('gulp');
+let jspm = require('jspm');
+let precss = require('precss')
+let cssnano = require('gulp-cssnano');
 let postcss = require('gulp-postcss');
 let preprocess = require('gulp-preprocess');
+let replace = require('gulp-rev-replace');
+let rev = require('gulp-rev');
 let sourcemaps = require('gulp-sourcemaps');
 let ts = require('gulp-typescript');
+let typescript = require('typescript');
 
 dotenv.load();
 
 let buildTasks = gulp.parallel(buildServer, buildClient, buildCss, copyImages, copyFonts);
-let watchTasks = gulp.parallel(watchServer, watchClient, watchPublic);
 
-gulp.task('default', gulp.series(clean, buildTasks, startServer, watchTasks));
+gulp.task('default', gulp.series(clean, buildTasks, startServer, gulp.parallel(watchServer, watchClient, watchPublic)));
+
+gulp.task('release', gulp.series(clean, buildTasks, gulp.parallel(bundleClient, minifyCss), revPublic, repPublic));
 
 function clean() {
   return del('dist');
@@ -50,7 +55,7 @@ function closeServer(done) {
 }
 
 // Client
-//
+
 let clientProject = ts.createProject('app/client/tsconfig.json', { typescript: typescript });
 
 function buildClient() {
@@ -64,12 +69,20 @@ function watchClient() {
   gulp.watch('{app/client,lib}/**/*.{ts,tsx}', buildClient);
 }
 
+function bundleClient() {
+  return jspm.bundleSFX('dist/client/app/client/app', 'dist/public/app.js', { minify: true, sourceMaps: true});
+}
+
 // Public
 
 function buildCss() {
   let manifests = ['public/css/**/*.css', '!public/css/**/_*.css'];
 
   return gulp.src(manifests).pipe(sourcemaps.init()).pipe(postcss([precss, autoprefixer])).pipe(sourcemaps.write()).pipe(gulp.dest('dist/public'));
+}
+
+function minifyCss() {
+  return gulp.src('dist/**/*.css').pipe(sourcemaps.init()).pipe(cssnano()).pipe(sourcemaps.write('.')).pipe(gulp.dest('dist'));
 }
 
 function copyImages() {
@@ -84,4 +97,13 @@ function watchPublic() {
   gulp.watch('public/css/**/*.css', buildCss);
   gulp.watch('public/fonts/**/*.woff', copyFonts);
   gulp.watch('public/images/**/*.jpg', copyImages);
+}
+
+function revPublic() {
+  return gulp.src('dist/public/**').pipe(rev()).pipe(gulp.dest('dist/public')).pipe(rev.manifest({ path: 'manifest.json' })).pipe(gulp.dest('dist/public'));
+}
+
+function repPublic() {
+  const manifest = gulp.src('dist/public/manifest.json');
+  return gulp.src('dist/public/**/*.css').pipe(replace({ manifest: manifest })).pipe(gulp.dest('dist/public'))
 }

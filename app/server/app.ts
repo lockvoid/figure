@@ -47,14 +47,14 @@ app.locals = {
   development: app.get('env') === 'development',
 };
 
-['./dist/public', './dist/client'].forEach(path => {
-  app.use('/assets', express.static(path));
-});
+app.use('/assets', express.static('./dist/public'));
 
 if (app.get('env') === 'development') {
   ['/node_modules', '/jspm_packages'].forEach(path => {
     app.use(path, express.static(`.${path}`));
   });
+
+  app.use('/assets', express.static('./dist/client'));
 
   app.get('/config.js', (req, res) => {
     res.sendFile(`${process.cwd()}/config.js`);
