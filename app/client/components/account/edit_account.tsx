@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator, emailValidator } from '../../utils/validators';
 import { UserAttrs } from '../../../../lib/models/user.ts';
-import { updateUser, resetApiKey } from '../../actions/auth';
+import { updateUser, resetSecretKey } from '../../actions/auth';
 import { FieldBox } from '../shared/field_box';
 
 const userFormConfig = {
@@ -27,9 +27,9 @@ const dispatchToProps = (dispatch: Dispatch) => {
       dispatch(updateUser(attrs));
     },
 
-    onResetApiKey: () => {
+    onResetSecretKey: () => {
       if (window.confirm("Do you really want to reset the API key?")) {
-        dispatch(resetApiKey());
+        dispatch(resetSecretKey());
       }
     }
   }
@@ -38,7 +38,7 @@ const dispatchToProps = (dispatch: Dispatch) => {
 @reduxForm(userFormConfig, stateToProps, dispatchToProps)
 export class EditAccount extends React.Component<any, {}> {
   render() {
-    let { user, fields: { email }, handleSubmit, onUpdate, onResetApiKey } = this.props;
+    let { user, fields: { email }, handleSubmit, onUpdate, onResetSecretKey } = this.props;
 
     return (
       <div className="account edit">
@@ -61,8 +61,8 @@ export class EditAccount extends React.Component<any, {}> {
         <div className="api">
           <h1>API Key</h1>
           <div className="secret">
-            <span>{user.apiKey}</span>
-            <button type="button" className="reset generate" title="Regenerate API Key" onClick={onResetApiKey.bind(this)}>Reset Key</button>
+            <span>{user.secretKey}</span>
+            <button type="button" className="reset generate" title="Regenerate API Key" onClick={onResetSecretKey.bind(this)}>Reset Key</button>
           </div>
         </div>
       </div>
