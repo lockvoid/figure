@@ -8,7 +8,6 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 export const assetPath = (filename: string): string => {
-    return `/assets/${filename}`;
   if (process.env.NODE_ENV == 'production') {
     return `${baseUrl}/${manifest[filename]}`;
   } else {
