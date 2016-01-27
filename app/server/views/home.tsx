@@ -6,7 +6,8 @@ export default class Home extends React.Component<{}, {}> {
   render() {
     return (
       <Page>
-        <div onClick={() => alert()}>Home</div>
+        <h1>Home</h1>
+        <a href="/login">Login</a>
       </Page>
     );
   }
