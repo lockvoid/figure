@@ -3,6 +3,7 @@ import { syncHistory, routeReducer } from 'react-router-redux';
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
+
 import * as React from 'react';
 import * as Firebase from 'firebase';
 import * as ReactDOM from 'react-dom';

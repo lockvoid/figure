@@ -1,68 +1,80 @@
 'use strict';
 
-let autoprefixer = require('autoprefixer');
-let cprocess = require('child_process');
-let del = require('del');
-let dotenv = require('dotenv');
-let gulp = require('gulp');
-let jspm = require('jspm');
-let precss = require('precss')
-let cssnano = require('gulp-cssnano');
-let postcss = require('gulp-postcss');
-let preprocess = require('gulp-preprocess');
-let replace = require('gulp-rev-replace');
-let rev = require('gulp-rev');
-let sourcemaps = require('gulp-sourcemaps');
-let ts = require('gulp-typescript');
-let typescript = require('typescript');
+const autoprefixer = require('autoprefixer');
+const cprocess = require('child_process');
+const del = require('del');
+const dotenv = require('dotenv');
+const gulp = require('gulp');
+const jspm = require('jspm');
+const precss = require('precss')
+const babel = require('gulp-babel');
+const cssnano = require('gulp-cssnano');
+const postcss = require('gulp-postcss');
+const preprocess = require('gulp-preprocess');
+const replace = require('gulp-rev-replace');
+const rev = require('gulp-rev');
+const sourcemaps = require('gulp-sourcemaps');
+const ts = require('gulp-typescript');
+const typescript = require('typescript');
+const uglify = require('gulp-uglify');
 
 dotenv.load();
 
-let buildTasks = gulp.parallel(buildServer, buildClient, buildCss, copyImages, copyFonts);
+const buildTasks = gulp.parallel(buildServer, buildClient, buildCss, buildJs, copyAssets);
 
-gulp.task('default', gulp.series(clean, buildTasks, startServer, gulp.parallel(watchServer, watchClient, watchPublic)));
+const watchTasks = gulp.parallel(watchServer, watchClient, watchCss, watchJs, watchAssets);
 
-gulp.task('release', gulp.series(clean, buildTasks, gulp.parallel(bundleClient, minifyCss), revPublic, repPublic));
+gulp.task('default', gulp.series(clean, buildTasks, startHttp, watchTasks));
+
+gulp.task('release', gulp.series(clean, buildTasks, gulp.parallel(bundleClient, minifyCss, minifyJs), revPublic, repPublic));
 
 function clean() {
   return del('dist');
 }
 
+// Listen
+
+var httpProcess = null;
+
+function startHttp(done) {
+  if (!httpProcess) {
+    httpProcess = cprocess.spawn('node', ['--harmony_destructuring', '--harmony_default_parameters', '--harmony_rest_parameters', 'bin/web'], { stdio: 'inherit' });
+  }
+
+  done();
+}
+
+function closeHttp(done) {
+  httpProcess && httpProcess.kill();
+  httpProcess = null;
+
+  done();
+}
+
 // Server
 
-let serverProject = ts.createProject('app/server/tsconfig.json', { typescript: typescript });
-var serverProcess = null;
+const serverProject = ts.createProject('app/server/tsconfig.json', { typescript: typescript });
 
 function buildServer() {
-  let source = ['{app/server,lib}/**/*.{ts,tsx}', 'typings/main.d.ts'];
-  let result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ context: { SERVER: true }, includeBase: __dirname })).pipe(ts(serverProject));
+  const source = ['{app/server,lib}/**/*.{ts,tsx}', 'typings/main.d.ts'];
+  const result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ context: { NODE_BUILD: true }, includeBase: __dirname })).pipe(ts(serverProject));
 
   return result.js.pipe(sourcemaps.write()).pipe(gulp.dest('dist/server'));
 }
 
 function watchServer() {
-  gulp.watch('{app/server,lib}/**/*.{ts,tsx}', gulp.series(gulp.parallel(buildServer, closeServer), startServer));
-}
-
-function startServer(done) {
-  serverProcess = cprocess.spawn('node', ['bin/web'], { stdio: 'inherit' });
-  done();
-}
-
-function closeServer(done) {
-  serverProcess && serverProcess.kill();
-  done();
+  gulp.watch('{app/server,lib}/**/*.{ts,tsx}', gulp.series(gulp.parallel(buildServer, closeHttp), startHttp));
 }
 
 // Client
 
-let clientProject = ts.createProject('app/client/tsconfig.json', { typescript: typescript });
+const clientProject = ts.createProject('app/client/tsconfig.json', { typescript: typescript });
 
 function buildClient() {
-  let source = ['{app/client,lib}/**/*.{ts,tsx}', 'typings/browser.d.ts'];
-  let result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ context: { CLIENT: true }, includeBase: __dirname })).pipe(ts(clientProject));
+  const source = ['{app/client,lib}/**/*.{ts,tsx}', 'typings/browser.d.ts'];
+  const result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ includeBase: __dirname })).pipe(ts(clientProject));
 
-  return result.js.pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
+  return result.js.pipe(babel({ presets: ['es2015'] })).pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
 }
 
 function watchClient() {
@@ -70,7 +82,7 @@ function watchClient() {
 }
 
 function bundleClient() {
-  return jspm.bundleSFX('dist/client/app/client/app', 'dist/public/app.js', { minify: true, sourceMaps: true});
+  return jspm.bundleSFX('babel-polyfill + dist/client/app/client/client', 'dist/public/app.js', { minify: true, sourceMaps: true});
 }
 
 // Public
@@ -82,21 +94,43 @@ function buildCss() {
 }
 
 function minifyCss() {
-  return gulp.src('dist/**/*.css').pipe(sourcemaps.init()).pipe(cssnano()).pipe(sourcemaps.write('.')).pipe(gulp.dest('dist'));
+  return gulp.src('dist/public/**/*.css').pipe(sourcemaps.init()).pipe(cssnano()).pipe(sourcemaps.write('.')).pipe(gulp.dest('dist/public'));
 }
 
-function copyImages() {
-  return gulp.src('public/images/**/*.jpg').pipe(gulp.dest('dist/public'));
-}
-
-function copyFonts() {
-  return gulp.src('public/fonts/**/*.woff').pipe(gulp.dest('dist/public'));
-}
-
-function watchPublic() {
+function watchCss() {
   gulp.watch('public/css/**/*.css', buildCss);
-  gulp.watch('public/fonts/**/*.woff', copyFonts);
-  gulp.watch('public/images/**/*.jpg', copyImages);
+}
+
+function watchJs() {
+  gulp.watch('public/js/**/*.js', buildJs);
+}
+
+function copyAssets() {
+  return gulp.src('public/{images,fonts}/**/*.{jpg,woff}').pipe(gulp.dest('dist/public'));
+}
+
+function watchAssets() {
+  gulp.watch('public/{images,fonts}/**/*.{jpg,woff}', copyAssets);
+}
+
+function buildJs() {
+  return gulp.src('public/js/**/*.js').pipe(sourcemaps.init()).pipe(babel({ presets: ['es2015'] })).pipe(sourcemaps.write()).pipe(gulp.dest('dist/public'));
+}
+
+function minifyJs() {
+  return gulp.src('dist/public/**/*.js').pipe(uglify()).pipe(gulp.dest('dist/public'));
+}
+
+function watchJs() {
+  gulp.watch('public/js/**/*.js', buildJs);
+}
+
+function copyAssets() {
+  return gulp.src('public/{images,fonts}/**/*.{jpg,woff}').pipe(gulp.dest('dist/public'));
+}
+
+function watchAssets() {
+  gulp.watch('public/{images,fonts}/**/*.{jpg,woff}', copyAssets);
 }
 
 function revPublic() {
@@ -104,6 +138,5 @@ function revPublic() {
 }
 
 function repPublic() {
-  const manifest = gulp.src('dist/public/manifest.json');
-  return gulp.src('dist/public/**/*.css').pipe(replace({ manifest: manifest })).pipe(gulp.dest('dist/public'))
+  return gulp.src('dist/public/**/*.css').pipe(replace({ manifest: gulp.src('dist/public/manifest.json') })).pipe(gulp.dest('dist/public'))
 }

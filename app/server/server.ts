@@ -1,7 +1,7 @@
 'use strict';
 
 import * as React from 'react';
-import * as ReactDOMServer from 'react-dom/server';
+import * as ReactDOM from 'react-dom/server';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
@@ -21,13 +21,24 @@ import '../../lib/polyfills';
 
 export const app = express();
 
+// Parse params
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Parse cookies
+
+app.use(cookieParser())
+
+// Configure views
+
 app.engine('js', (filename: string, options: any, done: Function) => {
   var markup = '<!DOCTYPE html>';
 
   try {
-    let component = require(filename).default;
+    const component = require(filename).default;
 
-    markup += ReactDOMServer.renderToStaticMarkup(React.createElement(component, options));
+    markup += ReactDOM.renderToStaticMarkup(React.createElement(component, options));
   } catch (e) {
     return done(e);
   }
@@ -38,23 +49,22 @@ app.engine('js', (filename: string, options: any, done: Function) => {
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'js');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(cookieParser())
-
 app.locals = {
   development: app.get('env') === 'development',
 };
 
+// Serve assets
+
 app.use('/assets', express.static('./dist/public'));
 
-if (app.get('env') === 'development') {
-  ['/node_modules', '/jspm_packages'].forEach(path => {
-    app.use(path, express.static(`.${path}`));
-  });
+app.use((req, res, next) => {
+  req.path.indexOf("/assets") === 0 ? res.status(404).send(`Cannot GET ${req.path}`) : next();
+});
 
-  app.use('/assets', express.static('./dist/client'));
+if (app.get('env') === 'development') {
+  app.use('/', express.static('./dist/client'));
+
+  app.use('/jspm_packages', express.static('./jspm_packages'));
 
   app.get('/config.js', (req, res) => {
     res.sendFile(`${process.cwd()}/config.js`);
@@ -65,13 +75,7 @@ app.use((req, res, next) => {
   req.path.indexOf("/assets") === 0 ? res.status(404).send(`Cannot GET ${req.path}`) : next();
 });
 
-app.get('/home', (req, res) => {
-  res.render('home');
-});
-
-app.get('/thankyou', (req, res) => {
-  res.render('thankyou');
-});
+// Mount routes
 
 app.post('/f/:formId', ({ params: { formId }, body }, res) => {
   const onError = (error: any) => {
@@ -171,6 +175,16 @@ app.get('/submissions/track/:keys.gif', ({ params, body }, res) => {
 
   res.writeHead(200, { 'Content-Type': 'image/gif' });
   res.end(image, 'binary');
+});
+
+// Render pages
+
+app.get('/home', (req, res) => {
+  res.render('home');
+});
+
+app.get('/thankyou', (req, res) => {
+  res.render('thankyou');
 });
 
 app.get('/', (req, res) => {

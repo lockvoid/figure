@@ -1,5 +1,18 @@
 'use strict';
 
-let app = require('../dist/server/app/server/app').app;
+const http = require('http');
 
-app.listen(process.env.PORT || 8000);
+// Import internal modules
+
+const server = require('../dist/server/app/server/server');
+
+// require('../dist/server/app/server/database');
+
+// Bootstrap internal services
+
+const httpServer = http.createServer(server.app)
+const serverPort = process.env.PORT || 7070;
+
+httpServer.listen(serverPort, () => {
+  console.log(`Server listening on: http://0.0.0.0:${serverPort}`);
+});

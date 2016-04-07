@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import Page from './layouts/page';
+import { Page } from './layouts/page';
 
 export default class Thankyou extends React.Component<{}, {}> {
   render() {
     return (
-      <Page bodyClass="thankyou">
+      <Page className="thankyou">
         <main>
           <section className="thankyou">
             <h1>Thank you!</h1>
