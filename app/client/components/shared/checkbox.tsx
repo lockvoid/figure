@@ -1,10 +1,8 @@
 import * as React from 'react';
+
 import { FieldProp } from 'redux-form';
 
-export interface CheckboxFieldProps extends FieldProp, React.Props<CheckboxField> {
-}
-
-export class CheckboxField extends React.Component<CheckboxFieldProps, {}> {
+export class Checkbox extends React.Component<FieldProp & React.Props<Checkbox>, {}> {
   className(): string {
     let { value } = this.props;
 
@@ -21,9 +19,10 @@ export class CheckboxField extends React.Component<CheckboxFieldProps, {}> {
 
     return (
       <div className={`checkbox ${this.className()}`}>
+        <input type="hidden" {...field} value="false" />
         <input type="checkbox" {...field} />
         <i>/* @include /public/images/icons/check.svg */</i>
-        <label>{children}</label>
+        <div className="title">{children}</div>
       </div>
     );
   }

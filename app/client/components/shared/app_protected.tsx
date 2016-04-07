@@ -1,51 +1,41 @@
+import * as React from 'react';
+
+import { connect, MapStateToProps, MapDispatchToPropsObject } from 'react-redux';
 import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 import { AppHeader } from './app_header';
 import { AppSpinner } from '../../../../lib/components/app_spinner';
-import * as React from 'react';
-import { bindForms, unbindForms } from '../../actions/forms';
+import { watchForms, unwatchForms } from '../../actions/index';
 
-const stateToProps = (state) => {
-  return { forms: state.forms, auth: state.auth };
+const stateToProps: MapStateToProps = (state) => {
+  return state;
 }
 
-const dispatchToProps = (dispatch: Dispatch) => {
-  return {
-    mountForms: () => {
-      dispatch(bindForms());
-    },
-
-    unmountForms: () => {
-      dispatch(unbindForms());
-    },
-  }
+const dispatchToProps: MapDispatchToPropsObject = {
+  watchForms, unwatchForms
 }
 
 @connect(stateToProps, dispatchToProps)
 export class AppProtected extends React.Component<any, any> {
   componentWillMount() {
-    let { mountForms } = this.props;
-    mountForms();
+    this.props.watchForms();
   }
 
   componentWillUnmount() {
-    let { unmountForms } = this.props;
-    unmountForms();
+    this.props.unwatchForms();
   }
 
   render() {
-    let { auth, forms, children } = this.props;
+    let { children, forms } = this.props;
 
-    if (!auth.user || !forms.ready ) {
-      return <AppSpinner />;
-    }
+    // if (!forms.meta.initialized) {
+    //   return <AppSpinner />;
+    // }
 
     return (
-      <main>
+      <div className="protected">
         <AppHeader forms={forms} />
-        <wrap>{children}</wrap>
-      </main>
+        <main>{children}</main>
+      </div>
     );
   }
 }
-

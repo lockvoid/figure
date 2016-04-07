@@ -1,28 +1,19 @@
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 import * as React from 'react';
-import { Link } from 'react-router';
 
-import { logout } from '../../actions/auth';
+import { connect, MapDispatchToPropsObject } from 'react-redux';
 
-const mapStateToProps = (state) => {
-  return {};
+import { logout } from '../../actions/index';
+
+const mapDispatchToProps: MapDispatchToPropsObject = {
+  logout
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    onLogout: () => {
-      dispatch(logout());
-    }
-  }
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 export class AppLogout extends React.Component<any, any> {
   componentDidMount() {
-    let { onLogout } = this.props;
+    const { logout } = this.props;
 
-    onLogout();
+    logout();
   }
 
   render() {

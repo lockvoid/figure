@@ -62,6 +62,7 @@
       "babel-polyfill": "npm:babel-polyfill@^6.7.4",
       "firebase": "npm:firebase@^2.3.2",
       "immutable": "npm:immutable@^3.7.6",
+      "jwt-decode": "npm:jwt-decode@^2.0.1",
       "react": "npm:react@^0.14.8",
       "react-dom": "npm:react-dom@^0.14.8",
       "react-redux": "npm:react-redux@^4.4.1",
@@ -69,6 +70,7 @@
       "react-router-redux": "npm:react-router-redux@^3.0.0",
       "redux": "npm:redux@^3.3.1",
       "redux-form": "npm:redux-form@^4.2.2",
+      "redux-saga": "npm:redux-saga@^0.9.5",
       "redux-thunk": "npm:redux-thunk@^1.0.3",
       "theron": "npm:theron@^0.1.3"
     },

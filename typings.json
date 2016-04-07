@@ -12,6 +12,7 @@
     "form-data": "registry:dt/form-data#0.0.0+20160316155526",
     "immutable": "npm:immutable/dist/immutable.d.ts",
     "jsonwebtoken": "registry:dt/jsonwebtoken#0.0.0+20160316155526",
+    "jwt-decode": "registry:dt/jwt-decode#1.4.0+20160317120654",
     "knex": "registry:dt/knex#0.0.0+20160330140516",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "node": "registry:dt/node#4.0.0+20160330064709",
@@ -31,6 +32,7 @@
     "redux-saga": "registry:dt/redux-saga#0.9.1+20160316155526",
     "request": "registry:dt/request#0.0.0+20160316155526",
     "sendgrid": "registry:dt/sendgrid#0.0.0+20160317120654",
-    "serve-static": "registry:dt/serve-static#0.0.0+20160317120654"
+    "serve-static": "registry:dt/serve-static#0.0.0+20160317120654",
+    "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160316155526"
   }
 }

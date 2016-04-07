@@ -12,6 +12,7 @@ System.config({
     "firebase": "npm:firebase@2.4.2",
     "history": "npm:history@2.0.0-rc2",
     "immutable": "npm:immutable@3.7.6",
+    "jwt-decode": "npm:jwt-decode@2.0.1",
     "react": "npm:react@0.14.8",
     "react-dom": "npm:react-dom@0.14.8",
     "react-redux": "npm:react-redux@4.4.1",
@@ -19,6 +20,7 @@ System.config({
     "react-router-redux": "npm:react-router-redux@3.0.0",
     "redux": "npm:redux@3.3.1",
     "redux-form": "npm:redux-form@4.2.2",
+    "redux-saga": "npm:redux-saga@0.9.5",
     "redux-thunk": "npm:redux-thunk@1.0.3",
     "theron": "npm:theron@0.1.3",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -383,6 +385,10 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "source-map": "npm:source-map@0.1.31"
     },
+    "npm:jwt-decode@2.0.1": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
     "npm:lodash@4.8.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -534,6 +540,9 @@ System.config({
       "react-lazy-cache": "npm:react-lazy-cache@3.0.1",
       "react-redux": "npm:react-redux@4.4.1",
       "redux": "npm:redux@3.3.1"
+    },
+    "npm:redux-saga@0.9.5": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:redux@3.3.1": {
       "lodash": "npm:lodash@4.8.2",
