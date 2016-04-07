@@ -2,8 +2,8 @@
 .env
 .npm
 .tmp
-dist
-jspm_packages
-node_modules
-typings
+/dist
+/jspm_packages
+/node_modules
+/typings
 npm-debug.log
