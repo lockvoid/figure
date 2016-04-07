@@ -1,3 +1,13 @@
+@keyframes fader {
+  0%, 100% {
+    color: $color-observe;
+  }
+
+  50% {
+    color: color(white b(40%));
+  }
+}
+
 html {
   box-sizing: border-box !important;
   font-size: 62.5%;
@@ -5,12 +15,16 @@ html {
 }
 
 body {
-  color: color(black w(25%));
+  color: color(black w(10%));
   font-family: OpenSans, $fonts;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.5;
   margin: 0;
+}
+
+body.app {
+  background-color: color(white b(5%));
 }
 
 *, *:before, *:after {
@@ -23,7 +37,7 @@ h1, h2, h3, h4, h5, h6, address {
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 300;
 }
 
@@ -46,7 +60,7 @@ a {
   text-decoration: none;
 
   &:hover {
-    color: $color-figure;
+    color: $color-primary;
     cursor: pointer;
   }
 
@@ -80,7 +94,7 @@ b {
 
 pre, code {
   background-color: white;
-  border-radius: 3px;
+  border-radius: 2px;
   font-family:  Consolas, Menlo, Monaco,"Courier New", monospace;
   font-size: 12px;
   overflow-x: auto;
@@ -98,11 +112,35 @@ code {
   white-space: nowrap;
 }
 
+iframe {
+  border: 0;
+}
 
-input[type="text"], input[type="search"] {
+wrapper {
+  display: block;
+}
+
+figure.video {
+  height: 0;
+  margin: 0;
+  padding-bottom: 56.25%;
+  position: relative;
+
+  iframe {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+input[type="text"], input[type="search"], input[type="email"], input[type="password"] {
   -webkit-appearance: textfield;
+  border: 0;
+  font-family: OpenSans, $fonts;
   font-size: 16px;
-  padding: 0 10px;
+  padding: 0;
 
   &:focus {
     outline: none;
@@ -115,87 +153,163 @@ input[type="text"], input[type="search"] {
 
 input[type="button"], button, a.button {
   border: 0;
+  font-family: OpenSans, $fonts;
   padding: 0;
-  transition: color .1s;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  min-width: 90px;
+  padding: 0px 13px;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 2px;
 
   &:focus {
     outline: none;
   }
 
-  &:not(.reset) {
-    background-color: $color-figure;
-    border-radius: 3px;
-    color: color(white a(0.8));
-    cursor: pointer;
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    min-width: 90px;
-    padding: 10px 13px;
-    text-align: center;
+  &.justify {
+    width: 100%;
+  }
+
+  &.end {
+    margin-left: auto;
+  }
+
+  &.raised {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    color: color(white a(0.85));
+    transition: color .1s;
 
     &:hover {
       color: white;
     }
 
     &:active, &:active:hover {
-      background-color: color($color-figure l(-5%));
-      color: color(white a(0.8));
+      color: color(white a(0.85));
       transition: none;
+    }
+
+    &.primary {
+      background-color: $color-primary;
+
+      &:active, &:active:hover {
+        background-color: color($color-primary l(-5%));
+      }
+    }
+
+    spinner div {
+      background-color: white;
+    }
+  }
+
+  &.flat {
+    background-color: transparent;
+    transition: background-color .1s;
+    border: 2px solid color(white b(20));
+
+    &:hover {
+      background-color: color(white b(20));
+    }
+
+    &:active, &:active:hover {
+      background-color: color(white b(25));
+      border-color: color(white b(25));
+      transition: none;
+    }
+
+    &.danger {
+      color: $color-failure;
     }
   }
 }
 
-form.classic {
-  label.field {
-    display: block;
-    max-width: 500px;
+form.default {
+  max-width: 600px;
 
-    label {
-      color: color(white b(90%));
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      margin: 16px 0px 0px;
-      pointer-events: none;
-      text-transform: uppercase;
+  div.alert {
+    border-radius: 2px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px;
+    text-align: center;
+
+    &.failure {
+      background-color: $color-failure;
     }
 
-    input[type="text"] {
-      border: 0;
-      border-bottom: 1px solid color(white b(20%));
-      background: transparent;
-      margin-bottom: 8px;
-      padding: 8px 0px;
-      width: 100%;
+    &.warning {
+      background-color: $color-warning;
+    }
 
-      &:focus {
-        border-bottom: 2px solid $color-figure;
-        margin-bottom: 7px;
+    & + label.field {
+      margin-top: 40px;
+    }
+  }
+
+  label.field, div.field {
+    display: block;
+
+    & + label.field {
+      margin-top: 18px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+      background-color: white;
+      border-radius: 2px;
+      border: 1px solid color(white b(20));
+      height: 40px;
+      padding: 0 10px;
+      width: 100%;
+    }
+
+    div.title {
+      color: color(white b(90%));
+      display: flex;
+      font-size: 13px;
+      font-weight: 500;
+      height: 16px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+
+      span.async {
+        color: $color-observe;
+        margin-left: auto;
+        animation: fader 2s infinite linear both;
       }
+    }
+
+    div.error, div.hint {
+      font-size: 13px;
+      line-height: 18px;
+      margin-top: 8px;
+      min-height: 18px;
+    }
+
+    div.error {
+      color: $color-failure;
     }
 
     div.hint {
       color: color(white b(90%));
-      font-size: 12px;
-      line-height: 17px;
-      min-height: 17px;
     }
 
-    div.error {
-      color: $color-invalid;
-      font-size: 12px;
-      line-height: 17px;
-      min-height: 17px;
+    &.focused {
+      div.title {
+        color: $color-primary;
+      }
     }
 
     &.invalid {
-      label {
-        color: $color-invalid;
+      div.title {
+        color: $color-failure;
       }
 
-      input[type="text"] {
-        border-bottom-color: $color-invalid;
+      input[type="text"], input[type="email"], input[type="password"] {
+        border-color: $color-failure;
       }
     }
   }
@@ -203,12 +317,13 @@ form.classic {
   label.field div.checkbox {
     align-items: center;
     display: flex;
-    margin: 16px 0px 8px;
+    margin-bottom: 6px;
     pointer-events: none;
     position: relative;
 
-    label {
+    div.title {
       margin: 0 0 0 8px;
+      color: color(white b(90%));
     }
 
     i {
@@ -236,15 +351,14 @@ form.classic {
     }
 
     &.checked i {
-      background-color: $color-figure;
-      border-color: $color-figure;
-  color: color(white a(0.8));
+      background-color: $color-primary;
+      border-color: $color-primary;
+      color: color(white a(0.8));
     }
   }
 
   div.buttons {
     display: flex;
-    margin-top: 16px;
-    max-width: 500px;
+    margin-top: 18px;
   }
 }
