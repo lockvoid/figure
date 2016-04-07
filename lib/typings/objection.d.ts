@@ -8,7 +8,7 @@ declare module "objection" {
         skipValidation: boolean;
     }
 
-    export interface ValidationError {
+    export class ValidationError {
         statusCode: number;
         data: any;
         new (...args);
@@ -100,13 +100,13 @@ declare module "objection" {
 
         $traverse(...args);
 
-        $beforeInsert(queryContext: Object): Promise<any>;
+        $beforeInsert(queryContext: Object): Promise<any> | void;
 
-        $afterInsert(queryContext: Object): Promise<any>;
+        $afterInsert(queryContext: Object): Promise<any> | void;
 
-        $beforeUpdate(opt: ModelOptions, queryContext: Object): Promise<any>;
+        $beforeUpdate(opt: ModelOptions, queryContext: Object): Promise<any> | void;
 
-        $afterUpdate(opt: ModelOptions, queryContext: Object): Promise<any>;
+        $afterUpdate(opt: ModelOptions, queryContext: Object): Promise<any> | void;
 
     }
 
@@ -157,6 +157,9 @@ declare module "objection" {
         orWhereJsonEquals(fieldExpression: any, jsonObjectOrFieldExpression: any): QueryBuilder;
 
         whereJsonNotEquals(fieldExpression: any, jsonObjectOrFieldExpression: any): QueryBuilder;
+
+        where(...args: any[]): QueryBuilder;
+        whereNot(...args: any[]): QueryBuilder;
 
         orWhereJsonNotEquals(fieldExpression: any, jsonObjectOrFieldExpression: any): QueryBuilder;
 

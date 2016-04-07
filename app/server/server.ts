@@ -5,9 +5,16 @@ import * as ReactDOM from 'react-dom/server';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
+import * as jwt from 'jsonwebtoken';
 import * as Firebase from 'firebase';
 import * as request from 'request';
 import * as crypto from 'crypto';
+
+import { ValidationError } from 'objection';
+import { UserRecord } from './models';
+import { BaseError } from '../../lib/errors/base_error';
+import { api } from './routes/api';
+import { wrap } from './utils/wrap_async';
 
 import { parseFields } from './lib/parse_fiels';
 import { firebase } from './lib/firebase_ref';
@@ -16,8 +23,6 @@ import { SubmissionMailer } from './lib/submission_mailer';
 import { FormRecord } from '../../lib/models/form';
 import { SubmissionRecord } from '../../lib/models/submission';
 import { WebhookRecord } from '../../lib/models/webhook';
-
-import '../../lib/polyfills';
 
 export const app = express();
 
@@ -29,6 +34,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Parse cookies
 
 app.use(cookieParser())
+
+// JWT-based auth
+
+app.use(wrap(async (req, res, next) => {
+  const token = req.body.token || req.query.token || req.headers['X-JWT-Token'.toLowerCase()];
+
+  if (token) {
+    try {
+      const auth = jwt.verify(token, process.env['JWT_SECRET']);
+
+      req.currentUser = await UserRecord.query().where('id', auth.userId).first();
+    } catch(error) {
+      if (error.name !== 'JsonWebTokenError' && error.name !== 'TokenExpiredError') {
+        return next(error);
+      }
+    }
+  }
+
+  next();
+}));
 
 // Configure views
 
@@ -76,6 +101,8 @@ app.use((req, res, next) => {
 });
 
 // Mount routes
+
+app.use('/api', api);
 
 app.post('/f/:formId', ({ params: { formId }, body }, res) => {
   const onError = (error: any) => {
@@ -177,10 +204,24 @@ app.get('/submissions/track/:keys.gif', ({ params, body }, res) => {
   res.end(image, 'binary');
 });
 
+// Error handler
+
+app.use(<express.ErrorRequestHandler>((err, req, res, next) => {
+  if (err instanceof BaseError) {
+    return res.status(err.code).json({ reason: err.message });
+  }
+
+  if (err instanceof ValidationError) {
+    return res.status(400).json({ reason: JSON.parse(err.message) });
+  }
+
+  next(err);
+}));
+
 // Render pages
 
 app.get('/home', (req, res) => {
-  res.render('home');
+  res.render('home', { isAuth: req.cookies.theronAuth === 'true' });
 });
 
 app.get('/thankyou', (req, res) => {

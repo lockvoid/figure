@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { assetPath } from '../../lib/asset_path';
+import { assetPath } from '../../utils/asset_path';
 
 export const Page = ({ title = null, children = null, className = null }) => (
   <html>

@@ -17,11 +17,13 @@
     "typings"
   ],
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.3",
     "firebase": "^2.3.2",
     "immutable": "^3.7.6",
+    "jsonwebtoken": "^5.7.0",
     "jspm": "^0.16.32",
     "knex": "^0.10.0",
     "nodemailer": "^2.0.0",

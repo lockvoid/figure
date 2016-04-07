@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Page } from './layouts/page';
-import { assetPath } from '../lib/asset_path';
+import { assetPath } from '../utils/asset_path';
 import { AppSpinner } from '../../../lib/components/app_spinner';
 
 const Boot = () => {
