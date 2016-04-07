@@ -6,7 +6,7 @@ const http = require('http');
 
 const server = require('../dist/server/app/server/server');
 
-// require('../dist/server/app/server/database');
+require('../dist/server/app/server/database');
 
 // Bootstrap internal services
 
