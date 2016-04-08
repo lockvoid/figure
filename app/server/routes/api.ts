@@ -1,5 +1,6 @@
 import * as express from 'express';
 
+import { Theron } from 'theron';
 import { UserRecord } from '../models';
 import { AuthError, NotFoundError } from '../lib/errors';
 import { wrap } from '../utils/wrap_async';
@@ -37,4 +38,29 @@ api.use((req, res, next) => {
   }
 
   next(new AuthError(401, 'Failed to authenticate token'));
+});
+
+api.post('/forms', wrap(async ({ currentUser, body }, res, next) => {
+  const form = await currentUser.$relatedQuery('forms').insert(body);
+
+  res.json({ id: form.id });
+}));
+
+api.patch('/forms/:formId', wrap(async ({ currentUser, params, body }, res, next) => {
+  const form = await currentUser.$relatedQuery('forms').patchAndFetchById(params.formId, body);
+
+  res.json({});
+}));
+
+api.delete('/forms/:formId', wrap(async ({ currentUser, params }, res, next) => {
+  const form = await currentUser.$relatedQuery('forms').delete().where('id', params.formId);
+
+  res.json({});
+}));
+
+api.get('/forms', ({ currentUser }, res) => {
+  const queryText = currentUser.$relatedQuery('forms').orderBy('name').toString();
+  const querySignature = Theron.sign(queryText, process.env['THERON_SECRET']);
+
+  res.json({ queryText, querySignature });
 });
