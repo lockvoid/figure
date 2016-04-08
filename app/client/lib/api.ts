@@ -21,6 +21,18 @@ export class Api {
     return fetch(`/api/users/email/${email}/uniqueness?id=${id}`).then(Api.checkStatus).then(Api.parseResponse);
   }
 
+  createForm(payload): Promise<any> {
+    return fetch('/api/forms', { method: 'POST', headers: this._headers, body: Api.stringify(payload) }).then(Api.checkStatus).then(Api.parseResponse);
+  }
+
+  updateForm(id, payload): Promise<any> {
+    return fetch(`/api/forms/${id}`, { method: 'PATCH', headers: this._headers, body: Api.stringify(payload) }).then(Api.checkStatus).then(Api.parseResponse);
+  }
+
+  deleteForm(id): Promise<any> {
+    return fetch(`/api/forms/${id}`, { method: 'DELETE', headers: this._headers }).then(Api.checkStatus).then(Api.parseResponse);
+  }
+
   static async checkStatus(res) {
     if (res.status >= 200 && res.status < 300) {
       return res;
