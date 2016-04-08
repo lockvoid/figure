@@ -294,7 +294,7 @@ form.default {
     }
 
     div.hint {
-      color: color(white b(90%));
+      color: color(black w(40%));
     }
 
     &.focused {
@@ -322,8 +322,9 @@ form.default {
     position: relative;
 
     div.title {
-      margin: 0 0 0 8px;
       color: color(white b(90%));
+      height: 17px;
+      margin: 0 0 0 8px;
     }
 
     i {

@@ -222,18 +222,24 @@ app div.signin, app div.signup {
   }
 }
 
-div.form {
+app div.forms {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-div.form.show {
+app div.forms.new, app div.forms.edit {
+  form {
+    padding: 40px;
+  }
+}
+
+app div.forms.dashboard {
   display: flex;
   flex-direction: column;
   flex: 1;
 
-  nav.dashboard {
+  & > nav {
     background-color: white;
     border-bottom: 2px solid color(white b(5%));
     padding: 0 20px;
@@ -241,7 +247,7 @@ div.form.show {
     ul {
       align-items: center;
       display: flex;
-      height: 65px;
+      height: 63px;
 
       li {
         margin: 0 20px;
@@ -276,6 +282,7 @@ div.form.show {
     }
   }
 }
+
 
 @keyframes fader {
   0%, 100% {
@@ -427,25 +434,6 @@ div.form.submissions {
         margin-top: 10px;
       }
     }
-  }
-}
-
-div.form.new {
-  display: block;
-  overflow: auto;
-
-  header.main {
-    background-color: white;
-    padding: 25px 40px 30px 40px;
-
-    h1 {
-      color: $color-primary;
-      margin-bottom: 8px;
-    }
-  }
-
-  form {
-    margin: 40px;
   }
 }
 
