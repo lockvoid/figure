@@ -10,6 +10,10 @@ export const LOGOUT = 'TN:REQUEST_LOGOUT';
 export const LOGOUT_SUCCESS = 'TN:LOGOUT_SUCCESS';
 export const AUTH_TOKEN_KEY = 'TN:AUTH_TOKEN_KEY';
 
+export const REDIRECT_TO_FIRST_FORM = 'TN:REDIRECT_TO_FIRST_FORM';
+export const CREATE_FORM = 'TN:CREATE_FORM';
+export const UPDATE_FORM = 'TN:UPDATE_FORM';
+export const DELETE_FORM = 'TN:DELETE_FORM';
 export const WATCH_FORMS = 'TN:WATCH_FORMS';
 export const UNWATCH_FORMS = 'TN:UNWATCH_FORMS';
 
@@ -43,6 +47,22 @@ export function logout() {
 
 export function logoutSuccess(performRedirect: boolean) {
   return { type: LOGOUT_SUCCESS, performRedirect };
+}
+
+export function redirectToFirstForm() {
+  return { type: REDIRECT_TO_FIRST_FORM };
+}
+
+export function createForm(payload, resolve, reject) {
+  return { type: CREATE_FORM, payload, resolve, reject };
+}
+
+export function updateForm(id, payload, resolve, reject) {
+  return { type: UPDATE_FORM, id, payload, resolve, reject };
+}
+
+export function deleteForm(id: number) {
+  return { type: DELETE_FORM, id };
 }
 
 export function watchForms() {

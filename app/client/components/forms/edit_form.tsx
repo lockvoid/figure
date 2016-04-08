@@ -1,90 +1,81 @@
 import * as React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { FORM_INITIAL_VALUES, updateForm, removeFormAndRedirect } from '../../actions/forms';
+
+import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
-import { FormAttrs } from '../../../../lib/models/form.ts';
-import { findForm } from '../../reducers/forms';
-import { FieldBox } from '../shared/field_box';
-import { CheckboxField } from '../shared/checkbox_field';
+import { updateForm, deleteForm } from '../../actions/index';
+import { FieldBox } from '../shared/fieldbox';
+import { NotFound } from '../shared/not_found';
+import { SubmitButton } from '../shared/submit_button';
+import { Checkbox } from '../shared/checkbox';
 
 const formConfig = {
   form: 'form',
-  fields: ['name', 'redirectTo', 'notifyMe'],
+
+  fields: [
+    'name', 'redirect_to', 'notify_me'
+  ],
 
   validate: combineValidators({
-    name: [requiredValidator],
+    name: [
+      requiredValidator
+    ],
   }),
 }
 
-const stateToProps = (state, props) => {
-  let currentFormId = props.params.formId;
-  let initialValues = Object.assign({}, FORM_INITIAL_VALUES, findForm(state.forms, currentFormId));
+const mapStateToProps: MapStateToProps = ({ auth: { api }, forms }, { params }) => {
+  const form = forms.rows.find(form => form.id === params.formId);
 
-  return { currentFormId, initialValues };
+  return { api, initialValues: form };
 }
 
-const dispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => {
   return {
-    onUpdate: (id: string, attrs: FormAttrs) => {
-      dispatch(updateForm(id, attrs));
-    },
+    onSubmit: (payload) => new Promise((resolve, reject) => {
+      dispatch(updateForm(params.formId, payload, resolve, reject))
+    }),
 
-    onRemove: (id: string) => {
+    onDelete: () => {
       if (window.confirm("Do you really want to delete?")) {
-        dispatch(removeFormAndRedirect(id));
+        dispatch(deleteForm(params.formId));
       }
     },
   }
 }
 
-@reduxForm(formConfig, stateToProps, dispatchToProps)
+@reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
 export class EditForm extends React.Component<any, any> {
-  context: any;
-
-  static contextTypes: React.ValidationMap<any> = {
-    router: React.PropTypes.object.isRequired
-  }
-
-  componentDidMount() {
-    this.context.router.setRouteLeaveHook(this.props.route, this.routerWillLeave.bind(this));
-  }
-
-  routerWillLeave(route) {
-    if (this.props.dirty && !window.confirm("You have unsaved changed. Do you really want to leave?")) {
-      return false;
-    }
-  }
-
   render() {
-    const { fields: { name, redirectTo, notifyMe }, currentFormId, onUpdate, onRemove, handleSubmit } = this.props;
+    const { fields: { name, redirect_to, notify_me }, handleSubmit, onDelete, submitting, error } = this.props;
 
+    console.log(this.props);
     return (
-      <div className="form edit">
-        <h1>Edit Form</h1>
+      <div className="forms edit">
+        <wrapper>
+          <form className="default" onSubmit={handleSubmit}>
+            {error && !submitting && <div className="alert failure">{error}</div>}
 
-        <form className="classic" onSubmit={handleSubmit((attrs: FormAttrs) => onUpdate(currentFormId, attrs))}>
-          <FieldBox {...name}>
-            <label>Form Name</label>
-            <input type="text" {...name} />
-          </FieldBox>
+            <FieldBox {...name}>
+              <div className="title">Form Name</div>
+              <input type="text" {...name} />
+            </FieldBox>
 
-          <FieldBox {...redirectTo}>
-            <label>Redirect Url</label>
-            <input type="text" placeholder="http://example.com/thankyou" {...redirectTo} />
-          </FieldBox>
+            <FieldBox {...redirect_to}>
+              <div className="title">Redirect Url</div>
+              <input type="text" {...redirect_to} placeholder="https://figure-app.com/thankyou" />
+            </FieldBox>
 
-          <FieldBox {...notifyMe}>
-            <CheckboxField {...notifyMe}>Notify me?</CheckboxField>
-            <div className="hint">Send email notifications on a new submission</div>
-          </FieldBox>
+            <FieldBox {...notify_me}>
+              <Checkbox {...notify_me}>Notify Me?</Checkbox>
+              <div className="hint">Send a notification on a new submission.</div>
+            </FieldBox>
 
-          <div className="buttons">
-            <button type="submit">Update Form</button>
-            <button type="button" className="delete" onClick={() => onRemove(currentFormId)}>Remove</button>
-          </div>
-       </form>
+            <div className="buttons">
+              <SubmitButton title="Update" submitting={submitting} />
+              <button type="button" className="flat danger end" onClick={onDelete}>Delete</button>
+            </div>
+          </form>
+        </wrapper>
       </div>
     );
   }

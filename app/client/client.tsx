@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { AppHome, AppMain, AppSignin, AppSignup, AppLogout, AppProtected } from './components/shared/index';
+import { RedirectToFirstForm, FormDashboard, NewForm, EditForm } from './components/forms/index';
 import { configureStore } from './store/configure_store';
 import { auth } from './services/index';
 
@@ -20,7 +21,17 @@ const entry = (
         <Route component={AppProtected} onEnter={auth.canActivate(store, { authRequired: true })}>
           <IndexRedirect to="/forms" />
 
-          <Route path="forms" component={AppHome} />
+          <Route path="forms">
+            <IndexRoute component={RedirectToFirstForm} />
+
+            <Route path="new" component={NewForm} />
+
+            <Route path=":formId" component={FormDashboard}>
+              <IndexRedirect to="edit" />
+
+              <Route path="edit" component={EditForm} />
+            </Route>
+          </Route>
         </Route>
       </Route>
     </Router>

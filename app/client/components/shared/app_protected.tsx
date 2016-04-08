@@ -27,9 +27,9 @@ export class AppProtected extends React.Component<any, any> {
   render() {
     let { children, forms } = this.props;
 
-    // if (!forms.meta.initialized) {
-    //   return <AppSpinner />;
-    // }
+    if (!forms.meta.initialized) {
+      return <AppSpinner />;
+    }
 
     return (
       <div className="protected">

@@ -4,9 +4,7 @@ import { Link } from 'react-router';
 
 export class AppHeader extends React.Component<any, any> {
   render() {
-    // const { forms } = this.props;
-
-    var forms = { rows: [] };
+    const { forms } = this.props;
 
     return (
       <header className="primary">
