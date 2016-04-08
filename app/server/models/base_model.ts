@@ -1,6 +1,6 @@
 import { Model } from 'objection';
 
-export class BaseModel extends Model {
+export abstract class BaseModel extends Model {
   $beforeInsert(context) {
     super.$beforeInsert(context);
 

@@ -41,6 +41,18 @@ export class UserRecord extends BaseModel {
     }
   }
 
+  static get relationMappings() {
+    return {
+      forms: {
+        relation: Model.OneToManyRelation, modelClass: require('./form').FormRecord,
+
+        join: {
+          from: 'users.id', to: 'forms.user_id'
+        },
+      },
+    }
+  }
+
   static async auth(email: string = '', password: string = ''): Promise<any> {
     let user = await UserRecord.query().where('email', email).first();
 

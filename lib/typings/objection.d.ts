@@ -26,6 +26,9 @@ declare module "objection" {
         static QueryBuilder: any;
         static RelatedQueryBuilder: any;
 
+        static OneToOneRelation: Function;
+        static OneToManyRelation: Function;
+
         static query(): QueryBuilder;
 
         static knex(instance: knex): knex;
