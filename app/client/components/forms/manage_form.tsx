@@ -44,7 +44,7 @@ const mapStateToProps: MapStateToProps = ({ forms }, { params }) => {
 }
 
 @connect(mapStateToProps)
-export class FormDashboard extends React.Component<any, any> {
+export class ManageForm extends React.Component<any, any> {
   render() {
     const { form, children } = this.props;
 
