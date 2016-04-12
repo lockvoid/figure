@@ -1,7 +1,7 @@
 import * as express from 'express';
 
 import { Theron } from 'theron';
-import { UserRecord } from '../models';
+import { UserRecord, FormRecord, SubmissionRecord } from '../models';
 import { AuthError, NotFoundError } from '../lib/errors';
 import { wrap } from '../utils/wrap_async';
 import { signUser } from '../utils/sign_user';
@@ -59,7 +59,8 @@ api.delete('/forms/:formId', wrap(async ({ currentUser, params }, res, next) => 
 }));
 
 api.get('/forms', ({ currentUser }, res) => {
-  const queryText = currentUser.$relatedQuery('forms').orderBy('name').toString();
+  const submissionsCount = SubmissionRecord.query().whereRef('forms.id', '=', 'submissions.form_id').count().as('submissions_count');
+  const queryText = currentUser.$relatedQuery('forms').select('*', submissionsCount).orderBy('name').toString();
   const querySignature = Theron.sign(queryText, process.env['THERON_SECRET']);
 
   res.json({ queryText, querySignature });
