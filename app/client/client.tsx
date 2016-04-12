@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { AppHome, AppMain, AppSignin, AppSignup, AppLogout, AppProtected } from './components/shared/index';
-import { RedirectToFirstForm, FormDashboard, NewForm, EditForm } from './components/forms/index';
+import { RedirectToFirstForm, FormDashboard, NewForm, EditForm, SetupForm } from './components/forms/index';
 import { configureStore } from './store/configure_store';
 import { auth } from './services/index';
 
@@ -30,6 +30,7 @@ const entry = (
               <IndexRedirect to="edit" />
 
               <Route path="edit" component={EditForm} />
+              <Route path="setup" component={SetupForm} />
             </Route>
           </Route>
         </Route>

@@ -48,7 +48,6 @@ export class EditForm extends React.Component<any, any> {
   render() {
     const { fields: { name, redirect_to, notify_me }, handleSubmit, onDelete, submitting, error } = this.props;
 
-    console.log(this.props);
     return (
       <div className="forms edit">
         <wrapper>
