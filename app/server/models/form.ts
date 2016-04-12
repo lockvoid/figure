@@ -56,6 +56,14 @@ export class FormRecord extends BaseModel {
           from: 'forms.user_id', to: 'users.id',
         },
       },
+
+      submissions: {
+        relation: Model.OneToManyRelation, modelClass: require('./submission').SubmissionRecord,
+
+        join: {
+          from: 'forms.id', to: 'submissions.form_id'
+        },
+      },
     }
   }
 

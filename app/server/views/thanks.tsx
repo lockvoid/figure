@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Page } from './layouts/page';
 
-export default class Thankyou extends React.Component<{}, {}> {
+export default class Thanks extends React.Component<{}, {}> {
   render() {
     return (
       <Page className="thankyou">
