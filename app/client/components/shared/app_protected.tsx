@@ -3,24 +3,28 @@ import * as React from 'react';
 import { connect, MapStateToProps, MapDispatchToPropsObject } from 'react-redux';
 import { AppHeader } from './app_header';
 import { AppSpinner } from '../../../../lib/components/app_spinner';
-import { watchForms, unwatchForms } from '../../actions/index';
+import { streamForms, unsubscribeForms } from '../../actions/index';
 
 const mapStateToProps: MapStateToProps = (state) => {
   return state;
 }
 
 const mapDispatchToProps: MapDispatchToPropsObject = {
-  watchForms, unwatchForms
+  streamForms, unsubscribeForms
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 export class AppProtected extends React.Component<any, any> {
   componentWillMount() {
-    this.props.watchForms();
+    const { streamForms } = this.props;
+
+    streamForms();
   }
 
   componentWillUnmount() {
-    this.props.unwatchForms();
+    const { unsubscribe } = this.props;
+
+    unsubscribeForms();
   }
 
   render() {

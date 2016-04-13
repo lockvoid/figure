@@ -2,7 +2,7 @@ import { routeActions } from 'react-router-redux';
 import { take, race, call, put, fork, select } from 'redux-saga/effects';
 import { Theron, ROW_ADDED, ROW_CHANGED, ROW_REMOVED } from 'theron';
 import { wrapObservable } from '../utils/wrap_observable';
-import { REDIRECT_TO_FIRST_FORM, CREATE_FORM, UPDATE_FORM, DELETE_FORM, WATCH_FORMS, UNWATCH_FORMS } from '../actions/index';
+import { REDIRECT_TO_FIRST_FORM, CREATE_FORM, UPDATE_FORM, DELETE_FORM, STREAM_FORMS, UNSUBSCRIBE_FORMS } from '../actions/index';
 
 function* watchCreate() {
   while (true) {
@@ -72,7 +72,7 @@ function* watchDelete() {
   }
 }
 
-function* indexRedirect() {
+function* watchIndexRedirect() {
   while (true) {
     yield take(REDIRECT_TO_FIRST_FORM);
 
@@ -90,13 +90,13 @@ function* indexRedirect() {
 
 function* streamForms() {
   while (true) {
-    yield take(WATCH_FORMS);
+    yield take(STREAM_FORMS);
 
     const { theron } = yield select();
 
     try {
       for (let next of wrapObservable(theron.ref.watch('/api/forms'))) {
-        const { action } = yield race({ action: next, overwise: take(UNWATCH_FORMS) });
+        const { action } = yield race({ action: next, overwise: take(UNSUBSCRIBE_FORMS) });
 
         if (action) {
           yield put(Object.assign({}, action, { query: 'FORMS' }));
@@ -115,7 +115,7 @@ export function* formsFlow() {
     fork(watchCreate),
     fork(watchUpdate),
     fork(watchDelete),
-    fork(indexRedirect),
+    fork(watchIndexRedirect),
     fork(streamForms),
   ]
 }

@@ -1,26 +1,26 @@
 import { AuthToken } from '../lib/auth_token';
 
-export const SIGNIN = 'TN:REQUEST_SIGNIN';
-export const SIGNIN_SUCCESS = 'TN:SIGNIN_SUCCESS';
-export const SIGNIN_FAILURE = 'TN:SIGNIN_FAILURE';
-export const SIGNUP = 'TN:REQUEST_SIGNUP';
-export const SIGNUP_SUCCESS = 'TN:SIGNUP_SUCCESS';
-export const SIGNUP_FAILURE = 'TN:SIGNUP_FAILURE';
-export const LOGOUT = 'TN:REQUEST_LOGOUT';
-export const LOGOUT_SUCCESS = 'TN:LOGOUT_SUCCESS';
-export const AUTH_TOKEN_KEY = 'TN:AUTH_TOKEN_KEY';
+export const SIGNIN = 'FG:REQUEST_SIGNIN';
+export const SIGNIN_SUCCESS = 'FG:SIGNIN_SUCCESS';
+export const SIGNIN_FAILURE = 'FG:SIGNIN_FAILURE';
+export const SIGNUP = 'FG:REQUEST_SIGNUP';
+export const SIGNUP_SUCCESS = 'FG:SIGNUP_SUCCESS';
+export const SIGNUP_FAILURE = 'FG:SIGNUP_FAILURE';
+export const LOGOUT = 'FG:REQUEST_LOGOUT';
+export const LOGOUT_SUCCESS = 'FG:LOGOUT_SUCCESS';
+export const AUTH_TOKEN_KEY = 'FG:AUTH_TOKEN_KEY';
 
-export const REDIRECT_TO_FIRST_FORM = 'TN:REDIRECT_TO_FIRST_FORM';
-export const CREATE_FORM = 'TN:CREATE_FORM';
-export const UPDATE_FORM = 'TN:UPDATE_FORM';
-export const DELETE_FORM = 'TN:DELETE_FORM';
-export const WATCH_FORMS = 'TN:WATCH_FORMS';
-export const UNWATCH_FORMS = 'TN:UNWATCH_FORMS';
+export const REDIRECT_TO_FIRST_FORM = 'FG:REDIRECT_TO_FIRST_FORM';
+export const CREATE_FORM = 'FG:CREATE_FORM';
+export const UPDATE_FORM = 'FG:UPDATE_FORM';
+export const DELETE_FORM = 'FG:DELETE_FORM';
+export const STREAM_FORMS = 'FG:STREAM_FORMS';
+export const UNSUBSCRIBE_FORMS = 'FG:UNSUBSCRIBE_FORMS';
 
-export const REDIRECT_TO_FIRST_SUBMISSION = 'TN:REDIRECT_TO_FIRST_SUBMISSION';
-export const DELETE_SUBMISSION = 'TN:DELETE_SUBMISSIONS';
-export const STREAM_SUBMISSIONS = 'TN:STREAM_SUBMISSIONS';
-export const UNSUBSCRIBE_SUBMISSIONS = 'TN:UNSUBSCRIBE_SUBMISSIONS';
+export const REDIRECT_TO_FIRST_SUBMISSION = 'FG:REDIRECT_TO_FIRST_SUBMISSION';
+export const DELETE_SUBMISSION = 'FG:DELETE_SUBMISSIONS';
+export const STREAM_SUBMISSIONS = 'FG:STREAM_SUBMISSIONS';
+export const UNSUBSCRIBE_SUBMISSIONS = 'FG:UNSUBSCRIBE_SUBMISSIONS';
 
 // Auth
 
@@ -74,12 +74,12 @@ export function deleteForm(id: number) {
   return { type: DELETE_FORM, id };
 }
 
-export function watchForms() {
-  return { type: WATCH_FORMS };
+export function streamForms() {
+  return { type: STREAM_FORMS };
 }
 
-export function unwatchForms() {
-  return { type: UNWATCH_FORMS };
+export function unsubscribeForms() {
+  return { type: UNSUBSCRIBE_FORMS };
 }
 
 // Submissions
