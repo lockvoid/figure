@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { AppHome, AppMain, AppSignin, AppSignup, AppLogout, AppProtected } from './components/shared/index';
+import { AppHome, AppMain, AppSignin, AppSignup, AppLogout, AppProtected, NotFound } from './components/shared/index';
 import { RedirectToFirstForm, RedirectToSubmissions, ManageForm, NewForm, EditForm, SetupForm } from './components/forms/index';
 import { SubmissionsDashboard, ShowSubmission } from './components/submissions/index';
 import { configureStore } from './store/configure_store';
@@ -38,6 +38,8 @@ const entry = (
               </Route>
             </Route>
           </Route>
+
+          <Route path="*" component={NotFound} />
         </Route>
       </Route>
     </Router>
