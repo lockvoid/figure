@@ -96,7 +96,7 @@ pre, code {
   background-color: white;
   border-radius: 2px;
   font-family:  Consolas, Menlo, Monaco,"Courier New", monospace;
-  font-size: 12px;
+  font-size: 13px;
   overflow-x: auto;
 }
 
@@ -279,7 +279,6 @@ form.default {
       span.async {
         color: $color-observe;
         margin-left: auto;
-        animation: fader 2s infinite linear both;
       }
     }
 

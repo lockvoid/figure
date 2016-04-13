@@ -8,6 +8,16 @@
   }
 }
 
+@keyframes fader {
+  0%, 100% {
+    color: color(white b(40%));
+  }
+
+  50% {
+    color: $color-primary;
+  }
+}
+
 body.app {
   height: 100%;
 }
@@ -176,6 +186,8 @@ app div.protected {
   }
 }
 
+/* Auth */
+
 app div.signin, app div.signup {
   margin: auto;
   max-width: 370px;
@@ -228,16 +240,12 @@ app div.signin, app div.signup {
   }
 }
 
+/* Forms */
+
 app div.forms {
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-
-app div.forms.new, app div.forms.edit {
-  form {
-    padding: 40px;
-  }
 }
 
 app div.forms.dashboard {
@@ -289,14 +297,32 @@ app div.forms.dashboard {
   }
 }
 
+app div.forms.new {
+  form {
+    padding: 40px;
+  }
+}
 
-@keyframes fader {
-  0%, 100% {
-    color: color(white b(40%));
+app div.forms.edit {
+  form {
+    padding: 40px;
+  }
+}
+
+app div.forms.setup {
+  wrapper {
+    max-width: 900px;
+    padding: 40px 40px 15px;
   }
 
-  50% {
-    color: $color-primary;
+  h2 {
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.6;
   }
 }
 
@@ -414,142 +440,6 @@ app div.submissions.dashboard {
         display: block;
         font-size: 15px;
         margin-top: 10px;
-      }
-    }
-  }
-}
-
-div.form.edit {
-  padding: 40px 40px 0 40px;
-
-  form {
-    margin-bottom: 40px;
-
-    div.buttons {
-      button.delete {
-        background-color: transparent;
-        border: 2px solid color(white b(25%));
-        color: color(black w(70%));
-        margin-left: auto;
-        padding: 8px 10px;
-        transition: none;
-
-        &:hover {
-          background-color: color(white b(25%));
-          color: white;
-        }
-      }
-    }
-  }
-}
-
-div.form.setup {
-  display: block;
-
-  article.page {
-    max-width: 700px;
-    padding: 40px 40px 15px;
-  }
-
-  h2 {
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-
-  p {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-}
-
-
-div.form.webhooks {
-  padding: 40px 40px 0 40px;
-
-  form {
-    margin-bottom: 40px;
-
-    div.generator {
-      position: relative;
-
-      input[type="text"] {
-        padding-right: 80px;
-        font-family:  Consolas, Menlo, Monaco,"Courier New", monospace;
-        font-size: 14px;
-        line-height: 19px;
-      }
-
-      button.generate {
-        background-color: transparent;
-        color: color(black w(25%));
-        cursor: pointer;
-        font-size: 13px;
-        position: absolute;
-        right: 0px;
-        top: 8px;
-
-        &:hover {
-          color: $color-primary;
-        }
-
-        &:active, &:active:hover {
-          color: color($color-primary l(-15%));
-        }
-      }
-    }
-  }
-}
-
-div.account.edit {
-  flex-direction: column;
-  flex: 1;
-  overflow: auto;
-
-  header.main {
-    background-color: white;
-    padding: 25px 40px 25px 40px;
-
-    h1 {
-      color: $color-primary;
-    }
-  }
-
-  form.email {
-    margin: 40px;
-  }
-
-  div.api {
-    margin: 0 40px 40px;
-
-    div.secret {
-      background-color: white;
-      border-radius: 3px;
-      font-family:  Consolas, Menlo, Monaco,"Courier New", monospace;
-      font-size: 15px;
-      line-height: 18px;
-      line-height: 19px;
-      margin-top: 25px;
-      max-width: 500px;
-      padding: 8px;
-      position: relative;
-
-      button.generate {
-        background-color: transparent;
-        color: color(white b(80%));
-        cursor: pointer;
-        font-size: 13px;
-        height: 29px;
-        position: absolute;
-        right: 10px;
-        top: 2px;
-
-        &:hover {
-          color: $color-primary;
-        }
-
-        &:active, &:active:hover {
-          color: color($color-primary l(-15%));
-        }
       }
     }
   }
