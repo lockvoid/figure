@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-
 import { Provider } from 'react-redux';
 import { AppHome, AppMain, AppSignin, AppSignup, AppLogout, AppProtected } from './components/shared/index';
 import { RedirectToFirstForm, RedirectToSubmissions, ManageForm, NewForm, EditForm, SetupForm } from './components/forms/index';
+import { SubmissionsDashboard, ShowSubmission } from './components/submissions/index';
 import { configureStore } from './store/configure_store';
 import { auth } from './services/index';
 
@@ -32,7 +33,7 @@ const entry = (
               <Route path="edit" component={EditForm} />
               <Route path="setup" component={SetupForm} />
 
-              <Route path="submissions" component={Submissions}>
+              <Route path="submissions" component={SubmissionsDashboard}>
                 <Route path=":submissionId" component={ShowSubmission} />
               </Route>
             </Route>

@@ -209,6 +209,7 @@ input[type="button"], button, a.button {
     background-color: transparent;
     transition: background-color .1s;
     border: 2px solid color(white b(20));
+    color: color(white b(80));
 
     &:hover {
       background-color: color(white b(20));

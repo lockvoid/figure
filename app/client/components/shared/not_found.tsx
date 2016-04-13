@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-export const NotFound = () => (
+export const NotFound = ({ message = 'Grats. You broke it.' }) => (
   <div className="notfound">
     <h2>404</h2>
-    <h3>Perhaps head back to the app list?</h3>
+    <h3>{message}</h3>
   </div>
 )
 

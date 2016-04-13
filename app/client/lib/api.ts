@@ -33,6 +33,10 @@ export class Api {
     return fetch(`/api/forms/${id}`, { method: 'DELETE', headers: this._headers }).then(Api.checkStatus).then(Api.parseResponse);
   }
 
+  deleteSubmission(id): Promise<any> {
+    return fetch(`/api/submissions/${id}`, { method: 'DELETE', headers: this._headers }).then(Api.checkStatus).then(Api.parseResponse);
+  }
+
   static async checkStatus(res) {
     if (res.status >= 200 && res.status < 300) {
       return res;

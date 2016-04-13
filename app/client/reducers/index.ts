@@ -4,5 +4,6 @@ import { reducer as form } from 'redux-form';
 import { theron } from './theron';
 import { auth } from './auth';
 import { forms } from './forms';
+import { submissions } from './submissions';
 
-export const reducers = combineReducers({ auth, forms, theron, routing, form });
+export const reducers = combineReducers({ auth, forms, submissions, theron, routing, form });

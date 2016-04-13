@@ -29,19 +29,17 @@ const mapStateToProps: MapStateToProps = ({ auth: { api }, forms }, { params }) 
   return { api, initialValues: form };
 }
 
-const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => {
-  return {
-    onSubmit: (payload) => new Promise((resolve, reject) => {
-      dispatch(updateForm(params.formId, payload, resolve, reject))
-    }),
+const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => ({
+  onSubmit: (payload) => new Promise((resolve, reject) => {
+    dispatch(updateForm(params.formId, payload, resolve, reject))
+  }),
 
-    onDelete: () => {
-      if (window.confirm("Do you really want to delete?")) {
-        dispatch(deleteForm(params.formId));
-      }
-    },
-  }
-}
+  onDelete: () => {
+    if (window.confirm("Do you really want to delete?")) {
+      dispatch(deleteForm(params.formId));
+    }
+  },
+});
 
 @reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
 export class EditForm extends React.Component<any, any> {

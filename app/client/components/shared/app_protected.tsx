@@ -1,20 +1,19 @@
 import * as React from 'react';
 
 import { connect, MapStateToProps, MapDispatchToPropsObject } from 'react-redux';
-import { Dispatch } from 'redux';
 import { AppHeader } from './app_header';
 import { AppSpinner } from '../../../../lib/components/app_spinner';
 import { watchForms, unwatchForms } from '../../actions/index';
 
-const stateToProps: MapStateToProps = (state) => {
+const mapStateToProps: MapStateToProps = (state) => {
   return state;
 }
 
-const dispatchToProps: MapDispatchToPropsObject = {
+const mapDispatchToProps: MapDispatchToPropsObject = {
   watchForms, unwatchForms
 }
 
-@connect(stateToProps, dispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export class AppProtected extends React.Component<any, any> {
   componentWillMount() {
     this.props.watchForms();

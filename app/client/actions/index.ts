@@ -17,6 +17,13 @@ export const DELETE_FORM = 'TN:DELETE_FORM';
 export const WATCH_FORMS = 'TN:WATCH_FORMS';
 export const UNWATCH_FORMS = 'TN:UNWATCH_FORMS';
 
+export const REDIRECT_TO_FIRST_SUBMISSION = 'TN:REDIRECT_TO_FIRST_SUBMISSION';
+export const DELETE_SUBMISSION = 'TN:DELETE_SUBMISSIONS';
+export const STREAM_SUBMISSIONS = 'TN:STREAM_SUBMISSIONS';
+export const UNSUBSCRIBE_SUBMISSIONS = 'TN:UNSUBSCRIBE_SUBMISSIONS';
+
+// Auth
+
 export function signin(email: string, password: string, resolve, reject) {
   return { type: SIGNIN, email, password, resolve, reject };
 }
@@ -49,6 +56,8 @@ export function logoutSuccess(performRedirect: boolean) {
   return { type: LOGOUT_SUCCESS, performRedirect };
 }
 
+// Forms
+
 export function redirectToFirstForm() {
   return { type: REDIRECT_TO_FIRST_FORM };
 }
@@ -71,4 +80,18 @@ export function watchForms() {
 
 export function unwatchForms() {
   return { type: UNWATCH_FORMS };
+}
+
+// Submissions
+
+export function deleteSubmission(id: number, formId: number) {
+  return { type: DELETE_SUBMISSION, id, formId };
+}
+
+export function streamSubmissions(formId: number) {
+  return { type: STREAM_SUBMISSIONS, formId };
+}
+
+export function unsubscribeSubmissions() {
+  return { type: UNSUBSCRIBE_SUBMISSIONS };
 }

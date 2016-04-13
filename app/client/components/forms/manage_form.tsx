@@ -29,7 +29,13 @@ class FormHeader extends React.Component<FormHeaderProps, {}> {
             <Link to={this.pathTo('edit')} activeClassName="active">Edit</Link>
           </li>
           <li>
+            <Link to={this.pathTo('export')} activeClassName="active" disabled="true">Export</Link>
+          </li>
+          <li>
             <Link to={this.pathTo('webhooks')} activeClassName="active">Webhooks</Link>
+          </li>
+          <li>
+            <Link to={this.pathTo('export')} activeClassName="active">Reducers</Link>
           </li>
         </ul>
       </nav>

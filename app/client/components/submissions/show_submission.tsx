@@ -1,75 +1,55 @@
 import * as React from 'react';
-import { Dispatch } from 'redux';
-import { routeActions } from 'react-router-redux';
-import { connect } from 'react-redux';
-import { removeSubmissionAndRedirect, markSubmissionAsRead } from '../../actions/submissions';
-import { findSubmission } from '../../reducers/submissions';
-import { Link } from 'react-router';
-import { absoluteTime } from '../../utils/absolute_time';
 
-const stateToProps = (state, props) => {
-  let submission = findSubmission(state.submissions, props.params.submissionId)
-  return { submission };
+import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
+import { NotFound } from '../shared/not_found';
+import { deleteSubmission } from '../../actions/index';
+
+const dateFormat = require('dateformat');
+
+const mapStateToProps: MapStateToProps = ({ submissions }, { params }) => {
+  return { submission: submissions.rows.find(submission => submission.id === params.submissionId), formId: params.formId };
 }
 
-const dispatchToProps = (dispatch: Dispatch) => {
-  return {
-    onRead: (formId: string, submissionId: string) => {
-      dispatch(markSubmissionAsRead(formId, submissionId));
-    },
+const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => ({
+  deleteSubmission: (id, formId) => {
+    if (window.confirm("Do you really want to delete?")) {
+      dispatch(deleteSubmission(id, formId));
+    }
+  },
+});
 
-    onRemove: (formId: string, submissionId: string) => {
-      dispatch(removeSubmissionAndRedirect(formId, submissionId));
-    },
-  }
-}
-
-@connect(stateToProps, dispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export class ShowSubmission extends React.Component<any, any> {
-  componentDidMount() {
-    this.markAsRead(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.markAsRead(nextProps);
-  }
-
   render() {
-    let { submission, onRemove, params } = this.props;
+    const { submission, formId, deleteSubmission } = this.props;
 
     if (!submission) {
-      return <div className="submission show" />
+      return <NotFound message="Perhaps head back to the submission list?" />;
     }
+
+    const createdAt = new Date(submission.created_at);
 
     return (
       <div className="submission show">
-        <header className="actions">
-          <datetime>Submitted on {absoluteTime(submission.createdAt)}</datetime>
+        <header>
+          <time>Submitted on {dateFormat(createdAt, 'dd/mm/yy')} at {dateFormat(createdAt, 'HH:MM')}</time>
 
-          <nav className="right">
-            <button type="button" className="delete" onClick={() => onRemove(params.formId, submission.$key)}>Delete</button>
+          <nav className="end">
+            <button type="button" className="flat danger" onClick={() => deleteSubmission(submission.id, formId)}>Delete</button>
           </nav>
         </header>
 
         <ol className="fields">
           {
-            submission.fields.map(field =>
-              <li key={field.$key}>
-                <h4>{field.$key}</h4>
-                <div>{field.$value}</div>
+            JSON.parse(submission.data).map(field =>
+              <li key={field.key}>
+                <h4>{field.key}</h4>
+                <div>{field.value}</div>
               </li>
             )
           }
         </ol>
       </div>
     );
-  }
-
-  private markAsRead(props) {
-    let { onRead, params, submission } = props
-
-    if (submission && !submission.read) {
-      onRead(params.formId, submission.$key);
-    }
   }
 }

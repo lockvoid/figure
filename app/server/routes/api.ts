@@ -40,6 +40,16 @@ api.use((req, res, next) => {
   next(new AuthError(401, 'Failed to authenticate token'));
 });
 
+// Forms
+
+api.get('/forms', ({ currentUser }, res) => {
+  const submissionsCount = SubmissionRecord.query().whereRef('forms.id', '=', 'submissions.form_id').count().as('submissions_count');
+  const queryText = currentUser.$relatedQuery('forms').select('*', submissionsCount).orderBy('name').toString();
+  const querySignature = Theron.sign(queryText, process.env['THERON_SECRET']);
+
+  res.json({ queryText, querySignature });
+});
+
 api.post('/forms', wrap(async ({ currentUser, body }, res, next) => {
   const form = await currentUser.$relatedQuery('forms').insert(body);
 
@@ -53,15 +63,35 @@ api.patch('/forms/:formId', wrap(async ({ currentUser, params, body }, res, next
 }));
 
 api.delete('/forms/:formId', wrap(async ({ currentUser, params }, res, next) => {
-  const form = await currentUser.$relatedQuery('forms').delete().where('id', params.formId);
+  const form = await currentUser.$relatedQuery('forms').where('id', params.formId).delete();
 
   res.json({});
 }));
 
-api.get('/forms', ({ currentUser }, res) => {
-  const submissionsCount = SubmissionRecord.query().whereRef('forms.id', '=', 'submissions.form_id').count().as('submissions_count');
-  const queryText = currentUser.$relatedQuery('forms').select('*', submissionsCount).orderBy('name').toString();
+// Submissions
+
+api.get('/forms/:formId/submissions', wrap(async ({ currentUser, params }, res) => {
+  const form = await currentUser.$relatedQuery('forms').where('id', params.formId).first();
+  const queryText = form.$relatedQuery('submissions').orderBy('created_at', 'desc').toString();
   const querySignature = Theron.sign(queryText, process.env['THERON_SECRET']);
 
   res.json({ queryText, querySignature });
-});
+}));
+
+api.delete('/submissions/:submissionId', wrap(async ({ currentUser, params }, res) => {
+  const submission = await SubmissionRecord.query().where('id', params.submissionId).first();
+
+  if (!submission) {
+    return res.status(404).send('Submission not found');
+  }
+
+  const form = await currentUser.$relatedQuery('forms').where('id', submission.form_id).first();
+
+  if (!form) {
+    return res.status(403).send('Access denied');
+  }
+
+  await SubmissionRecord.query().where('id', params.submissionId).delete();
+
+  res.json({});
+}));

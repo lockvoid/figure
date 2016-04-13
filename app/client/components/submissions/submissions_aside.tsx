@@ -1,61 +1,33 @@
-import { Link } from 'react-router';
-import { List } from 'immutable';
 import * as React from 'react';
-import { AppSpinner } from '../../../../lib/components/app_spinner';
-import { absoluteTime } from '../../utils/absolute_time';
 
-interface ExcerptsProps {
-  submissions: { value: List<any>, ready: boolean }
-  formId: string;
-}
+import { Link } from 'react-router';
 
-class Excerpts extends React.Component<ExcerptsProps, {}> {
+const dateFormat = require('dateformat');
+
+export class SubmissionsAside extends React.Component<any, any> {
   render() {
-    let { submissions, formId } = this.props;
-
-    if (!submissions.ready) {
-      return <AppSpinner />
-    }
-
-    if (submissions.value.size === 0) {
-      return <div className="prestine">Waiting for a submission</div>
-    }
+    const { form, submissions } = this.props;
 
     return (
-      <ul className="excerpts">
-        {
-          submissions.value.map(submission =>
-            <li key={submission.$key}>
-              <Link to={`/forms/${formId}/submissions/${submission.$key}`} activeClassName="active" className={submission.unread ? 'unread' : ''}>
-                <datetime>{absoluteTime(submission.createdAt, 'shortDate')}</datetime>
+      <aside>
+        <ul className="excerpts">
+          {
+            submissions.rows.map(submission => Object.assign({}, submission, { data: JSON.parse(submission.data) })).map(submission =>
+              <li key={submission.id}>
+                <Link to={`/forms/${form.id}/submissions/${submission.id}`} activeClassName="active">
+                  <h3>
+                    {submission.data[0] && submission.data[0].value}
+                    <time>{dateFormat(new Date(submission.created_at), 'dd/mm/yy HH:MM')}</time>
+                  </h3>
 
-                <ol className="fields">
-                  { submission.fields.slice(0, 2).map(field => <li key={field.$key}>{field.$value}</li>) }
-                </ol>
-              </Link>
-            </li>
-          )
-        }
-      </ul>
-    )
-  }
-}
-
-interface SubmissionsAsideProps {
-  submissions: { value: List<any>, ready: boolean }
-}
-
-export class SubmissionsAside extends React.Component<any, {}> {
-  render() {
-    let { submissions, formId } = this.props;
-
-    return (
-      <aside className="submissions">
-        <header className="search">
-          <input type="search" placeholder="Search" />
-        </header>
-
-        <Excerpts submissions={submissions} formId={formId} />
+                  <div className="field">
+                    {submission.data[1] && submission.data[1].value}
+                  </div>
+                </Link>
+              </li>
+            )
+          }
+        </ul>
       </aside>
     );
   }

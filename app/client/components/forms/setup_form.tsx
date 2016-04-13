@@ -4,9 +4,7 @@ import { Dispatch } from 'redux';
 import { connect, MapStateToProps } from 'react-redux';
 
 const mapStateToProps: MapStateToProps = ({ forms }, { params }) => {
-  const form = forms.rows.find(form => form.id === params.formId);
-
-  return { form };
+  return { form: forms.rows.find(form => form.id === params.formId) };
 }
 
 @connect(mapStateToProps)

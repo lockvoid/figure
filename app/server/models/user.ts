@@ -49,7 +49,7 @@ export class UserRecord extends BaseModel {
         join: {
           from: 'users.id', to: 'forms.user_id'
         },
-      },
+      }
     }
   }
 

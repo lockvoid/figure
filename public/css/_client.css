@@ -135,7 +135,13 @@ app div.notfound  {
 
   h2 {
     font-size: 70px;
-    color: color(white b(50%));
+    color: color(white b(50));
+  }
+
+  h3 {
+    text-transform: uppercase;
+    color: color(white b(70));
+    font-size: 15px;
   }
 }
 
@@ -294,85 +300,76 @@ app div.forms.dashboard {
   }
 }
 
-div.form.submissions {
+app div.submissions {
+  display: flex;
+  flex: 1;
+}
+
+app div.submissions.empty {
+  h4 {
+    animation: fader 2.5s infinite linear both;
+    color: color(white b(40%));
+    font-size: 15px;
+    font-weight: 500;
+    margin: auto;
+    text-transform: uppercase;
+  }
+}
+
+app div.submissions.dashboard {
+  background-color: white;
   flex-direction: row;
 
-  aside.submissions {
+  & > aside {
+    background-color: color(white b(5%));
     display: flex;
     flex-direction: column;
     flex: 1.5;
     max-width: 400px;
     min-width: 200px;
-    position: relative;
-
-    header.search {
-      border-bottom: 1px solid color(white b(10%));
-      display: flex;
-      min-height: 65px;
-
-      input[type="search"] {
-        border-radius: 99px;
-        border: 0;
-        flex: 1;
-        margin: 12px 10px;
-      }
-    }
-
-    div.prestine {
-      animation: fader 2.5s infinite linear both;
-      color: color(white b(40%));
-      font-weight: 500;
-      margin: auto;
-      text-transform: uppercase;
-    }
 
     ul.excerpts {
       flex: 1;
       overflow-y: auto;
-      position: relative;
-
-      li + li a {
-        background: linear-gradient(to right, color(white b(15%)), color(white b(5%))) no-repeat 0 0 / 100% 1px;
-      }
 
       li a {
-        padding: 15px;
-        display: block;
-        position: relative;
+        background: linear-gradient(to right, color(white b(15%)), color(white b(5%))) no-repeat 0 100% / 100% 1px;
+        display: flex;
+        flex-direction: column;
+        height: 75px;
+        justify-content: space-around;
+        padding: 10px 15px;
         transition: color .1s;
 
         &.active {
           background-color: white;
         }
 
-        &.unread {
-          ol.fields li:nth-of-type(1) {
-            font-weight: 500;
-          }
-        }
-
-        datetime {
-          color: color(black w(40%));
-          font-size: 11px;
-          position: absolute;
-          right: 15px;
-          top: 17px;
-         }
-
-        ol.fields li {
+        h3 span, div.field {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          font-size: 13px;
+        }
 
-          &:nth-of-type(1) {
-            margin-bottom: 5px;
-            margin-right: 65px;
+        h3 {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+
+          span {
+            font-weight: 500;
           }
 
-          &:nth-of-type(2) {
+          time {
             color: color(black w(40%));
-            font-size: 12px;
+            font-size: 11px;
+            white-space: nowrap;
           }
+        }
+
+        div.field {
+          color: color(black w(40%));
         }
       }
     }
@@ -385,31 +382,16 @@ div.form.submissions {
     padding: 30px;
     position: relative;
 
-    header.actions {
-      align-items: center;
+    & > header {
       display: flex;
 
-      datetime {
+      time {
         color: color(white b(60%));
+        font-size: 14px;
       }
 
-      nav.right {
+      nav.end {
         margin-left: auto;
-      }
-
-      button.delete {
-        background-color: white;
-        border: 2px solid color(white b(25%));
-        color: color(black w(70%));
-        font-size: 13px;
-        min-width: auto;
-        padding: 5px 10px;
-        transition: none;
-
-        &:hover {
-          background-color: color(white b(25%));
-          color: white;
-        }
       }
     }
 
