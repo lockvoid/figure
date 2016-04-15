@@ -6,7 +6,8 @@ const http = require('http');
 
 const server = require('../dist/server/app/server/server');
 
-require('../dist/server/app/server/database');
+require('../dist/server/app/server/config/objection');
+require('../dist/server/app/server/config/sendgrid');
 
 // Bootstrap internal services
 
