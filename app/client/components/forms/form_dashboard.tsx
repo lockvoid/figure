@@ -31,13 +31,13 @@ export class FormDashboard extends React.Component<any, any> {
               <Link to={this.pathTo('edit')} activeClassName="active">Edit</Link>
             </li>
             <li>
-              <Link to={this.pathTo('export')} activeClassName="active" disabled="true">Export</Link>
+              <div className="feature">Export</div>
             </li>
             <li>
-              <Link to={this.pathTo('webhooks')} activeClassName="active">Webhooks</Link>
+              <div className="feature">Webhooks</div>
             </li>
             <li>
-              <Link to={this.pathTo('export')} activeClassName="active">Reducers</Link>
+              <div className="feature">Reducers</div>
             </li>
           </ul>
         </nav>

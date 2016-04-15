@@ -286,6 +286,11 @@ app div.forms.dashboard {
         }
       }
     }
+
+    div.feature {
+      font-size: 17px;
+      color: color(black l(80));
+    }
   }
 
   div.form {
