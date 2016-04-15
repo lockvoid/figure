@@ -9,7 +9,8 @@
     "url": "git+https://github.com/rosendi/figure-react.git"
   },
   "scripts": {
-    "postinstall": "bin/postinstall.sh"
+    "postinstall": "bin/postinstall.sh",
+    "start": "node --harmony_destructuring --harmony_default_parameters --harmony_rest_parameters bin/web.js"
   },
   "cacheDirectories": [
     "node_modules",
