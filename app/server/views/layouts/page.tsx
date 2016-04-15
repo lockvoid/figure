@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { assetPath } from '../../utils/asset_path';
+import { Metrika } from '../shared/metrika';
 
 export const Page = ({ title = null, children = null, className = null }) => (
   <html>
@@ -12,6 +13,8 @@ export const Page = ({ title = null, children = null, className = null }) => (
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
       <link rel="stylesheet" media="screen" href={assetPath('app.css')} />
+
+      /* @ifdef METRIKA_APP */ <Metrika app={/* @echo METRIKA_APP */} /> /* @endif */
     </head>
 
     <body className={className}>
