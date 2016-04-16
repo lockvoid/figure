@@ -17,7 +17,7 @@ export function canActivate(store, { authRequired } : { authRequired: boolean })
       if (authRequired) {
         auth.token || replaceState({ pathname: '/signin', state: { nextPathname: nextState.location.pathname } });
       } else {
-        auth.token && replaceState({ pathname: '/apps' });
+        auth.token && replaceState({ pathname: '/forms' });
       }
 
       performState()
