@@ -216,52 +216,42 @@ body.pages main.home {
   }
 }
 
-body.thankyou {
+body.thanks {
+  @mixin size 100%, 100%;
   background-color: color(white b(5%));
-  height: 100%;
+  display: flex;
 
   main {
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    overflow: auto;
-    padding: 40px 40px 0 40px;
-    width: 100%;
-  }
-
-  section.thankyou {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin: auto;
-
-    h1 {
-      font-size: 40px;
-      margin-top: 50px;
-      text-align: center;
-    }
-
-    h2 {
-      margin-top: 10px;
-      font-size: 22px;
-      text-align: center;
-    }
-
-    a.button {
-      margin-top: 80px;
-    }
+    max-width: 500px;
+    padding: 40px 0;
   }
 
-  footer.copyright {
-    align-items: center;
-    display: flex;
-    margin: 0 auto;
-    min-height: 100px;
+  h1 {
+    font-size: 42px;
+    text-align: center;
+  }
+
+  h2 {
+    color: color(black l(40));
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  a.button {
+    margin: 50px 0 100px;
+  }
+
+  footer {
+    color: color(black l(50));
 
     a {
-      color: $color-primary;
+      color: color($color-primary w(0));
 
       &:hover {
         text-decoration: underline;
