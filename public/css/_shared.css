@@ -127,11 +127,10 @@ figure.video {
   position: relative;
 
   iframe {
-    height: 100%;
+    @mixin size 100%, 100%;
     left: 0;
     position: absolute;
     top: 0;
-    width: 100%;
   }
 }
 
@@ -152,19 +151,21 @@ input[type="text"], input[type="search"], input[type="email"], input[type="passw
 }
 
 input[type="button"], button, a.button {
+  align-items: center;
+  border-radius: 2px;
   border: 0;
-  font-family: OpenSans, $fonts;
-  padding: 0;
   cursor: pointer;
-  display: block;
+  display: flex;
+  font-family: OpenSans, $fonts;
   font-size: 14px;
   font-weight: 500;
   height: 40px;
+  justify-content: center;
   min-width: 90px;
+  padding: 0;
   padding: 0px 13px;
   text-align: center;
   text-transform: uppercase;
-  border-radius: 2px;
 
   &:focus {
     outline: none;
@@ -259,12 +260,11 @@ form.default {
     }
 
     input[type="text"], input[type="email"], input[type="password"] {
+      @mixin size 100%, 40px;
       background-color: white;
       border-radius: 2px;
       border: 1px solid color(white b(20));
-      height: 40px;
       padding: 0 10px;
-      width: 100%;
     }
 
     div.title {
@@ -328,20 +328,18 @@ form.default {
     }
 
     i {
+      @mixin size 17px, 17px;
       border-radius: 1px;
       border: 2px solid color(white b(50%));
       color: transparent;
       display: block;
-      height: 17px;
       position: relative;
-      width: 17px;
 
       svg {
-        height: 17px;
+        @mixin size 17px, 17px;
         left: -2px;
         position: absolute;
         top: -2px;
-        width: 17px;
       }
     }
 
