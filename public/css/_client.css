@@ -313,19 +313,27 @@ app div.forms.edit {
 }
 
 app div.forms.setup {
+  overflow-y: auto;
+
   wrapper {
-    max-width: 900px;
+    max-width: 800px;
     padding: 40px 40px 15px;
   }
 
   h2 {
-    font-weight: 500;
-    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 23px;
+    margin: 15px 0;
+
+    &:first-child {
+      margin-top: 0px;
+    }
   }
 
   p {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 15px 0;
   }
 }
 

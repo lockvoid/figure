@@ -94,22 +94,41 @@ b {
 
 pre, code {
   background-color: white;
-  border-radius: 2px;
-  font-family:  Consolas, Menlo, Monaco,"Courier New", monospace;
+  border-radius: 3px;
+  border: 0;
+  font-family: Consolas, monospace;
   font-size: 13px;
-  overflow-x: auto;
+  padding: 3px 5px;
 }
 
 pre {
-  display: block;
-  margin: 0 0 25px;
-  padding: 15px;
-}
+  border-radius: 3px;
+  overflow-x: auto;
 
-code {
-  display: inline;
-  padding: 3px;
-  white-space: nowrap;
+  > code {
+    display: block;
+    padding: 0;
+
+    table td {
+      background-color: white;
+      padding: 0;
+
+      pre {
+        padding: 3px 5px;
+      }
+
+      &.gutter pre {
+        border-radius: 0;
+        border-right: 1px solid darken(white, 10);
+        color: lighten(black, 50);
+        padding: 0 5px 0 0;
+      }
+    }
+  }
+
+  pre {
+    margin: 0;
+  }
 }
 
 iframe {
