@@ -22,7 +22,6 @@
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.3",
-    "firebase": "^2.3.2",
     "immutable": "^3.7.6",
     "jsonwebtoken": "^5.7.0",
     "jspm": "^0.16.32",
@@ -62,7 +61,6 @@
     "dependencies": {
       "babel-polyfill": "npm:babel-polyfill@^6.7.4",
       "dateformat": "npm:dateformat@^1.0.12",
-      "firebase": "npm:firebase@^2.3.2",
       "immutable": "npm:immutable@^3.7.6",
       "jwt-decode": "npm:jwt-decode@^2.0.1",
       "react": "npm:react@^0.14.8",

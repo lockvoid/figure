@@ -8,7 +8,6 @@
     "cookie-parser": "registry:dt/cookie-parser#1.3.4+20160316155526",
     "express": "registry:dt/express#4.0.0+20160317120654",
     "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160322035842",
-    "firebase": "github:DefinitelyTyped/DefinitelyTyped/firebase/firebase.d.ts#e2251a6de4ec74c4c71cbb04baccdd261a643909",
     "form-data": "registry:dt/form-data#0.0.0+20160316155526",
     "immutable": "npm:immutable/dist/immutable.d.ts",
     "jsonwebtoken": "registry:dt/jsonwebtoken#0.0.0+20160316155526",

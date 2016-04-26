@@ -6,7 +6,6 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
-import * as Firebase from 'firebase';
 import * as request from 'request';
 import * as crypto from 'crypto';
 
