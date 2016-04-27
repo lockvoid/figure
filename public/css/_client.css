@@ -163,7 +163,7 @@ app header.default {
 
   h1 {
     color: $color-primary;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 400;
   }
 }
