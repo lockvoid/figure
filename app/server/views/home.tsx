@@ -31,7 +31,7 @@ export default ({ isAuth }) => (
             <h1>Painless forms for designers and developers.</h1>
             <h2>Collect, reduce and stream form data while avoiding crutches.</h2>
 
-            <a href="/login" className="signup">
+            <a href="/signup" className="signup">
               <div>Sign Up for Free</div>
             </a>
           </div>
