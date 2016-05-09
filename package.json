@@ -10,7 +10,7 @@
   },
   "scripts": {
     "postinstall": "bin/postinstall.sh",
-    "start": "node --harmony_destructuring --harmony_default_parameters --harmony_rest_parameters bin/web.js"
+    "start": "nf start"
   },
   "cacheDirectories": [
     "node_modules",
@@ -20,20 +20,23 @@
   "dependencies": {
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
+    "bull": "^0.7.2",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.3",
+    "foreman": "^2.0.0-1",
     "immutable": "^3.7.6",
     "jsonwebtoken": "^5.7.0",
     "jspm": "^0.16.32",
     "knex": "^0.10.0",
-    "nodemailer": "^2.0.0",
     "objection": "^0.4.0",
     "pg": "^4.5.2",
     "qs": "^6.0.2",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
+    "redis": "^2.5.3",
     "sendgrid": "^2.0.0",
-    "theron": "^0.1.4"
+    "theron": "^0.1.4",
+    "throng": "^4.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.1.2",

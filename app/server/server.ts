@@ -11,8 +11,9 @@ import * as crypto from 'crypto';
 
 import { ValidationError } from 'objection';
 import { UserRecord, FormRecord, SubmissionRecord } from './models';
-import { SubmissionMailer } from './mailers';
 import { BaseError } from '../../lib/errors/base_error';
+import { SubmissionMailer } from './mailers';
+import { emailQueue, DEFAULT_QUEUE_OPTIONS } from './config/bull';
 import { api } from './routes/api';
 import { wrap } from './utils/wrap_async';
 
@@ -122,8 +123,7 @@ app.post('/f/:formKey', wrap(async ({ params: { formKey }, body }, res) => {
   const submission = await form.$relatedQuery('submissions').insert({ data: body });
 
   if (form.notify_me) {
-    const user = await form.$relatedQuery('user').first();
-    new SubmissionMailer(user.email, user.name, form, submission).send().catch(err => console.log(err));
+    emailQueue.add({ mailer: 'SubmissionMailer', userId: form.user_id, props: { form, submission } }, DEFAULT_QUEUE_OPTIONS);
   }
 
   res.redirect(form.redirect_to || '/thanks');

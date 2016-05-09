@@ -13,7 +13,7 @@ export abstract class BaseMailer {
 
   /* abstract */ protected _template: React.ComponentClass<{}> | React.StatelessComponent<{}>;
 
-  constructor(protected _to: string, protected _toName: string, protected _props?) {
+  constructor(protected _to: string, protected _toName: string, protected _props?: any) {
   }
 
   send(): Promise<any> {

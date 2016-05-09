@@ -37,15 +37,8 @@ class SubmissionTemplate extends React.Component<any, {}> {
 
 export class SubmissionMailer extends BaseMailer {
   protected _template = SubmissionTemplate;
-  protected _formName: string;
-
-  constructor(to: string, toName: string, form, submission) {
-    super(to, toName, { form, submission });
-
-    this._formName = form.name;
-  }
 
   protected _subject(): string {
-    return `New submission for ${this._formName}`;
+    return `New submission for ${this._props.form.name}`;
   }
 }

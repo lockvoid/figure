@@ -24,7 +24,7 @@ const buildTasks = gulp.parallel(buildServer, buildClient, buildCss, buildJs, co
 
 const watchTasks = gulp.parallel(watchServer, watchClient, watchCss, watchJs, watchAssets);
 
-gulp.task('default', gulp.series(clean, buildTasks, startHttp, watchTasks));
+gulp.task('default', gulp.series(clean, buildTasks, gulp.parallel(startWeb, startWorker), watchTasks));
 
 gulp.task('release', gulp.series(clean, buildTasks, gulp.parallel(bundleClient, minifyCss, minifyJs), revPublic, repPublic));
 
@@ -32,23 +32,43 @@ function clean() {
   return del('dist');
 }
 
-// Listen
+// Start
 
-var httpProcess = null;
+var webProcess = null;
+var workerProcess = null;
 
-function startHttp(done) {
-  if (!httpProcess) {
-    httpProcess = cprocess.spawn('node', ['--harmony_destructuring', '--harmony_default_parameters', '--harmony_rest_parameters', 'bin/web'], { stdio: 'inherit' });
+function startWeb(done) {
+  if (!webProcess) {
+    webProcess = cprocess.spawn('node', ['--harmony_destructuring', '--harmony_default_parameters', '--harmony_rest_parameters', 'bin/web'], { stdio: 'inherit' });
   }
 
   done();
 }
 
-function closeHttp(done) {
-  httpProcess && httpProcess.kill();
-  httpProcess = null;
+function killWeb(done) {
+  if (webProcess) {
+    webProcess.once('close', done);
+    webProcess.kill();
+  }
+
+  webProcess = null;
+}
+
+function startWorker(done) {
+  if (!workerProcess) {
+    workerProcess = cprocess.spawn('node', ['--harmony_destructuring', '--harmony_default_parameters', '--harmony_rest_parameters', 'bin/worker'], { stdio: 'inherit' });
+  }
 
   done();
+}
+
+function killWorker(done) {
+  if (workerProcess) {
+    workerProcess.once('close', done);
+    workerProcess.kill();
+  }
+
+  workerProcess = null;
 }
 
 // Server
@@ -63,7 +83,7 @@ function buildServer() {
 }
 
 function watchServer() {
-  gulp.watch('{app/server,lib}/**/*.{ts,tsx}', gulp.series(gulp.parallel(buildServer, closeHttp), startHttp));
+  gulp.watch('{app/server,lib}/**/*.{ts,tsx}', gulp.series(gulp.parallel(buildServer, killWeb, killWorker), gulp.parallel(startWeb, startWorker)));
 }
 
 // Client

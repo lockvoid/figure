@@ -14,6 +14,7 @@ Next, in the cloned repository rename `.env.example` to `.env` and define the
 environment variables:
 
 - `DATABASE_URL` - your hosted Postgres database connection credentials.
+- `REDIS_URL` - a Redis url required in the production environment.
 - `FIGURE_URL` - a Figure application instance host required in the production environment.
 - `JWT_SECRET` - a randomly generated secret token for the JWT authentication purposes.
 - `SENDGRID_SECRET` - an API key from the Sendgrid dashboard for sending notification emails.
