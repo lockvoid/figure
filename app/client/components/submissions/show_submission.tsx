@@ -28,6 +28,7 @@ export class ShowSubmission extends React.Component<any, any> {
     }
 
     const createdAt = new Date(submission.created_at);
+    const data = JSON.parse(submission.data);
 
     return (
       <div className="submission show">
@@ -41,10 +42,9 @@ export class ShowSubmission extends React.Component<any, any> {
 
         <ol className="fields">
           {
-            JSON.parse(submission.data).map(field =>
-              <li key={field.key}>
-                <h4>{field.key}</h4>
-                <div>{field.value}</div>
+            Object.keys(data).map(field =>
+              <li key={field}>
+                <h4>{field}</h4><div>{data[field]}</div>
               </li>
             )
           }

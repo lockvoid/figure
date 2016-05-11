@@ -4,7 +4,7 @@ import { BaseMailer } from './base_mailer';
 
 class SubmissionTemplate extends React.Component<any, {}> {
   render() {
-    const { form, submission } = this.props;
+    const { form, submission: { data } } = this.props;
 
     return (
       <div>
@@ -12,10 +12,9 @@ class SubmissionTemplate extends React.Component<any, {}> {
 
         <div>
           {
-            submission.data.map(field =>
-              <div key={field.key}>
-                <h2>{field.key}</h2>
-                <p>{field.value}</p>
+            Object.keys(data).map(field =>
+              <div key={field}>
+                <h2>{field}</h2><p>{data[field]}</p>
               </div>
             )
           }

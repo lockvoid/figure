@@ -18,7 +18,7 @@ export class SubmissionRecord extends BaseModel {
       },
 
       data: {
-        type: 'array',
+        type: 'object',
       },
 
       created_at: {
@@ -50,18 +50,8 @@ export class SubmissionRecord extends BaseModel {
   $parseJson(json, options) {
     const parsed = super.$parseJson(json, options);
 
-    return Object.assign(parsed, {
-      data: this._reduceFormData(parsed['data']),
-    });
-  }
+    delete parsed['data']['utf8'];
 
-  protected _reduceFormData(data: Object): Object {
-    return Object.keys(data).slice(0, 50).reduce((reduced, key, index) => {
-      if (key === 'utf8') {
-        return reduced;
-      }
-
-      return reduced.concat({ key, value: data[key] });
-    }, []);
+    return parsed;
   }
 }

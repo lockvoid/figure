@@ -4,6 +4,27 @@ import { Link } from 'react-router';
 
 const dateFormat = require('dateformat');
 
+
+const SubmissionExcerpt = ({ form, submission }) => {
+  const data = JSON.parse(submission.data);
+  const [firstField, secondField] = Object.keys(data);
+
+  return (
+    <li key={submission.id}>
+      <Link to={`/forms/${form.id}/submissions/${submission.id}`} activeClassName="active">
+        <h3>
+          {firstField && data[firstField]}
+          <time>{dateFormat(new Date(submission.created_at), 'dd/mm/yy HH:MM')}</time>
+        </h3>
+
+        <div className="field">
+          {secondField && data[secondField]}
+        </div>
+      </Link>
+    </li>
+  );
+};
+
 export class SubmissionsAside extends React.Component<any, any> {
   render() {
     const { form, submissions } = this.props;
@@ -11,22 +32,7 @@ export class SubmissionsAside extends React.Component<any, any> {
     return (
       <aside>
         <ul className="excerpts">
-          {
-            submissions.rows.map(submission => Object.assign({}, submission, { data: JSON.parse(submission.data) })).map(submission =>
-              <li key={submission.id}>
-                <Link to={`/forms/${form.id}/submissions/${submission.id}`} activeClassName="active">
-                  <h3>
-                    {submission.data[0] && submission.data[0].value}
-                    <time>{dateFormat(new Date(submission.created_at), 'dd/mm/yy HH:MM')}</time>
-                  </h3>
-
-                  <div className="field">
-                    {submission.data[1] && submission.data[1].value}
-                  </div>
-                </Link>
-              </li>
-            )
-          }
+          { submissions.rows.map(submission => <SubmissionExcerpt form={form} submission={submission} key={submission.id} />) }
         </ul>
       </aside>
     );
