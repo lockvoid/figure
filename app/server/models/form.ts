@@ -41,6 +41,10 @@ export class FormRecord extends BaseModel {
         type: ['string', 'null'],
       },
 
+      webhook_url: {
+        type: ['string', 'null'],
+      },
+
       notify_me: {
         type: 'boolean',
       },
