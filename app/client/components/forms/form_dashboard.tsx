@@ -34,7 +34,7 @@ export class FormDashboard extends React.Component<any, any> {
               <div className="feature">Export</div>
             </li>
             <li>
-              <div className="feature">Webhooks</div>
+              <Link to={this.pathTo('webhooks')} activeClassName="active">Webhooks</Link>
             </li>
             <li>
               <div className="feature">Reducers</div>

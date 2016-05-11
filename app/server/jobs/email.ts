@@ -1,4 +1,3 @@
-import * as bull from 'bull';
 import * as mailers from '../mailers';
 
 import { UserRecord } from '../models';

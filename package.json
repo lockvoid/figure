@@ -34,6 +34,7 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "redis": "^2.5.3",
+    "request": "^2.72.0",
     "sendgrid": "^2.0.0",
     "theron": "^0.1.4",
     "throng": "^4.0.0"

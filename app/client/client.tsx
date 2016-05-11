@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { AppHome, AppMain, AppSignin, AppSignup, AppLogout, AppProtected, NotFound } from './components/shared/index';
-import { RedirectToFirstForm, RedirectToSubmissions, FormDashboard, NewForm, EditForm, SetupForm } from './components/forms/index';
+import { RedirectToFirstForm, RedirectToSubmissions, FormDashboard, NewForm, EditForm, SetupForm, FormWebhooks } from './components/forms/index';
 import { SubmissionsDashboard, ShowSubmission } from './components/submissions/index';
 import { configureStore } from './store/configure_store';
 import { auth } from './services/index';
@@ -32,6 +32,7 @@ const entry = (
 
               <Route path="edit" component={EditForm} />
               <Route path="setup" component={SetupForm} />
+              <Route path="webhooks" component={FormWebhooks} />
 
               <Route path="submissions" component={SubmissionsDashboard}>
                 <Route path=":submissionId" component={ShowSubmission} />

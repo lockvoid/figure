@@ -300,13 +300,9 @@ app div.forms.dashboard {
   }
 }
 
-app div.forms.new {
-  form {
-    padding: 40px;
-  }
-}
+app div.forms.new, app div.forms.edit, app div.forms.webhooks {
+  overflow-y: auto;
 
-app div.forms.edit {
   form {
     padding: 40px;
   }

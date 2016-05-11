@@ -13,7 +13,7 @@ import { ValidationError } from 'objection';
 import { UserRecord, FormRecord, SubmissionRecord } from './models';
 import { BaseError } from '../../lib/errors/base_error';
 import { SubmissionMailer } from './mailers';
-import { emailQueue, DEFAULT_QUEUE_OPTIONS } from './config/bull';
+import { emailQueue, webhookQueue, DEFAULT_QUEUE_OPTIONS } from './config/bull';
 import { api } from './routes/api';
 import { wrap } from './utils/wrap_async';
 
@@ -124,6 +124,10 @@ app.post('/f/:formKey', wrap(async ({ params: { formKey }, body }, res) => {
 
   if (form.notify_me) {
     emailQueue.add({ mailer: 'SubmissionMailer', userId: form.user_id, props: { form, submission } }, DEFAULT_QUEUE_OPTIONS);
+  }
+
+  if (form.webhook_url) {
+    webhookQueue.add({ url: form.webhook_url, body: submission.toJSON() } , DEFAULT_QUEUE_OPTIONS);
   }
 
   res.redirect(form.redirect_to || '/thanks');

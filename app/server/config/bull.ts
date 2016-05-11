@@ -16,3 +16,4 @@ function createQueue(id: string) {
 }
 
 export const emailQueue = createQueue('email');
+export const webhookQueue = createQueue('webhook');

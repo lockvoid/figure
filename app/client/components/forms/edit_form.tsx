@@ -5,7 +5,6 @@ import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { updateForm, deleteForm } from '../../actions/index';
 import { FieldBox } from '../shared/fieldbox';
-import { NotFound } from '../shared/not_found';
 import { SubmitButton } from '../shared/submit_button';
 import { Checkbox } from '../shared/checkbox';
 
