@@ -14,7 +14,7 @@ export default ({ isAuth }) => (
 
             <ul>
               <li>
-                <a href="https://github.com/rosendi/figure">View on GitHub</a>
+                <a href="https://github.com/therondb/figure">View on GitHub</a>
               </li>
 
               <li>
@@ -68,7 +68,7 @@ export default ({ isAuth }) => (
 
       <footer className="main">
         <wrapper>
-          <p>© <a href="https://therondb.com">Theron</a> 2016 under the terms of the <a href="https://github.com/rosendi/figure/blob/master/LICENSE">MIT License</a>.</p>
+          <p>© <a href="https://therondb.com">Theron</a> 2016 under the terms of the <a href="https://github.com/therondb/figure/blob/master/LICENSE">MIT License</a>.</p>
         </wrapper>
       </footer>
     </main>
