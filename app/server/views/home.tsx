@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import { Page } from './layouts/page';
 
-//  Even for mobile apps -  we provide an endpoint to you, no matter how data is
-//  sent to us.
 export default ({ isAuth }) => (
   <Page className="pages">
     <main className="home">

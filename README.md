@@ -21,7 +21,7 @@ Figure is ready for deployment to Heroku.
 ## Credits
 
 Figure is maintained and funded by [Theron](https://therondb.com), a reactive
-storage for realtime apps. Check [the feature issues](https://github.com/rosendi/figure/issues?q=is%3Aissue+is%3Aopen+label%3A%22type%3A+feature%22)
+storage for realtime apps. Check [the feature issues](https://github.com/therondb/figure/issues?q=is%3Aissue+is%3Aopen+label%3A%22type%3A+feature%22)
 to learn about our plans for Figure, and send pull requests with new features.
 We really appreciate it.
 
