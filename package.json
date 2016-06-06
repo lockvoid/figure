@@ -1,7 +1,7 @@
 {
   "name": "Figure",
   "description": "Painless forms for developers and designers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://figure-app.com",
   "license": "MIT",
   "repository": {
@@ -36,7 +36,7 @@
     "redis": "^2.5.3",
     "request": "^2.72.0",
     "sendgrid": "^2.0.0",
-    "theron": "^0.1.4",
+    "theron": "^0.2.0",
     "throng": "^4.0.0"
   },
   "devDependencies": {
@@ -76,7 +76,7 @@
       "redux-form": "npm:redux-form@^4.2.2",
       "redux-saga": "npm:redux-saga@^0.9.5",
       "redux-thunk": "npm:redux-thunk@^1.0.3",
-      "theron": "npm:theron@^0.1.4"
+      "theron": "npm:theron@^0.2.0"
     },
     "devDependencies": {}
   },

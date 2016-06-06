@@ -19,6 +19,9 @@ export function syncronizeArray<T>(query: string, resetAction: string) {
     }
 
     switch (action.type) {
+      case BEGIN_TRANSACTION:
+        return action.initial ? state.clear() : state;
+
       case ROW_ADDED:
         return rowAdded(state, action.payload);
 
@@ -32,7 +35,7 @@ export function syncronizeArray<T>(query: string, resetAction: string) {
         return rowRemoved(state, action.payload);
 
       case resetAction:
-        return List<T>();
+        return state.clear();
 
       default:
         return state;

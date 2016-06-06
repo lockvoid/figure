@@ -18,4 +18,3 @@ export const theron: Reducer = (state = { ref: connectTheron() }, action) => {
 function connectTheron() {
   return new Theron('https://therondb.com', { app: '/* @echo THERON_APP */' });
 }
-

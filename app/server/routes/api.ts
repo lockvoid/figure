@@ -44,10 +44,10 @@ api.use((req, res, next) => {
 
 api.get('/forms', ({ currentUser }, res) => {
   const submissionsCount = SubmissionRecord.query().whereRef('forms.id', '=', 'submissions.form_id').count().as('submissions_count');
-  const queryText = currentUser.$relatedQuery('forms').select('*', submissionsCount).orderBy('name').toString();
-  const querySignature = Theron.sign(queryText, process.env['THERON_SECRET']);
+  const query = currentUser.$relatedQuery('forms').select('*', submissionsCount).orderBy('name').toString();
+  const signature = Theron.sign(query, process.env['THERON_SECRET']);
 
-  res.json({ queryText, querySignature });
+  res.json({ query, signature });
 });
 
 api.post('/forms', wrap(async ({ currentUser, body }, res, next) => {
@@ -72,10 +72,10 @@ api.delete('/forms/:formId', wrap(async ({ currentUser, params }, res, next) => 
 
 api.get('/forms/:formId/submissions', wrap(async ({ currentUser, params }, res) => {
   const form = await currentUser.$relatedQuery('forms').where('id', params.formId).first();
-  const queryText = form.$relatedQuery('submissions').orderBy('created_at', 'desc').toString();
-  const querySignature = Theron.sign(queryText, process.env['THERON_SECRET']);
+  const query = form.$relatedQuery('submissions').orderBy('created_at', 'desc').toString();
+  const signature = Theron.sign(query, process.env['THERON_SECRET']);
 
-  res.json({ queryText, querySignature });
+  res.json({ query, signature });
 }));
 
 api.delete('/submissions/:submissionId', wrap(async ({ currentUser, params }, res) => {
