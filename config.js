@@ -23,7 +23,7 @@ System.config({
     "redux-form": "npm:redux-form@4.2.2",
     "redux-saga": "npm:redux-saga@0.9.5",
     "redux-thunk": "npm:redux-thunk@1.0.3",
-    "theron": "npm:theron@0.2.0",
+    "theron": "npm:theron@0.2.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
@@ -695,7 +695,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
-    "npm:theron@0.2.0": {
+    "npm:theron@0.2.1": {
       "immutable": "npm:immutable@3.8.1",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "rxjs": "npm:rxjs@5.0.0-beta.8",
