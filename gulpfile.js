@@ -94,7 +94,7 @@ function buildClient() {
   const source = ['{app/client,lib}/**/*.{ts,tsx}', 'typings/browser.d.ts'];
   const result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ includeBase: __dirname })).pipe(ts(clientProject));
 
-  return result.js.pipe(babel({ presets: ['es2015'] })).pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
+  return result.js.pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
 }
 
 function watchClient() {

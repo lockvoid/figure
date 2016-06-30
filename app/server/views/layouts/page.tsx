@@ -8,8 +8,6 @@ export const Page = ({ title = null, children = null, className = null }) => (
     <head>
       <title>{title && `${title} - `}Figure</title>
 
-      <base href="/" />
-
       <meta name="description" content="Painless forms for designers and developers." />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
