@@ -9,7 +9,7 @@ const mapDispatchToProps: MapDispatchToPropsObject = {
 }
 
 @connect(null, mapDispatchToProps)
-export class AppLogout extends React.Component<any, any> {
+export class Logout extends React.Component<any, any> {
   componentDidMount() {
     const { logout } = this.props;
 

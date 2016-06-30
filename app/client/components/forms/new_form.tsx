@@ -5,8 +5,8 @@ import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { createForm } from '../../actions/index';
-import { FieldBox } from '../shared/fieldbox';
-import { SubmitButton } from '../shared/submit_button';
+import { FieldBox, SubmitButton } from '../ui/forms/index';
+import { Wrapper } from '../ui/wrapper';
 
 const formConfig = {
   form: 'form',
@@ -35,6 +35,7 @@ const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch: Dispatch) => {
 }
 
 @reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
+
 export class NewForm extends React.Component<any, any> {
   render() {
     const { fields: { name }, handleSubmit, submitting, error } = this.props;
@@ -45,8 +46,8 @@ export class NewForm extends React.Component<any, any> {
           <h1>Create a new form</h1>
         </header>
 
-        <wrformer>
-          <form className="default" onSubmit={handleSubmit}>
+        <Wrapper direction="column">
+          <form className="default" onSubmit={createForm}>
             {error && !submitting && <div className="alert danger">{error}</div>}
 
             <FieldBox {...name}>
@@ -59,7 +60,7 @@ export class NewForm extends React.Component<any, any> {
               <SubmitButton title="Continue" submitting={submitting} />
             </div>
           </form>
-        </wrformer>
+        </Wrapper>
       </div>
     );
   }

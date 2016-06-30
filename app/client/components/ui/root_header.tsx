@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { Link } from 'react-router';
 
-export class AppHeader extends React.Component<any, any> {
+export class RootHeader extends React.Component<any, any> {
   render() {
     const { forms } = this.props;
 
     return (
-      <header className="primary">
+      <header>
         <Link to="/" className="logo">/* @include /public/images/figure.svg */</Link>
 
         <nav className="actions">

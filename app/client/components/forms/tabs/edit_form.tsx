@@ -2,11 +2,9 @@ import * as React from 'react';
 
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { combineValidators, requiredValidator } from '../../utils/validators';
-import { updateForm, deleteForm } from '../../actions/index';
-import { FieldBox } from '../shared/fieldbox';
-import { SubmitButton } from '../shared/submit_button';
-import { Checkbox } from '../shared/checkbox';
+import { combineValidators, requiredValidator } from '../../../utils/validators';
+import { updateForm, deleteForm } from '../../../actions/index';
+import { FieldBox, CheckBox, SubmitButton } from '../../ui/forms/index';
 
 const formConfig = {
   form: 'form',
@@ -22,20 +20,18 @@ const formConfig = {
   }),
 }
 
-const mapStateToProps: MapStateToProps = ({ auth: { api }, forms }, { params }) => {
-  const form = forms.rows.find(form => form.id === params.formId);
-
+const mapStateToProps: MapStateToProps = ({ auth: { api } }, { current: { form } }) => {
   return { api, initialValues: form };
 }
 
-const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => ({
+const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { current: { form } }) => ({
   onSubmit: (payload) => new Promise((resolve, reject) => {
-    dispatch(updateForm(params.formId, payload, resolve, reject))
+    dispatch(updateForm(form.id, payload, resolve, reject))
   }),
 
   onDelete: () => {
     if (window.confirm("Do you really want to delete?")) {
-      dispatch(deleteForm(params.formId));
+      dispatch(deleteForm(form.id));
     }
   },
 });
@@ -43,6 +39,7 @@ const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) =>
 @reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
 export class EditForm extends React.Component<any, any> {
   render() {
+    console.log(this.props);
     const { fields: { name, redirect_to, notify_me }, handleSubmit, onDelete, submitting, error } = this.props;
 
     return (
@@ -62,7 +59,7 @@ export class EditForm extends React.Component<any, any> {
             </FieldBox>
 
             <FieldBox {...notify_me}>
-              <Checkbox {...notify_me}>Notify Me?</Checkbox>
+              <CheckBox {...notify_me}>Notify Me?</CheckBox>
               <div className="hint">Send a notification on a new submission.</div>
             </FieldBox>
 

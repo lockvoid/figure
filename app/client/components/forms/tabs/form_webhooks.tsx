@@ -2,9 +2,8 @@ import * as React from 'react';
 
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { updateForm } from '../../actions/index';
-import { FieldBox } from '../shared/fieldbox';
-import { SubmitButton } from '../shared/submit_button';
+import { updateForm } from '../../../actions/index';
+import { FieldBox, SubmitButton } from '../../ui/forms/index';
 
 const formConfig = {
   form: 'form',
@@ -14,15 +13,13 @@ const formConfig = {
   ],
 }
 
-const mapStateToProps: MapStateToProps = ({ auth: { api }, forms }, { params }) => {
-  const form = forms.rows.find(form => form.id === params.formId);
-
-  return { api, initialValues: form };
+const mapStateToProps: MapStateToProps = ({ auth: { api }, forms }, { currentForm }) => {
+  return { api, initialValues: currentForm };
 }
 
-const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => ({
+const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { form }) => ({
   onSubmit: (payload) => new Promise((resolve, reject) => {
-    dispatch(updateForm(params.formId, payload, resolve, reject))
+    dispatch(updateForm(form.id, payload, resolve, reject))
   }),
 });
 
