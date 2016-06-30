@@ -240,9 +240,6 @@ declare module "objection" {
 
         clone(): QueryBuilder;
 
-        then(successHandler: (...args) => any, errorHandler: (...args) => any): Promise<any>;
-        then(successHandler: (...args) => any): Promise<any>;
-
         map(mapper: () => any): Promise<any>;
 
         catch(errorHandler: (...args) => any): Promise<any>;
