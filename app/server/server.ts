@@ -81,8 +81,7 @@ app.use((req, res, next) => {
 
 if (app.get('env') === 'development') {
   app.use('/', express.static('./dist/client'));
-
-  app.use('/jspm_packages', express.static('./jspm_packages'));
+  app.use('/', express.static('./'));
 
   app.get('/config.js', (req, res) => {
     res.sendFile(`${process.cwd()}/config.js`);

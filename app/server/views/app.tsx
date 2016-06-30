@@ -15,14 +15,14 @@ const Boot = () => {
       <script src="/config.js" />
 
       <script dangerouslySetInnerHTML={{ __html: `
-        System.import('babel-polyfill'); System.import('/app/client/client').catch(console.log.bind(console));
+        System.import('app/client/client').catch(console.log.bind(console));
       ` }} />,
     </div>
   );
 }
 
 export default () => (
-  <Page className='app'>
+  <Page className="app">
     <app id="app"><AppSpinner /></app>
     <Boot />
   </Page>
