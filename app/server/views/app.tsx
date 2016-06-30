@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Page } from './layouts/page';
 import { assetPath } from '../utils/asset_path';
-import { AppSpinner } from '../../../lib/components/app_spinner';
+import { Spinner } from '../../../lib/components/spinner';
 
 const Boot = () => {
   if (process.env.NODE_ENV === 'production') {
@@ -23,7 +23,7 @@ const Boot = () => {
 
 export default () => (
   <Page className="app">
-    <app id="app"><AppSpinner /></app>
+    <app id="app"><Spinner /></app>
     <Boot />
   </Page>
 );

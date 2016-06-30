@@ -1,27 +1,26 @@
 import * as React from 'react';
 
-import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
-import { NotFound } from '../shared/not_found';
-import { deleteSubmission } from '../../actions/index';
+import { NotFound } from '../pages/not_found';
 
 const dateFormat = require('dateformat');
 
-const mapStateToProps: MapStateToProps = ({ submissions }, { params }) => {
-  return { submission: submissions.rows.find(submission => submission.id === params.submissionId), formId: params.formId };
-}
-
-const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => ({
-  deleteSubmission: (id, formId) => {
-    if (window.confirm("Do you really want to delete?")) {
-      dispatch(deleteSubmission(id, formId));
-    }
-  },
-});
-
-@connect(mapStateToProps, mapDispatchToProps)
+//import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
+//const mapStateToProps: MapStateToProps = ({ submissions }, { params }) => {
+//  return { submission: submissions.rows.find(submission => submission.id === params.submissionId), formId: params.formId };
+//}
+//
+//const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => ({
+//  deleteSubmission: (id, formId) => {
+//    if (window.confirm("Do you really want to delete?")) {
+//      dispatch(deleteSubmission(id, formId));
+//    }
+//  },
+//});
+//
+//@connect(mapStateToProps, mapDispatchToProps)
 export class ShowSubmission extends React.Component<any, any> {
   render() {
-    const { submission, formId, deleteSubmission } = this.props;
+    const { submission, deleteSubmission } = this.props;
 
     if (!submission) {
       return <NotFound message="Perhaps head back to the submission list?" />;
@@ -36,7 +35,7 @@ export class ShowSubmission extends React.Component<any, any> {
           <time>Submitted on {dateFormat(createdAt, 'dd/mm/yy')} at {dateFormat(createdAt, 'HH:MM')}</time>
 
           <nav className="end">
-            <button type="button" className="flat danger" onClick={() => deleteSubmission(submission.id, formId)}>Delete</button>
+            <button type="button" className="flat danger" onClick={() => deleteSubmission(submission.id)}>Delete</button>
           </nav>
         </header>
 

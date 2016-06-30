@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export class AppSpinner extends React.Component<{}, {}> {
+export class Spinner extends React.Component<{}, {}> {
   render() {
     return (
       <spinner>
