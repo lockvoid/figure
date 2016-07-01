@@ -1,0 +1,51 @@
+@value primary from "styles/color.css";
+
+._icon {
+  border-radius: 1px;
+  border: 2px solid transparent;
+  color: transparent;
+  display: block;
+  height: 17px;
+  position: relative;
+  width: 17px;
+
+  & > svg {
+    fill: currentColor;
+    height: 17px;
+    left: -2px;
+    position: absolute;
+    top: -2px;
+    width: 17px;
+  }
+}
+
+.checkbox {
+  composes: flex alignCenter from "@styles/flex.css";
+  position: relative;
+}
+
+.input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.checked {
+  composes: _icon;
+  background-color: primary;
+  border-color: primary;
+  color: color(white a(0.8));
+}
+
+.unchecked {
+  composes: _icon;
+  border-color: color(white b(50%));
+}
+
+.label {
+  composes: sans semibold upcase from "styles/type.css";
+  color: color(white b(90%));
+  font-size: 12px;
+  margin-left: 8px;
+}
+

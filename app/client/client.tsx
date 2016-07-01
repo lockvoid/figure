@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { Main, Protected, Form, Submissions } from './containers/index';
+import { Root, Protected, Form, Submissions } from './containers/index';
 import { Signin, Signup, Logout } from './components/auth/index';
 import { FormsIndexRedirect, FormTabsIndexRedirect, NewForm, EditForm, SetupForm, FormWebhooks } from './components/forms/index';
 import { ShowSubmission } from './components/submissions/index';
@@ -16,7 +16,7 @@ const store = configureStore();
 const entry = (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Main}>
+      <Route path="/" component={Root}>
         <Route path="signin" component={Signin} onEnter={auth.canActivate(store, { authRequired: false })} />
         <Route path="signup" component={Signup} onEnter={auth.canActivate(store, { authRequired: false })} />
         <Route path="logout" component={Logout} />

@@ -1,4 +1,4 @@
-export { Main } from './main';
-export { Protected } from './protected';
 export { Form } from './form';
+export { Protected } from './protected';
+export { Root } from './root';
 export { Submissions } from './submissions';

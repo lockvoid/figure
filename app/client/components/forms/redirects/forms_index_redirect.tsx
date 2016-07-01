@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { connect, MapDispatchToPropsObject } from 'react-redux';
-import { redirectToFirstForm } from '../../actions/index';
+import { redirectToFirstForm } from '../../../actions/index';
 
 const mapDispatchToProps: MapDispatchToPropsObject = {
   redirectToFirstForm

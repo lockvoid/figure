@@ -1,0 +1,4 @@
+.container {
+  composes: flex from "styles/flex.css";
+  flex: 1;
+}

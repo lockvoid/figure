@@ -1,0 +1,10 @@
+.container {
+  composes: flex vertical from "styles/flex.css";
+  composes: main from "styles/layout.css";
+}
+
+.scroller {
+  composes: flex vertical from "styles/flex.css";
+  flex: 1;
+  overflow-y: auto;
+}

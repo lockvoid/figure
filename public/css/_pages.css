@@ -1,261 +1,29 @@
-body.pages {
-  wrapper {
-    margin: 0 auto;
-    max-width: 1200px;
-    display: flex;
-  }
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
-body.pages main.home {
-  header.main {
-    background-color: $color-primary;
-    background-image: radial-gradient(circle at 50% top, color(color($color-primary l(40%)) a(0.6)) 0%, color($color-primary a(0)) 75%);
-    background-repeat: no-repeat;
-    background-size: 100% 1000px;
-
-    wrapper {
-      flex-direction: column;
-    }
-
-    nav.menu {
-      margin: 0 25px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-
-      a.logo {
-        color: color(white a(0.7));
-        display: flex;
-        position: relative;
-
-        &:after {
-          background-color: color(white a(0.1));
-          bottom: -10px;
-          content: "";
-          height: 2px;
-          left: -10px;
-          position: absolute;
-          right: -10px;
-        }
-
-        svg {
-          height: 28px;
-        }
-      }
-
-      ul {
-        align-items: center;
-        display: flex;
-        margin-left: auto;
-
-        li {
-          margin-left: 30px;
-
-          a {
-            color: color(white a(0.8));
-            font-size: 15px;
-            font-weight: 500;
-            position: relative;
-            transition: color .1s;
-
-            &.active, &:hover {
-              color: white;
-            }
-
-            &.active:after {
-              border-bottom: 2px solid white;
-              content: "";
-              bottom: -6px;
-              left: 0;
-              position: absolute;
-              right: 0;
-            }
-          }
-        }
-      }
-    }
-
-    div.intro {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      margin: 40px 0 80px;
-
-      h1, h2 {
-        text-align: center;
-        color: white;
-      }
-
-      h1 {
-        font-size: 42px;
-        margin-bottom: 20px;
-      }
-
-      h2 {
-        font-size: 18px;
-        font-weight: 500;
-        color: color(white a(0.8));
-      }
-
-      a.signup {
-        transition: color .1s, border-color .1s;
-        border-radius: 3px;
-        border: 2px solid color(white a(0.7));
-        color: color(white a(0.8));
-        font-size: 14px;
-        font-weight: 500;
-        margin-top: 70px;
-        padding: 10px;
-        text-transform: uppercase;
-
-        &:hover {
-          color: white;
-          border-color: white;
-        }
-      }
-    }
-  }
-
-  h3 {
-    color: $color-primary;
-    font-size: 36px;
-    font-weight: 300;
-    margin-bottom: 40px;
-    text-align: center;
-  }
-
-  section.features {
-    display: flex;
-    margin: 80px auto;
-    max-width: 1000px;
-
-    div.feature {
-      flex: 1;
-      margin: 0 20px;
-
-      h4 {
-        color: $color-primary;
-        font-size: 25px;
-        font-weight: 400;
-        margin-bottom: 20px;
-      }
-
-      p {
-        color: color(black l(30%));
-        font-size: 17px;
-        line-height: 1.65;
-      }
-    }
-  }
-
-  section.video {
-    margin: 80px auto;
-    max-width: 800px;
-
-    figure.video {
-      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-  }
-
-  section.source {
-    background-color: color(black l(30));
-    padding: 80px 0;
-
-    & > wrapper {
-      flex-direction: column;
-      max-width: 800px;
-    }
-
-    h3, p, a {
-      color: color(white l(-10));
-    }
-
-    p {
-      font-size: 17px;
-      line-height: 1.65;
-      margin: 0;
-      text-align: center;
-    }
-
-    a {
-      text-decoration: underline;
-
-      &:hover {
-        color: white;
-      }
-    }
-  }
-
-  footer.main {
-    background-color: color(white b(7%));
-
-    wrapper {
-      align-items: center;
-      height: 50px;
-      justify-content: flex-start;
-      max-width: 800px;
-    }
-
-    p, a {
-      color: color(black l(50));
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    a {
-      text-decoration: underline;
-
-      &:hover {
-        color: color(black l(30));
-      }
-    }
-  }
+*, *:before, *:after {
+  -webkit-font-smoothing: antialiased;
 }
 
-body.thanks {
-  @mixin size 100%, 100%;
+:root {
+  color: color(black w(10%));
+  font-size: 16px;
+  font-weight: 400;
+  height: 100%;
+  line-height: 1.5;
+}
+
+body {
   background-color: color(white b(5%));
-  display: flex;
 
-  main {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    max-width: 500px;
-    padding: 40px 0;
-  }
+  &.app {
+    height: 100%;
 
-  h1 {
-    font-size: 42px;
-    text-align: center;
-  }
-
-  h2 {
-    color: color(black l(40));
-    font-size: 20px;
-    font-weight: 400;
-    margin-top: 10px;
-    text-align: center;
-  }
-
-  a.button {
-    margin: 50px 0 100px;
-  }
-
-  footer {
-    color: color(black l(50));
-
-    a {
-      color: color($color-primary w(0));
-
-      &:hover {
-        text-decoration: underline;
-      }
+    > app {
+      display: flex;
+      width: 100%;
+      height: 100%;
     }
   }
 }

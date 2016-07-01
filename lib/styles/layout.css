@@ -1,0 +1,17 @@
+.block {
+  display: block;
+}
+
+.fill {
+  width: 100%;
+}
+
+.center {
+  margin: auto;
+}
+
+.main {
+  flex: 4;
+  min-width: 700px;
+  overflow-y: auto;
+}

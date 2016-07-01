@@ -1,0 +1,8 @@
+.hint {
+  composes: sans regular from "styles/type.css";
+  color: color(black w(40%));
+  font-size: 13px;
+  line-height: 18px;
+  margin-top: 8px;
+  min-height: 18px;
+}

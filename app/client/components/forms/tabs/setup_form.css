@@ -1,0 +1,39 @@
+.container {
+  max-width: 800px;
+  padding: 40px;
+}
+
+.h2 {
+  composes: sans semibold from 'styles/type.css';
+  color: color(black l(20%));
+  font-size: 19px;
+  margin: 40px 0 15px;
+
+  &:first-child {
+    margin-top: 0px;
+  }
+}
+
+.p {
+  composes: sans regular text from 'styles/type.css';
+  font-size: 14px;
+  margin: 15px 0;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.code {
+  composes: mono code from 'styles/type.css';
+  background-color: white;
+  border-radius: 3px;
+  border: 0;
+  font-size: 13px;
+  padding: 4px 5px 2px;
+}
+
+.inline {
+  composes: code;
+  line-height: 1;
+}

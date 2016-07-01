@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import { SubmissionExcerpt } from './submission_excerpt';
+import { SubmissionExcerpts } from './submission_excerpts';
+
+import * as styles from './submissions_aside.css!';
 
 export const SubmissionsAside = ({ form, submissions }) => (
-  <aside>
-    <ul className="excerpts">
-      { submissions.rows.map(submission => <SubmissionExcerpt form={form} submission={submission} key={submission.id} />) }
+  <aside className={styles.container}>
+    <ul className={styles.excerpts}>
+      { submissions.rows.map(submission => <SubmissionExcerpts form={form} submission={submission} key={submission.id} />) }
     </ul>
   </aside>
 );

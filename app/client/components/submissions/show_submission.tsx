@@ -4,20 +4,8 @@ import { NotFound } from '../pages/not_found';
 
 const dateFormat = require('dateformat');
 
-//import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
-//const mapStateToProps: MapStateToProps = ({ submissions }, { params }) => {
-//  return { submission: submissions.rows.find(submission => submission.id === params.submissionId), formId: params.formId };
-//}
-//
-//const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { params }) => ({
-//  deleteSubmission: (id, formId) => {
-//    if (window.confirm("Do you really want to delete?")) {
-//      dispatch(deleteSubmission(id, formId));
-//    }
-//  },
-//});
-//
-//@connect(mapStateToProps, mapDispatchToProps)
+import * as styles from './show_submission.css!';
+
 export class ShowSubmission extends React.Component<any, any> {
   render() {
     const { submission, deleteSubmission } = this.props;
@@ -30,20 +18,24 @@ export class ShowSubmission extends React.Component<any, any> {
     const data = JSON.parse(submission.data);
 
     return (
-      <div className="submission show">
-        <header>
-          <time>Submitted on {dateFormat(createdAt, 'dd/mm/yy')} at {dateFormat(createdAt, 'HH:MM')}</time>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <time className={styles.time} >Submitted on {dateFormat(createdAt, 'dd/mm/yy')} at {dateFormat(createdAt, 'HH:MM')}</time>
 
-          <nav className="end">
+          <nav className={styles.dashboard}>
             <button type="button" className="flat danger" onClick={() => deleteSubmission(submission.id)}>Delete</button>
           </nav>
         </header>
 
-        <ol className="fields">
+        <ol className={styles.data}>
           {
             Object.keys(data).map(field =>
-              <li key={field}>
-                <h4>{field}</h4><div>{data[field]}</div>
+              <li className={styles.field} key={field}>
+                <h4 className={styles.h4}>{field}</h4>
+
+                <div className={styles.value}>
+                  {data[field]}
+                </div>
               </li>
             )
           }

@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { connect, MapStateToProps, MapDispatchToPropsObject } from 'react-redux';
 import { streamForms, unsubscribeForms } from '../actions/index';
-import { Wrapper } from '../components/ui/wrapper';
-import { RootHeader } from '../components/ui/root_header';
+import { FormsLayout } from '../components/forms/forms_layout';
 import { Spinner } from '../../../lib/components/spinner';
 
 const mapStateToProps: MapStateToProps = ({ forms }) => {
@@ -33,13 +32,8 @@ export class Protected extends React.Component<any, any> {
 
     if (!forms.meta.initialized) {
       return <Spinner />;
+    } else {
+      return <FormsLayout forms={forms}>{children}</FormsLayout>
     }
-
-    return (
-      <Wrapper direction="row">
-        <RootHeader forms={forms} />
-        <main>{children}</main>
-      </Wrapper>
-    );
   }
 }

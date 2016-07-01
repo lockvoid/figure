@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect, MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import { Spinner } from '../../../lib/components/spinner';
-import { SubmissionsAside } from '../components/submissions/submissions_aside';
+import { NoSubmissions, SubmissionsLayout } from '../components/submissions/index';
 import { streamSubmissions, unsubscribeSubmissions, deleteSubmission } from '../actions/index';
 
 const mapStateToProps: MapStateToProps = ({ forms, submissions }, { params, current: { form } }) => {
@@ -69,18 +69,13 @@ export class Submissions extends React.Component<any, any> {
     }
 
     if (submissions.rows.size === 0) {
-      return (
-        <div className="submissions empty">
-          <h4>WAITING FOR SUBMISSIONS</h4>
-        </div>
-      );
+      return <NoSubmissions />;
     }
 
     return (
-      <div className="submissions dashboard">
-        <SubmissionsAside form={form} submissions={submissions} />
+      <SubmissionsLayout form={form} submissions={submissions}>
         {React.Children.map(children, child => React.cloneElement(child as React.ReactElement<any>, { submission, deleteSubmission }))}
-      </div>
+      </SubmissionsLayout>
     );
   }
 

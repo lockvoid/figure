@@ -4,7 +4,9 @@ import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../../utils/validators';
 import { updateForm, deleteForm } from '../../../actions/index';
-import { FieldBox, CheckBox, SubmitButton } from '../../ui/forms/index';
+import { Flash, Group, Label, Hint, Input, Checkbox, Error, Submit } from '../../ui/forms/index';
+
+import * as styles from './edit_form.css!';
 
 const formConfig = {
   form: 'form',
@@ -39,37 +41,34 @@ const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch, { current: { f
 @reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
 export class EditForm extends React.Component<any, any> {
   render() {
-    console.log(this.props);
     const { fields: { name, redirect_to, notify_me }, handleSubmit, onDelete, submitting, error } = this.props;
 
     return (
-      <div className="forms edit">
-        <wrapper>
-          <form className="default" onSubmit={handleSubmit}>
-            {error && !submitting && <div className="alert failure">{error}</div>}
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <Flash className={styles.flash} level="warning" visible={!submitting && !!error}>{error}</Flash>
 
-            <FieldBox {...name}>
-              <div className="title">Form Name</div>
-              <input type="text" {...name} />
-            </FieldBox>
+        <Group>
+          <Label field={name}>Form Name</Label>
+          <Input field={name} type="text" />
+          <Error field={name} />
+        </Group>
 
-            <FieldBox {...redirect_to}>
-              <div className="title">Redirect Url</div>
-              <input type="text" {...redirect_to} placeholder="https://figure-app.com/thankyou" />
-            </FieldBox>
+        <Group>
+          <Label field={redirect_to}>Redirect Url</Label>
+          <Input field={redirect_to} type="text" placeholder="https://figure-app.com/thankyou" />
+          <Error field={redirect_to} />
+        </Group>
 
-            <FieldBox {...notify_me}>
-              <CheckBox {...notify_me}>Notify Me?</CheckBox>
-              <div className="hint">Send a notification on a new submission.</div>
-            </FieldBox>
+        <Group>
+          <Checkbox field={notify_me}>Notify Me?</Checkbox>
+          <Hint>Send a notification to your email on a new submission.</Hint>
+        </Group>
 
-            <div className="buttons">
-              <SubmitButton title="Update" submitting={submitting} />
-              <button type="button" className="flat danger end" onClick={onDelete}>Delete</button>
-            </div>
-          </form>
-        </wrapper>
-      </div>
+        <section className={styles.buttons}>
+          <Submit submitting={submitting}>Update</Submit>
+          <button type="button" className="flat danger end" onClick={onDelete}>Delete</button>
+        </section>
+      </form>
     );
   }
 }

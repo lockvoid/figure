@@ -3,7 +3,9 @@ import * as React from 'react';
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { updateForm } from '../../../actions/index';
-import { FieldBox, SubmitButton } from '../../ui/forms/index';
+import { Flash, Group, Label, Hint, Input, Error, Submit } from '../../ui/forms/index';
+
+import * as styles from './form_webhooks.css!';
 
 const formConfig = {
   form: 'form',
@@ -29,23 +31,20 @@ export class FormWebhooks extends React.Component<any, any> {
     const { fields: { webhook_url }, handleSubmit, submitting, error } = this.props;
 
     return (
-      <div className="forms webhooks">
-        <wrapper>
-          <form className="default" onSubmit={handleSubmit}>
-            {error && !submitting && <div className="alert failure">{error}</div>}
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <Flash className={styles.flash} level="warning" visible={!submitting && !!error}>{error}</Flash>
 
-            <FieldBox {...webhook_url}>
-              <div className="title">Webhook Url</div>
-              <input type="text" {...webhook_url} />
-              <div className="hint">Send an HTTP POST to this URL on a new submission.</div>
-            </FieldBox>
+        <Group>
+          <Label field={webhook_url}>Webhook Url</Label>
+          <Input field={webhook_url} type="text" />
+          <Hint>Send a POST request to the URL above on a new submission.</Hint>
+          <Error field={webhook_url} />
+        </Group>
 
-            <div className="buttons">
-              <SubmitButton title="Update" submitting={submitting} />
-            </div>
-          </form>
-        </wrapper>
-      </div>
+        <section className={styles.buttons}>
+          <Submit submitting={submitting}>Update</Submit>
+        </section>
+      </form>
     );
   }
 }

@@ -2,28 +2,17 @@ import * as React from 'react';
 
 import { FieldProp } from 'redux-form';
 
-export class CheckBox extends React.Component<FieldProp & React.Props<CheckBox>, {}> {
-  className(): string {
-    let { value } = this.props;
+import * as styles from './checkbox.css!';
 
-    if (value) {
-      return 'checked';
-    } else {
-      return '';
-    }
-  }
+export const Checkbox = ({ field, children = undefined }) => (
+  <label className={styles.checkbox}>
+    <input type="hidden" {...field} value="false" />
+    <input className={styles.input} type="checkbox" {...field} />
 
-  render() {
-    let { children } = this.props;
-    let field: FieldProp = Object.assign({}, this.props, { children: null });
+    <i className={field.value ? styles.checked : styles.unchecked}>
+      /* @include app/client/components/ui/forms/checkbox.svg */
+    </i>
 
-    return (
-      <div className={`checkbox ${this.className()}`}>
-        <input type="hidden" {...field} value="false" />
-        <input type="checkbox" {...field} />
-        <i>/* @include /public/images/icons/check.svg */</i>
-        <div className="title">{children}</div>
-      </div>
-    );
-  }
-}
+    <span className={styles.label}>{children}</span>
+  </label>
+);

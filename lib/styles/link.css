@@ -1,0 +1,7 @@
+.sublink {
+  text-decoration: none;
+}
+
+.invisible, .invisible:hover, .invisible:visited {
+  text-decoration: none;
+}
