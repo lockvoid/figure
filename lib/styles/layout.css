@@ -1,0 +1,11 @@
+.block {
+  display: block;
+}
+
+.fill {
+  width: 100%;
+}
+
+.center {
+  margin: auto;
+}

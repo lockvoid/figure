@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldProp } from 'redux-form';
 
-export class CheckBox extends React.Component<FieldProp & React.Props<CheckBox>, {}> {
+export class Checkbox extends React.Component<FieldProp & React.Props<Checkbox>, {}> {
   className(): string {
     let { value } = this.props;
 

@@ -4,9 +4,11 @@ import { Link } from 'react-router';
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { signup } from '../../actions/index';
-import { FieldBox, SubmitButton } from '../ui/forms/index';
+import { Flash, Group, Validator, Label, Input, Error, Submit } from '../ui/forms/index';
 import { combineValidators, requiredValidator, emailValidator, passwordValidator, uniquenessValidator } from '../../utils/validators';
 import { Api } from '../../lib/api';
+
+import * as styles from './auth.css!';
 
 const formConfig = {
   form: 'signup',
@@ -54,34 +56,41 @@ export class Signup extends React.Component<any, any> {
     const { fields: { email, password, name }, asyncValidating, handleSubmit, submitting, error } = this.props;
 
     return (
-      <main>
-        <a href="/" className="logo">/* @include /public/images/figure.svg */</a>
+      <main className={styles.main}>
+        <a href="/" className={styles.logo}>/* @include /public/images/figure.svg */</a>
 
-        <form className="default" onSubmit={signup}>
-          <wrapper>
-            {error && !submitting && <div className="alert warning">{error}</div>}
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <section className={styles.inputs}>
+            <Flash className={styles.flash} level="warning" visible={!submitting && !!error}>{error}</Flash>
 
-            <FieldBox {...email}>
-              <div className="title">Email {asyncValidating === 'email' && <span className="async">Checking</span>}</div>
-              <input type="text" {...email} />
-            </FieldBox>
+            <Group>
+              <Label field={email}>
+                <span>Email</span>
+                <Validator visible={asyncValidating === 'email'}>Checking</Validator>
+              </Label>
 
-            <FieldBox {...password}>
-              <div className="title">Password</div>
-              <input type="password" {...password} />
-            </FieldBox>
+              <Input field={email} type="email" />
+              <Error field={email} />
+            </Group>
 
-            <FieldBox {...name}>
-              <div className="title">Name</div>
-              <input type="text" {...name} />
-            </FieldBox>
+            <Group>
+              <Label field={password}>Password</Label>
+              <Input field={password} type="password" />
+              <Error field={password} />
+            </Group>
 
-            <div className="buttons">
-              <SubmitButton title="Sign Up" submitting={submitting} className="justify" />
-            </div>
-          </wrapper>
+            <Group>
+              <Label field={name}>Name</Label>
+              <Input field={name} type="text" />
+              <Error field={name} />
+            </Group>
 
-          <Link to="/signin" className="footer">
+            <section className={styles.buttons}>
+              <Submit className={styles.submit} submitting={submitting}>Sign Up</Submit>
+            </section>
+          </section>
+
+          <Link to="/signin" className={styles.footer}>
             Already have an account? Sign In
           </Link>
         </form>

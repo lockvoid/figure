@@ -4,8 +4,10 @@ import { Link } from 'react-router';
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { signin } from '../../actions/index';
-import { FieldBox, SubmitButton } from '../ui/forms/index';
+import { Flash, Group, Label, Input, Error, Submit } from '../ui/forms/index';
 import { combineValidators, requiredValidator, emailValidator, passwordValidator } from '../../utils/validators';
+
+import * as styles from './auth.css!';
 
 const formConfig = {
   form: 'signin',
@@ -43,29 +45,31 @@ export class Signin extends React.Component<any, any> {
     const { fields: { email, password }, handleSubmit, submitting, error } = this.props;
 
     return (
-      <main>
-        <a href="/" className="logo">/* @include /public/images/figure.svg */</a>
+      <main className={styles.main}>
+        <a href="/" className={styles.logo}>/* @include /public/images/figure.svg */</a>
 
-        <form className="default" onSubmit={handleSubmit}>
-          <wrapper>
-            {error && !submitting && <div className="alert warning">{error}</div>}
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <section className={styles.inputs}>
+            <Flash className={styles.flash} level="warning" visible={!submitting && !!error}>{error}</Flash>
 
-            <FieldBox {...email}>
-              <div className="title">Email</div>
-              <input type="text" {...email} />
-            </FieldBox>
+            <Group>
+              <Label field={email}>Email</Label>
+              <Input field={email} type="email" />
+              <Error field={email} />
+            </Group>
 
-            <FieldBox {...password}>
-              <div className="title">Password</div>
-              <input type="password" {...password} />
-            </FieldBox>
+            <Group>
+              <Label field={password}>Password</Label>
+              <Input field={password} type="password" />
+              <Error field={password} />
+            </Group>
 
-            <div className="buttons">
-              <SubmitButton title="Sign In" submitting={submitting} className="justify" />
-            </div>
-          </wrapper>
+            <section className={styles.buttons}>
+              <Submit className={styles.submit} submitting={submitting}>Sign In</Submit>
+            </section>
+          </section>
 
-          <Link to="/signup" className="footer">
+          <Link to="/signup" className={styles.footer}>
             New to Figure? Sign Up
           </Link>
         </form>

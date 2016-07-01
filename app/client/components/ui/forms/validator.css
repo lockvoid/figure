@@ -1,0 +1,8 @@
+@value observe from "styles/color.css";
+
+.validator {
+  composes: sans semibold upcase from 'styles/type.css';
+  color: observe;
+  font-size: 13px;
+  margin-left: auto;
+}

@@ -1,0 +1,7 @@
+.field {
+  composes: block from 'styles/layout.css';
+
+  & + .field {
+    margin-top: 18px;
+  }
+}

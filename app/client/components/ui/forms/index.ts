@@ -1,3 +1,9 @@
-export { CheckBox } from './checkbox';
-export { FieldBox } from './fieldbox';
-export { SubmitButton } from './submit_button';
+export { Checkbox } from './checkbox';
+export { Error } from './error';
+export { Flash } from './flash';
+export { Group } from './group';
+export { Hint } from './hint';
+export { Input } from './input';
+export { Label } from './label';
+export { Submit } from './submit';
+export { Validator } from './Validator';
