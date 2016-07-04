@@ -1,0 +1,42 @@
+@value primary from "@styles/color.css";
+
+.page {
+  composes: flex from "@styles/flex.css";
+  background-color: color(white b(5%));
+  height: 100%;
+}
+
+.main {
+  composes: flex vertical center from "@styles/flex.css";
+  composes: center from "@styles/layout.css";
+  max-width: 500px;
+  padding: 40px 0;
+}
+
+.h1 {
+  composes: sans light center from "@styles/type.css";
+  color: color(black w(10%));
+  font-size: 42px;
+}
+
+.h2 {
+  composes: sans regular center from "@styles/type.css";
+  color: color(black l(40));
+  font-size: 20px;
+  margin-top: 25px;
+}
+
+a.goBack {
+  margin: 50px 0 100px;
+}
+
+.footer {
+  composes: sans regular center from "@styles/type.css";
+  color: color(black l(50));
+  font-size: 13px;
+}
+
+.footerLink {
+  composes: sublink from "@styles/link.css";
+  color: primary;
+}

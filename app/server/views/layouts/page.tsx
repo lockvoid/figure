@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import { assetPath } from '../../utils/asset_path';
 import { Metrika } from '../shared/metrika';
+import { assetPath } from '../../utils/asset_path';
 
-const glob = require('glob');
+import * as styles from './page.css.json';
 
 const includeCss = () => {
   if (process.env.NODE_ENV == 'production') {
     return <link rel="stylesheet" media="screen" href={assetPath('app.css')} />;
   }
 
-  return glob.sync('dist/**/*.css').map(file =>
+  return require('glob').sync('dist/**/*.css').map(file =>
     <link rel="stylesheet" media="screen" href={file} key={file} />
   );
 }
@@ -30,7 +30,7 @@ export const Page = ({ title = null, children = null, className = null }) => (
       /* @ifdef METRIKA_APP */ <Metrika app={/* @echo METRIKA_APP */} /> /* @endif */
     </head>
 
-    <body className={className}>
+    <body className={`${styles.body} ${className}`}>
       {children}
     </body>
   </html>

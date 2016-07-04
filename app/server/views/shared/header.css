@@ -1,0 +1,93 @@
+@value primary from "@styles/color.css";
+
+.header {
+  background-color: color(white a(90%));
+  box-shadow: 0 1px 5px color(black a(15%));
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99;
+
+  :global {
+    .header__container {
+      height: 80px;
+    }
+
+    .header__logo {
+      color: primary;
+    }
+
+    .header__item {
+      color: color(black l(40%));
+
+      &:hover {
+        color: primary;
+      }
+    }
+  }
+}
+
+.header--narrow {
+  :global {
+    .header__container {
+      height: 60px;
+    }
+  }
+}
+
+.header--landing {
+  background-color: transparent;
+  box-shadow: none;
+  transition: background-color 0.3s;
+
+  :global {
+    .header__logo {
+      color: color(white a(70%));
+    }
+
+    .header__item {
+      color: color(white a(80%));
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+
+.header--landing-narrow {
+  background-color: primary;
+  box-shadow: 0 1px 5px color(black a(15%));
+}
+
+.container {
+  composes: flex alignCenter justifyBetween from "@styles/flex.css";
+  composes: wide center from "@styles/layout.css";
+  padding: 0 25px;
+  transition: height .3s;
+}
+
+.logo {
+  padding-top: 7px;
+
+  & > svg {
+    fill: currentColor;
+    height: 28px;
+  }
+}
+
+.ul  {
+  composes: flex align-center from "@styles/flex.css";
+}
+
+.li {
+  margin-left: 30px;
+}
+
+.item {
+  composes: invisible from "@styles/link.css";
+  composes: sans semibold from "@styles/type.css";
+  font-size: 15px;
+  transition: color .1s;
+}

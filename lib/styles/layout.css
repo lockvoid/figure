@@ -10,6 +10,18 @@
   margin: auto;
 }
 
+.wide {
+  max-width: 1200px;
+}
+
+.normal {
+  max-width: 1050px;
+}
+
+.narrow {
+  max-width: 800px;
+}
+
 .main {
   flex: 4;
   min-width: 700px;

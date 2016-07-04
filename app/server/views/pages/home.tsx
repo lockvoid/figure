@@ -1,74 +1,50 @@
 import * as React from 'react';
 
 import { Page } from '../layouts/page';
+import { Header } from '../shared/header';
+import { Footer } from '../shared/footer';
+
+import * as styles from './home.css.json';
 
 export default ({ isAuth }) => (
-  <Page className="pages">
-    <main className="home">
-      <header className="main">
-        <wrapper>
-          <nav className="menu">
-            <a href="/" className="logo">/* @include /public/images/figure.svg */</a>
+  <Page className={styles.page}>
+    <Header theme="landing" isAuth={isAuth} />
 
-            <ul>
-              <li>
-                <a href="https://github.com/therondb/figure">View on GitHub</a>
-              </li>
+    <main className={styles.main}>
+      <section className={styles.overlay}>
+        <div className={styles.hero}>
+          <h1 className={styles.h1}>Painless forms for designers and developers.</h1>
+          <h3 className={styles.h3}>Figure gives an endpoint to tech-savvy individuals like you, no matter how data is sent.</h3>
 
-              <li>
-                <a href="mailto:support@figure-app.com">Contact</a>
-              </li>
-
-              <li>
-                {isAuth ? <a href="/">Go to App</a> : <a href="/signin">Sign In</a>}
-              </li>
-            </ul>
-          </nav>
-
-          <div className="intro">
-            <h1>Painless forms for designers and developers.</h1>
-            <h2>Collect, reduce and stream form data while avoiding crutches.</h2>
-
-            <a href="/signup" className="signup">
-              <div>Sign Up for Free</div>
-            </a>
-          </div>
-        </wrapper>
-      </header>
-
-      <section className="features">
-        <div className="feature">
-          <h4>Markup</h4>
-          <p>No more evil iFrame and CSS overrides. Write plain HTML and JavaScript for additional features.</p>
-        </div>
-
-        <div className="feature">
-          <h4>Webhooks</h4>
-          <p>Figure likes to talk with other apps. Use webhooks to keep other services in sync with incoming data.</p>
-        </div>
-
-        <div className="feature">
-          <h4>Reducers</h4>
-          <p>Data isn't static. Define a reducer that transforms incoming data. Fetch the result back later using our API.</p>
+          <a className={styles.signup} href="/signup">Sign Up for Free</a>
         </div>
       </section>
 
-      <section className="video">
-        <h3>Put simply, Figure gives an endpoint to tech-savvy individuals like you, no matter how data is sent.</h3>
-     </section>
+      <section className={styles.features}>
+        <div className={styles.feature}>
+          <h4 className={styles.h4}>Markup</h4>
+          <p className={styles.p}>No more evil iFrame and CSS overrides. Write plain HTML and JavaScript for additional features.</p>
+        </div>
 
-      <section className="source">
-         <wrapper>
-           <h3>Open source</h3>
-           <p>Figure is a complete, production-ready, and open-sourced application powered by <a href="https://therondb.com">Theron</a> - a reactive storage for realtime apps. Check out its <a href="https://therondb.com/docs">documentation</a> and create amazing apps with Theron.</p>
-         </wrapper>
+        <div className={styles.feature}>
+          <h4 className={styles.h4}>Webhooks</h4>
+          <p className={styles.p}>Figure likes to talk with other apps. Use webhooks to keep other services in sync with incoming data.</p>
+        </div>
+
+        <div className={styles.feature}>
+          <h4 className={styles.h4}>Reducers</h4>
+          <p className={styles.p}>Data isn't static. Define a reducer that transforms incoming data. Fetch the result back later using our API.</p>
+        </div>
       </section>
 
-      <footer className="main">
-        <wrapper>
-          <p>© <a href="https://therondb.com">Theron</a> 2016 under the terms of the <a href="https://github.com/therondb/figure/blob/master/LICENSE">MIT License</a>.</p>
-        </wrapper>
-      </footer>
+      <section className={styles.opensource}>
+        <div className={styles.narrow}>
+          <h2 className={styles.h2}>Open source</h2>
+          <p className={styles.text}>Figure is a complete, production-ready, and open-sourced application powered by <a className={styles.a} href="https://therondb.com">Theron</a> - a reactive storage for realtime apps. Check out its <a className={styles.a} href="https://therondb.com/docs">documentation</a> and create amazing apps with Theron.</p>
+        </div>
+      </section>
     </main>
+
+    <Footer />
   </Page>
 );

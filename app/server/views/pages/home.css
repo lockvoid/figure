@@ -1,0 +1,99 @@
+@value primary from "@styles/color.css";
+
+.page {
+}
+
+.main {
+}
+
+.narrow {
+  composes: narrow center from "@styles/layout.css";
+}
+
+.overlay {
+  background: primary radial-gradient(circle at 50% top, color(#0d7689 l(40%) a(60%)) 0%, color(#0d7689 a(0)) 75%) 0 0 / 100% 1000px no-repeat;
+}
+
+.hero {
+  composes: wide from "@styles/layout.css";
+  composes: flex vertical alignCenter from "@styles/flex.css";
+  padding: 120px 0 80px;
+}
+
+.h1 {
+  composes: sans light center from "@styles/type.css";
+  color: white;
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+.h2 {
+  composes: sans light center from "@styles/type.css";
+  color: primary;
+  font-size: 36px;
+  margin: 0 auto 25px;
+}
+
+.h3 {
+  composes: sans semibold center from "@styles/type.css";
+  color: color(white a(80%));
+  font-size: 18px;
+}
+
+.h4 {
+  composes: sans semibold from "@styles/type.css";
+  color: primary;
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+
+.a {
+  composes: link from "@styles/link.css";
+  color: primary;
+}
+
+.p {
+  composes: sans regular  from "@styles/type.css";
+  color: color(black l(30%));
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.text {
+  composes: p;
+  composes: center from "@styles/type.css";
+}
+
+.signup {
+  composes: invisible from "@styles/link.css";
+  composes: sans semibold center upcase from "@styles/type.css";
+  border-radius: 3px;
+  border: 2px solid color(white a(70%));
+  color: color(white a(80%));
+  font-size: 14px;
+  margin-top: 70px;
+  padding: 10px;
+  transition: color .1s, border-color .1s;
+
+  &:hover {
+    border-color: white;
+    color: white;
+  }
+}
+
+.features {
+  composes: normal center from "@styles/layout.css";
+  composes: flex from "@styles/flex.css";
+  padding: 80px 0;
+}
+
+.feature {
+  flex: 1;
+  margin: 0 20px;
+}
+
+.opensource {
+  background-image: linear-gradient(white, color(white l(-3%)));
+  border-top: 1px solid color(white l(-15%));
+  padding: 80px 0;
+}
