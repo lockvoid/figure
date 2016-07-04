@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Page } from './layouts/page';
-import { assetPath } from '../utils/asset_path';
-import { Spinner } from '../../../lib/components/spinner';
+import { Page } from '../layouts/page';
+import { Spinner } from '../../../../lib/components/spinner';
+import { assetPath } from '../../utils/asset_path';
 
-const Boot = () => {
+const includeJs = () => {
   if (process.env.NODE_ENV === 'production') {
     return <script src={assetPath('app.js')} />
   }
@@ -24,6 +24,6 @@ const Boot = () => {
 export default () => (
   <Page className="app">
     <app id="app"><Spinner /></app>
-    <Boot />
+    {includeJs()}
   </Page>
 );
