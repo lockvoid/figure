@@ -10,6 +10,8 @@ const jspm = require('jspm');
 const path = require('path');
 const postcssModules = require('postcss-modules');
 const precss = require('precss')
+const babel = require('gulp-babel');
+const concat = require('gulp-concat');
 const cssnano = require('gulp-cssnano');
 const postcss = require('gulp-postcss');
 const preprocess = require('gulp-preprocess');
@@ -96,7 +98,7 @@ function buildClient() {
   const source = ['{app/client,lib}/**/*.{ts,tsx}', 'typings/browser.d.ts'];
   const result = gulp.src(source).pipe(sourcemaps.init()).pipe(preprocess({ includeBase: __dirname })).pipe(ts(clientProject));
 
-  return result.js.pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
+  return result.js.pipe(babel({ presets: ['es2015'] })).pipe(sourcemaps.write()).pipe(gulp.dest('dist/client'));
 }
 
 function watchClient() {
@@ -104,7 +106,7 @@ function watchClient() {
 }
 
 function bundleClient() {
-  return jspm.bundleSFX('babel-polyfill + dist/client/app/client/client', 'dist/public/app.js', { minify: true, sourceMaps: true});
+  return jspm.bundleSFX('babel-polyfill + dist/client/app/client/client', 'dist/public/app.js', { runtime: false, minify: true, sourceMaps: true});
 }
 
 // Public
@@ -149,7 +151,7 @@ function buildCss() {
 }
 
 function minifyCss() {
-  return gulp.src('dist/**/*.css').pipe(sourcemaps.init()).pipe(cssnano()).pipe(sourcemaps.write('.')).pipe(gulp.dest('dist/public'));
+  return gulp.src('dist/**/*.css').pipe(concat('app.css')).pipe(sourcemaps.init()).pipe(cssnano()).pipe(sourcemaps.write('.')).pipe(gulp.dest('dist/public'));
 }
 
 function watchCss() {

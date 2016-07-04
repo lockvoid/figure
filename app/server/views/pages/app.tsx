@@ -17,7 +17,7 @@ const includeJs = () => {
       <script src="/config.js" />
 
       <script dangerouslySetInnerHTML={{ __html: `
-        System.import('app/client/client').catch(console.log.bind(console));
+        System.import('babel-polyfill'); System.import('app/client/client').catch(console.log.bind(console));
       ` }} />
     </div>
   );
