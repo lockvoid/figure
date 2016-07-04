@@ -1,8 +1,8 @@
-@value primary, failure from "styles/color.css";
+@value primary, failure from "@styles/color.css";
 
 .default {
-  composes: flex from "styles/flex.css";
-  composes: sans semibold upcase from "styles/type.css";
+  composes: flex from "@styles/flex.css";
+  composes: sans semibold upcase from "@styles/type.css";
   color: color(white b(90%));
   font-size: 13px;
   height: 16px;

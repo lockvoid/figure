@@ -1,8 +1,8 @@
-@value warning, failure from "styles/color.css";
+@value warning, failure from "@styles/color.css";
 
 .default {
-  composes: block from "styles/layout.css";
-  composes: sans regular center from "styles/type.css";
+  composes: block from "@styles/layout.css";
+  composes: sans regular center from "@styles/type.css";
   border-radius: 2px;
   color: white;
   font-size: 14px;

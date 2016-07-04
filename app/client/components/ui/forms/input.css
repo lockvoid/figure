@@ -1,8 +1,8 @@
-@value primary, failure from "styles/color.css";
+@value primary, failure from "@styles/color.css";
 
 .default {
-  composes: fill center from "styles/layout.css";
-  composes: sans regular from "styles/type.css";
+  composes: fill center from "@styles/layout.css";
+  composes: sans regular from "@styles/type.css";
   background-color: white;
   border-radius: 2px;
   border: 1px solid color(white b(20));

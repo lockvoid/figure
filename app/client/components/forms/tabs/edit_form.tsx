@@ -6,7 +6,7 @@ import { combineValidators, requiredValidator } from '../../../utils/validators'
 import { updateForm, deleteForm } from '../../../actions/index';
 import { Flash, Group, Label, Hint, Input, Checkbox, Error, Submit } from '../../ui/forms/index';
 
-import * as styles from './edit_form.css!';
+import * as styles from './edit_form.css.json!';
 
 const formConfig = {
   form: 'form',

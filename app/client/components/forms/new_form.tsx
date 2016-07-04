@@ -7,7 +7,7 @@ import { combineValidators, requiredValidator } from '../../utils/validators';
 import { createForm } from '../../actions/index';
 import { Flash, Group, Label, Input, Hint, Error, Submit } from '../ui/forms/index';
 
-import * as styles from './new_form.css!';
+import * as styles from './new_form.css.json!';
 
 const formConfig = {
   form: 'form',

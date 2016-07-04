@@ -4,7 +4,7 @@
 }
 
 .h2 {
-  composes: sans semibold from 'styles/type.css';
+  composes: sans semibold from '@styles/type.css';
   color: color(black l(20%));
   font-size: 19px;
   margin: 40px 0 15px;
@@ -15,7 +15,7 @@
 }
 
 .p {
-  composes: sans regular text from 'styles/type.css';
+  composes: sans regular text from '@styles/type.css';
   font-size: 14px;
   margin: 15px 0;
 
@@ -25,7 +25,7 @@
 }
 
 .code {
-  composes: mono code from 'styles/type.css';
+  composes: mono code from '@styles/type.css';
   background-color: white;
   border-radius: 3px;
   border: 0;

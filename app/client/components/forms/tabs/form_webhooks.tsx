@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { updateForm } from '../../../actions/index';
 import { Flash, Group, Label, Hint, Input, Error, Submit } from '../../ui/forms/index';
 
-import * as styles from './form_webhooks.css!';
+import * as styles from './form_webhooks.css.json!';
 
 const formConfig = {
   form: 'form',

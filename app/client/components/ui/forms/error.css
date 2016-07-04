@@ -1,7 +1,7 @@
-@value failure from "styles/color.css";
+@value failure from "@styles/color.css";
 
 .error {
-  composes: sans regular from "styles/type.css";
+  composes: sans regular from "@styles/type.css";
   color: failure;
   font-size: 13px;
   line-height: 18px;

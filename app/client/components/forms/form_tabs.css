@@ -1,4 +1,4 @@
-@value primary from "styles/color.css";
+@value primary from "@styles/color.css";
 
 .container {
   background-color: white;
@@ -7,7 +7,7 @@
 }
 
 .ul {
-  composes: flex alignCenter from "styles/flex.css";
+  composes: flex alignCenter from "@styles/flex.css";
   height: 63px;
 }
 
@@ -16,8 +16,8 @@
 }
 
 .tab {
-  composes: sans regular from "styles/type.css";
-  composes: invisible from "styles/link.css";
+  composes: sans regular from "@styles/type.css";
+  composes: invisible from "@styles/link.css";
   color: color(black w(10%));
   font-size: 17px;
   position: relative;
@@ -42,7 +42,7 @@
 }
 
 .feature {
-  composes: sans regular from "styles/type.css";
+  composes: sans regular from "@styles/type.css";
   color: color(black l(80));
   font-size: 17px;
 }

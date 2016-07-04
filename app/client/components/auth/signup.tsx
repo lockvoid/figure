@@ -8,7 +8,7 @@ import { Flash, Group, Validator, Label, Input, Error, Submit } from '../ui/form
 import { combineValidators, requiredValidator, emailValidator, passwordValidator, uniquenessValidator } from '../../utils/validators';
 import { Api } from '../../lib/api';
 
-import * as styles from './auth.css!';
+import * as styles from './auth.css.json!';
 
 const formConfig = {
   form: 'signup',

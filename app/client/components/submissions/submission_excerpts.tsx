@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Link } from 'react-router';
 
-import * as styles from './submission_excerpts.css!';
+import * as styles from './submission_excerpts.css.json!';
 
 const dateFormat = require('dateformat');
 

@@ -1,12 +1,12 @@
-@value primary from "styles/color.css";
+@value primary from "@styles/color.css";
 
 .container {
-  composes: main from "styles/layout.css";
+  composes: main from "@styles/layout.css";
 }
 
 .header {
-  composes: sans regular from "styles/type.css";
-  composes: flex alignCenter from "styles/flex.css";
+  composes: flex alignCenter from "@styles/flex.css";
+  composes: sans regular from "@styles/type.css";
   background-color: white;
   color: primary;
   font-size: 21px;

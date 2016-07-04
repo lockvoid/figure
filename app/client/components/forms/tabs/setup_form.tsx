@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as styles from './setup_form.css!';
+import * as styles from './setup_form.css.json!';
 
 export const SetupForm = ({ current: { form } }) => (
   <article className={styles.container}>

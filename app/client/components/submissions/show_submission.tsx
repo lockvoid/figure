@@ -4,7 +4,7 @@ import { NotFound } from '../pages/not_found';
 
 const dateFormat = require('dateformat');
 
-import * as styles from './show_submission.css!';
+import * as styles from './show_submission.css.json!';
 
 export class ShowSubmission extends React.Component<any, any> {
   render() {

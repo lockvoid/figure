@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Link } from 'react-router';
 
-import * as styles from './forms_aside.css!';
+import * as styles from './forms_aside.css.json!';
 
 export const FormsAside = ({ forms }) => (
   <aside className={styles.container}>

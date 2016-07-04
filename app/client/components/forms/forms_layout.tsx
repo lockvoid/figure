@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FormsAside } from './forms_aside';
 
-import * as styles from './forms_layout.css!';
+import * as styles from './forms_layout.css.json!';
 
 export const FormsLayout = ({ forms, children = undefined }) => (
   <main className={styles.container}>

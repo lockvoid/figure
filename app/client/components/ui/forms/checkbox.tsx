@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldProp } from 'redux-form';
 
-import * as styles from './checkbox.css!';
+import * as styles from './checkbox.css.json!';
 
 export const Checkbox = ({ field, children = undefined }) => (
   <label className={styles.checkbox}>

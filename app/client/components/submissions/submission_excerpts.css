@@ -2,8 +2,8 @@
 }
 
 .submission {
-  composes: flex vertical justifyAround from "styles/flex.css";
-  composes: invisible from "styles/link.css";
+  composes: flex vertical justifyAround from "@styles/flex.css";
+  composes: invisible from "@styles/link.css";
   background: linear-gradient(to right, color(white b(15%)), color(white b(5%))) no-repeat 0 100% / 100% 1px;
   height: 75px;
   padding: 10px 15px;
@@ -15,29 +15,29 @@
 }
 
 .h3 {
-  composes: flex alignCenter justifyBetween from "styles/flex.css";
+  composes: flex alignCenter justifyBetween from "@styles/flex.css";
 }
 
 /* :private */ .field {
-  composes: sans truncate from "styles/type.css";
+  composes: sans truncate from "@styles/type.css";
   font-size: 13px;
   line-height: 1.2;
 }
 
 .firstExcerpt {
   composes: field;
-  composes: semibold from "styles/type.css";
+  composes: semibold from "@styles/type.css";
   color: color(black w(10%));
 }
 
 .secondExcerpt {
   composes: field;
-  composes: regular from "styles/type.css";
+  composes: regular from "@styles/type.css";
   color: color(black w(40%));
 }
 
 .time {
-  composes: sans regular nowrap from "styles/type.css";
+  composes: sans regular nowrap from "@styles/type.css";
   color: color(black w(40%));
   font-size: 11px;
   white-space: nowrap;

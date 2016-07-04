@@ -1,4 +1,4 @@
-@value primary from "styles/color.css";
+@value primary from "@styles/color.css";
 
 ._icon {
   border-radius: 1px;
@@ -43,7 +43,7 @@
 }
 
 .label {
-  composes: sans semibold upcase from "styles/type.css";
+  composes: sans semibold upcase from "@styles/type.css";
   color: color(white b(90%));
   font-size: 12px;
   margin-left: 8px;

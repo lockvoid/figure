@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Link } from 'react-router';
 
-import * as styles from './form_tabs.css!';
+import * as styles from './form_tabs.css.json!';
 
 interface FormTabsProps {
   form: any

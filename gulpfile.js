@@ -4,10 +4,12 @@ const autoprefixer = require('autoprefixer');
 const cprocess = require('child_process');
 const del = require('del');
 const dotenv = require('dotenv');
+const fs = require('fs-extra');
 const gulp = require('gulp');
 const jspm = require('jspm');
+const path = require('path');
+const postcssModules = require('postcss-modules');
 const precss = require('precss')
-const babel = require('gulp-babel');
 const cssnano = require('gulp-cssnano');
 const postcss = require('gulp-postcss');
 const preprocess = require('gulp-preprocess');
@@ -20,13 +22,13 @@ const uglify = require('gulp-uglify');
 
 dotenv.load();
 
-const buildTasks = gulp.parallel(buildServer, buildClient, buildCss, buildJs, copyAssets);
+const buildTasks = gulp.parallel(buildServer, buildClient, buildCss, copyAssets);
 
-const watchTasks = gulp.parallel(watchServer, watchClient, watchCss, watchJs, watchAssets);
+const watchTasks = gulp.parallel(watchServer, watchClient, watchCss, watchAssets);
 
 gulp.task('default', gulp.series(clean, buildTasks, gulp.parallel(startWeb, startWorker), watchTasks));
 
-gulp.task('release', gulp.series(clean, buildTasks, gulp.parallel(bundleClient, minifyCss, minifyJs), revPublic, repPublic));
+gulp.task('release', gulp.series(clean, buildTasks, gulp.parallel(bundleClient, minifyCss), revPublic, revPublic));
 
 function clean() {
   return del('dist');
@@ -83,7 +85,7 @@ function buildServer() {
 }
 
 function watchServer() {
-  gulp.watch('{app/server,lib}/**/*.{ts,tsx}', gulp.series(gulp.parallel(buildServer, killWeb, killWorker), gulp.parallel(startWeb, startWorker)));
+  gulp.watch('{app/server,lib}/**/*.{ts,tsx,css}', gulp.series(gulp.parallel(buildServer, killWeb, killWorker), gulp.parallel(startWeb, startWorker)));
 }
 
 // Client
@@ -108,55 +110,58 @@ function bundleClient() {
 // Public
 
 function buildCss() {
-  let manifests = ['public/css/**/*.css', '!public/css/**/_*.css'];
+  const paths = (css, opts) => {
+    const STYLES_REGEX = '@styles';
+    const relativeStylesPath = `${path.relative(path.dirname(css.source.input.file), '.')}/lib/styles`;
 
-  return gulp.src(manifests).pipe(sourcemaps.init()).pipe(postcss([precss, autoprefixer])).pipe(sourcemaps.write()).pipe(gulp.dest('dist/public'));
+    css.walkAtRules('value', rule => {
+      rule.params = rule.params.replace(STYLES_REGEX, relativeStylesPath);
+    });
+
+    css.walkDecls('composes', decl => {
+      decl.value = decl.value.replace(STYLES_REGEX, relativeStylesPath);
+    });
+  };
+
+  const modules = postcssModules({
+    getJSON: (cssPath, json) => {
+      const relativeCssPath = path.relative('.', cssPath);
+
+      if (relativeCssPath.startsWith('app/client')) {
+        var dest = path.join('dist/client', relativeCssPath);
+      }
+
+      if (relativeCssPath.startsWith('app/server')) {
+        var dest = path.join('dist/server', relativeCssPath);
+      }
+
+      if (dest) {
+        fs.outputJsonSync(path.resolve('./', `${dest}.json`), json);
+      }
+    }
+  });
+
+  const cssMasks = ['{app/client,app/server,public/css}/**/*.css', '!**/_*.css'];
+
+  return gulp.src(cssMasks).pipe(sourcemaps.init()).pipe(postcss([paths, precss, modules, autoprefixer])).pipe(sourcemaps.write()).pipe(gulp.dest('dist/public/css'));
 }
 
 function minifyCss() {
-  return gulp.src('dist/public/**/*.css').pipe(sourcemaps.init()).pipe(cssnano()).pipe(sourcemaps.write('.')).pipe(gulp.dest('dist/public'));
+  return gulp.src('dist/**/*.css').pipe(sourcemaps.init()).pipe(cssnano()).pipe(sourcemaps.write('.')).pipe(gulp.dest('dist/public'));
 }
 
 function watchCss() {
-  gulp.watch('public/css/**/*.css', buildCss);
-}
-
-function watchJs() {
-  gulp.watch('public/js/**/*.js', buildJs);
+  gulp.watch('{app,public,lib}/**/*.css', buildCss);
 }
 
 function copyAssets() {
-  return gulp.src('public/{images,fonts}/**/*.{jpg,woff}').pipe(gulp.dest('dist/public'));
+  return gulp.src('public/{images,fonts}/**/*.{jpg,png,woff}').pipe(gulp.dest('dist/public'));
 }
 
 function watchAssets() {
-  gulp.watch('public/{images,fonts}/**/*.{jpg,woff}', copyAssets);
-}
-
-function buildJs() {
-  return gulp.src('public/js/**/*.js').pipe(sourcemaps.init()).pipe(babel({ presets: ['es2015'] })).pipe(sourcemaps.write()).pipe(gulp.dest('dist/public'));
-}
-
-function minifyJs() {
-  return gulp.src('dist/public/**/*.js').pipe(uglify()).pipe(gulp.dest('dist/public'));
-}
-
-function watchJs() {
-  gulp.watch('public/js/**/*.js', buildJs);
-}
-
-function copyAssets() {
-  return gulp.src('public/{images,fonts}/**/*.{jpg,woff}').pipe(gulp.dest('dist/public'));
-}
-
-function watchAssets() {
-  gulp.watch('public/{images,fonts}/**/*.{jpg,woff}', copyAssets);
+  gulp.watch('public/{images,fonts}/**/*.{jpg,png,woff}', copyAssets);
 }
 
 function revPublic() {
   return gulp.src('dist/public/**').pipe(rev()).pipe(gulp.dest('dist/public')).pipe(rev.manifest({ path: 'manifest.json' })).pipe(gulp.dest('dist/public'));
-}
-
-function repPublic() {
-  return gulp.src('dist/public/**/*.css').pipe(replace({ manifest: gulp.src('dist/public/manifest.json') })).pipe(gulp.dest('dist/public'))
 }

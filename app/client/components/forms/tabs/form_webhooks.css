@@ -4,6 +4,6 @@
 }
 
 .buttons {
-  composes: flex from 'styles/flex.css';
+  composes: flex from '@styles/flex.css';
   margin-top: 18px;
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as styles from './not_found.css!';
+import * as styles from './not_found.css.json!';
 
 export const NotFound = ({ message = 'Grats. You broke it.' }) => (
   <div className={styles.container}>

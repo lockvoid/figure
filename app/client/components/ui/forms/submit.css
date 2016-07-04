@@ -1,9 +1,9 @@
-@value primary from "styles/color.css";
+@value primary from "@styles/color.css";
 
 .submit {
-  composes: flex align-center justify-center  from "styles/flex.css";
-  composes: sans semibold center upcase from "styles/type.css";
-  composes: material from "styles/border.css";
+  composes: flex align-center justify-center  from "@styles/flex.css";
+  composes: sans semibold center upcase from "@styles/type.css";
+  composes: material from "@styles/border.css";
   background-color: primary;
   border-radius: 2px;
   border: 0;

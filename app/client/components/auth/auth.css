@@ -1,13 +1,13 @@
-@value primary, warning from "styles/color.css";
+@value primary, warning from "@styles/color.css";
 
 .main {
-  composes: fill center from "styles/layout.css";
+  composes: fill center from "@styles/layout.css";
   max-width: 370px;
   padding: 40px 0;
 }
 
 .logo {
-  composes: block from "styles/layout.css";
+  composes: block from "@styles/layout.css";
   color: primary;
   margin: 0 auto 40px;
   width: 120px;
@@ -18,8 +18,8 @@
 }
 
 .form {
-  composes: block from "styles/layout.css";
-  composes: frame from "styles/border.css";
+  composes: block from "@styles/layout.css";
+  composes: frame from "@styles/border.css";
   background-color: white;
   border-radius: 2px;
   overflow: hidden;
@@ -38,13 +38,13 @@
 }
 
 .submit {
-  composes: fill from "styles/layout.css";
+  composes: fill from "@styles/layout.css";
 }
 
 .footer {
-  composes: flex center from "styles/flex.css";
-  composes: invisible from "styles/link.css";
-  composes: sans regular from "styles/type.css";
+  composes: flex center from "@styles/flex.css";
+  composes: invisible from "@styles/link.css";
+  composes: sans regular from "@styles/type.css";
   background-color: color(white b(2%));
   border-top: 1px solid color(white b(5%));
   color: color(white b(90%));

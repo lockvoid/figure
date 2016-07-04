@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { SubmissionExcerpts } from './submission_excerpts';
 
-import * as styles from './submissions_aside.css!';
+import * as styles from './submissions_aside.css.json!';
 
 export const SubmissionsAside = ({ form, submissions }) => (
   <aside className={styles.container}>

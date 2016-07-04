@@ -7,7 +7,7 @@ import { signin } from '../../actions/index';
 import { Flash, Group, Label, Input, Error, Submit } from '../ui/forms/index';
 import { combineValidators, requiredValidator, emailValidator, passwordValidator } from '../../utils/validators';
 
-import * as styles from './auth.css!';
+import * as styles from './auth.css.json!';
 
 const formConfig = {
   form: 'signin',

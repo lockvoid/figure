@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as styles from './no_submissions.css!';
+import * as styles from './no_submissions.css.json!';
 
 export const NoSubmissions = () => (
   <div className={styles.container}>

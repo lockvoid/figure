@@ -1,14 +1,14 @@
 .container {
   background-color: color(black w(20));
-  composes: flex vertical from "styles/flex.css";
+  composes: flex vertical from "@styles/flex.css";
   flex: 1;
   max-width: 300px;
   min-width: 200px;
 }
 
 .logo {
-  composes: fill from "styles/layout.css";
-  composes: flex center from "styles/flex.css";
+  composes: fill from "@styles/layout.css";
+  composes: flex center from "@styles/flex.css";
   margin-bottom: 15px;
   min-height: 65px;
   position: relative;
@@ -32,9 +32,9 @@
 }
 
 .link {
-  composes: flex alignCenter from "styles/flex.css";
-  composes: sans semibold from "styles/type.css";
-  composes: invisible from "styles/link.css";
+  composes: flex alignCenter from "@styles/flex.css";
+  composes: sans semibold from "@styles/type.css";
+  composes: invisible from "@styles/link.css";
   color: color(white a(0.8));
   height: 50px;
   padding: 0px 30px;
@@ -52,13 +52,13 @@
 }
 
 .label {
-  composes: sans semibold truncate from "styles/type.css";
+  composes: sans semibold truncate from "@styles/type.css";
   line-height: 1.5;
   font-size: 13px;
 }
 
 .forms {
-  composes: flex vertical from "styles/flex.css";
+  composes: flex vertical from "@styles/flex.css";
   flex: 1;
 }
 
