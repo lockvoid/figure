@@ -28,6 +28,9 @@ export const Page = ({ title = null, children = null, className = null }) => (
       {includeCss()}
 
       /* @ifdef METRIKA_APP */ <Metrika app={/* @echo METRIKA_APP */} /> /* @endif */
+
+      <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico"/>
+      <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     </head>
 
     <body className={`${styles.body} ${className}`}>

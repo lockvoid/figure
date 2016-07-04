@@ -159,11 +159,11 @@ function watchCss() {
 }
 
 function copyAssets() {
-  return gulp.src('public/{images,fonts}/**/*.{jpg,png,woff}').pipe(gulp.dest('dist/public'));
+  return gulp.src('public/{images,fonts}/**/*.{jpg,png,woff,ico}').pipe(gulp.dest('dist/public'));
 }
 
 function watchAssets() {
-  gulp.watch('public/{images,fonts}/**/*.{jpg,png,woff}', copyAssets);
+  gulp.watch('public/{images,fonts}/**/*.{jpg,png,woff,ico}', copyAssets);
 }
 
 function revPublic() {
