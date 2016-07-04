@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { signin } from '../../actions/index';
-import { Flash, Group, Label, Input, Error, Submit } from '../ui/forms/index';
+import { Flash, Group, Label, Input, Error, MaterialButton } from '../ui/forms/index';
 import { combineValidators, requiredValidator, emailValidator, passwordValidator } from '../../utils/validators';
 
 import * as styles from './auth.css.json!';
@@ -65,7 +65,7 @@ export class Signin extends React.Component<any, any> {
             </Group>
 
             <section className={styles.buttons}>
-              <Submit className={styles.submit} submitting={submitting}>Sign In</Submit>
+              <MaterialButton submitting={submitting}>Sign In</MaterialButton>
             </section>
           </section>
 

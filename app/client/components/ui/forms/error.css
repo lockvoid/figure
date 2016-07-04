@@ -1,8 +1,8 @@
-@value failure from "@styles/color.css";
+@value danger from "@styles/color.css";
 
 .error {
   composes: sans regular from "@styles/type.css";
-  color: failure;
+  color: danger;
   font-size: 13px;
   line-height: 18px;
   margin-top: 8px;

@@ -1,0 +1,97 @@
+@value primary, notice, warning, danger from "./color.css";
+
+.button {
+  composes: flex center from "./flex.css";
+  composes: sans semibold center upcase from "./type.css";
+  border-radius: 2px;
+  border: 0;
+  cursor: pointer;
+  font-size: 14px;
+  height: 40px;
+  min-width: 90px;
+  padding: 0px 13px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.material {
+  composes: material from "./border.css";
+  color: color(white a(0.85));
+  transition: color .1s;
+
+  &:hover {
+    color: white;
+  }
+
+  &:active, &:active:hover {
+    color: color(white a(0.85));
+    transition: none;
+  }
+}
+
+.material--primary {
+  background-color: primary;
+
+  &:active, &:active:hover {
+    background-color: color(#0d7689 l(-5%));
+  }
+}
+
+.material--notice {
+  background-color: notice;
+
+  &:active, &:active:hover {
+    background-color: color(#03a9f4 l(-5%));
+  }
+}
+
+.material--warning {
+  background-color: warning;
+
+  &:active, &:active:hover {
+    background-color: color(#ff5722 l(-5%));
+  }
+}
+
+.material--danger {
+  background-color: danger;
+
+  &:active, &:active:hover {
+    background-color: color(#f44336 l(-5%));
+  }
+}
+
+.flat {
+  background-color: transparent;
+  border: 2px solid color(white b(20));
+  color: color(white b(80));
+  transition: background-color .1s;
+
+  &:hover {
+    background-color: color(white b(20));
+  }
+
+  &:active, &:active:hover {
+    background-color: color(white b(25));
+    border-color: color(white b(25));
+    transition: none;
+  }
+}
+
+.flat--primary {
+  color: primary;
+}
+
+.flat--notice {
+  color: warning;
+}
+
+.flat--warning {
+  color: warning;
+}
+
+.flat--danger {
+  color: danger;
+}

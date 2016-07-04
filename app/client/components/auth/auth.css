@@ -34,6 +34,7 @@
 }
 
 .buttons {
+  composes: flex vertical alignStretch from "@styles/flex.css";
   margin-top: 35px;
 }
 

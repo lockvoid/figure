@@ -26,7 +26,9 @@
   margin-top: 25px;
 }
 
-a.goBack {
+.goBack {
+  composes: invisible from "@styles/link.css";
+  composes: button material material--primary from "@styles/button.css";
   margin: 50px 0 100px;
 }
 
@@ -37,6 +39,6 @@ a.goBack {
 }
 
 .footerLink {
-  composes: sublink from "@styles/link.css";
+  composes: inline from "@styles/link.css";
   color: primary;
 }

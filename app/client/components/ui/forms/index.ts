@@ -5,5 +5,6 @@ export { Group } from './group';
 export { Hint } from './hint';
 export { Input } from './input';
 export { Label } from './label';
-export { Submit } from './submit';
-export { Validator } from './Validator';
+export { Validator } from './validator';
+export { MaterialButton } from './buttons/material_button';
+export { FlatButton } from './buttons/flat_button';

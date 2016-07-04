@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { signup } from '../../actions/index';
-import { Flash, Group, Validator, Label, Input, Error, Submit } from '../ui/forms/index';
+import { Flash, Group, Validator, Label, Input, Error, MaterialButton } from '../ui/forms/index';
 import { combineValidators, requiredValidator, emailValidator, passwordValidator, uniquenessValidator } from '../../utils/validators';
 import { Api } from '../../lib/api';
 
@@ -86,7 +86,7 @@ export class Signup extends React.Component<any, any> {
             </Group>
 
             <section className={styles.buttons}>
-              <Submit className={styles.submit} submitting={submitting}>Sign Up</Submit>
+              <MaterialButton submitting={submitting}>Sign Up</MaterialButton>
             </section>
           </section>
 

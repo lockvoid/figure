@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { NotFound } from '../pages/not_found';
+import { FlatButton } from '../ui/forms/buttons/flat_button';
 
 const dateFormat = require('dateformat');
 
@@ -23,7 +24,7 @@ export class ShowSubmission extends React.Component<any, any> {
           <time className={styles.time} >Submitted on {dateFormat(createdAt, 'dd/mm/yy')} at {dateFormat(createdAt, 'HH:MM')}</time>
 
           <nav className={styles.dashboard}>
-            <button type="button" className="flat danger" onClick={() => deleteSubmission(submission.id)}>Delete</button>
+            <FlatButton type="button" theme="danger" onClick={() => deleteSubmission(submission.id)}>Delete</FlatButton>
           </nav>
         </header>
 

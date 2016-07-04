@@ -4,7 +4,7 @@ import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../../utils/validators';
 import { updateForm, deleteForm } from '../../../actions/index';
-import { Flash, Group, Label, Hint, Input, Checkbox, Error, Submit } from '../../ui/forms/index';
+import { Flash, Group, Label, Hint, Input, Checkbox, Error, MaterialButton, FlatButton } from '../../ui/forms/index';
 
 import * as styles from './edit_form.css.json!';
 
@@ -65,8 +65,8 @@ export class EditForm extends React.Component<any, any> {
         </Group>
 
         <section className={styles.buttons}>
-          <Submit submitting={submitting}>Update</Submit>
-          <button type="button" className="flat danger end" onClick={onDelete}>Delete</button>
+          <MaterialButton submitting={submitting}>Update</MaterialButton>
+          <FlatButton type="button" theme="danger" onClick={onDelete}>Delete</FlatButton>
         </section>
       </form>
     );

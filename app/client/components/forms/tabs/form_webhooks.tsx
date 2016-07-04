@@ -3,7 +3,7 @@ import * as React from 'react';
 import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { updateForm } from '../../../actions/index';
-import { Flash, Group, Label, Hint, Input, Error, Submit } from '../../ui/forms/index';
+import { Flash, Group, Label, Hint, Input, Error, MaterialButton } from '../../ui/forms/index';
 
 import * as styles from './form_webhooks.css.json!';
 
@@ -42,7 +42,7 @@ export class FormWebhooks extends React.Component<any, any> {
         </Group>
 
         <section className={styles.buttons}>
-          <Submit submitting={submitting}>Update</Submit>
+          <MaterialButton submitting={submitting}>Update</MaterialButton>
         </section>
       </form>
     );

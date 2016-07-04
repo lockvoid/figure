@@ -5,7 +5,7 @@ import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { createForm } from '../../actions/index';
-import { Flash, Group, Label, Input, Hint, Error, Submit } from '../ui/forms/index';
+import { Flash, Group, Label, Input, Hint, Error, MaterialButton } from '../ui/forms/index';
 
 import * as styles from './new_form.css.json!';
 
@@ -56,7 +56,7 @@ export class NewForm extends React.Component<any, any> {
           </Group>
 
           <section className={styles.buttons}>
-            <Submit submitting={submitting}>Continue</Submit>
+            <MaterialButton submitting={submitting}>Continue</MaterialButton>
           </section>
         </form>
       </section>
