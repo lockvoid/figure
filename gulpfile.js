@@ -126,22 +126,24 @@ function buildCss() {
   const modules = postcssModules({
     getJSON: (cssPath, json) => {
       const relativeCssPath = path.relative('.', cssPath);
-
-      if (relativeCssPath.startsWith('app/client')) {
-        var dest = path.join('dist/client', relativeCssPath);
-      }
+      const resolveDestPath = (kind) => path.resolve('./', `${path.join(kind, relativeCssPath)}.json`);
 
       if (relativeCssPath.startsWith('app/server')) {
-        var dest = path.join('dist/server', relativeCssPath);
+        fs.outputJsonSync(resolveDestPath('dist/server'), json);
       }
 
-      if (dest) {
-        fs.outputJsonSync(path.resolve('./', `${dest}.json`), json);
+      if (relativeCssPath.startsWith('app/client')) {
+        fs.outputJsonSync(resolveDestPath('dist/client'), json);
+      }
+
+      if (relativeCssPath.startsWith('lib/components')) {
+        fs.outputJsonSync(resolveDestPath('dist/client'), json);
+        fs.outputJsonSync(resolveDestPath('dist/server'), json);
       }
     }
   });
 
-  const cssMasks = ['{app/client,app/server,public/css}/**/*.css', '!**/_*.css'];
+  const cssMasks = ['{app/client,app/server,lib/components,public/css}/**/*.css', '!**/_*.css'];
 
   return gulp.src(cssMasks).pipe(sourcemaps.init()).pipe(postcss([paths, precss, modules, autoprefixer])).pipe(sourcemaps.write()).pipe(gulp.dest('dist/public/css'));
 }

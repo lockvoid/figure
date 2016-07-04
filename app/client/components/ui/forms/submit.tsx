@@ -6,6 +6,6 @@ import * as styles from './submit.css.json!';
 
 export const Submit = ({ className = "", submitting = false, children = undefined }) => (
   <button type="submit" className={`${styles.submit} ${className}`} disabled={submitting}>
-    {submitting ? <Spinner /> : children}
+    {submitting ? <Spinner theme="white" /> : children}
   </button>
 );
