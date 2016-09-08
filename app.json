@@ -1,0 +1,46 @@
+{
+  "name": "figure",
+  "scripts": {
+  },
+  "env": {
+    "FIGURE_URL": {
+      "required": true
+    },
+    "JWT_SECRET": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true
+    },
+    "REDIS_URL": {
+      "required": true
+    },
+    "SENDGRID_SECRET": {
+      "required": true
+    },
+    "THERON_APP": {
+      "required": true
+    },
+    "THERON_SECRET": {
+      "required": true
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1
+    },
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql",
+    "redistogo",
+    "sendgrid"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
