@@ -1,0 +1,24 @@
+@value primary from "@styles/color.css";
+
+.container {
+  composes: main from "@styles/layout.css";
+}
+
+.header {
+  composes: flex alignCenter from "@styles/flex.css";
+  composes: sans regular from "@styles/type.css";
+  background-color: white;
+  color: primary;
+  font-size: 21px;
+  min-height: 65px;
+  padding: 0 40px;
+}
+
+.form {
+  border: 40px solid transparent;
+  max-width: 700px;
+}
+
+.buttons {
+  margin-top: 18px;
+}

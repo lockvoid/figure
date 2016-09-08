@@ -1,0 +1,49 @@
+.container {
+  background-color: white;
+  flex: 2;
+  overflow-y: auto;
+  padding: 30px;
+  position: relative;
+}
+
+.header {
+  composes: flex justifyBetween from "@styles/flex.css";
+}
+
+.scroller {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.time {
+  composes: sans regular nowrap from "@styles/type.css";
+  color: color(white b(60%));
+  font-size: 14px;
+}
+
+.dashboard {
+  composes: flex from "@styles/flex.css";
+}
+
+.data {
+  margin-top: 20px;
+}
+
+.field {
+  & + .field {
+    margin-top: 30px;
+  }
+}
+
+.h4 {
+  composes: sans semibold from "@styles/type.css";
+  composes: block from "@styles/layout.css";
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.value {
+  composes: sans regular text from "@styles/type.css";
+  composes: block from "@styles/layout.css";
+  font-size: 14px;
+}

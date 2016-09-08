@@ -1,0 +1,20 @@
+.link, .link:hover {
+  text-decoration: underline;
+}
+
+.sublink {
+  text-decoration: none;
+}
+
+.invisible, .invisible:hover, .invisible:visited {
+  text-decoration: none;
+}
+
+.inline {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+

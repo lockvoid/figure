@@ -1,0 +1,23 @@
+@value primary from "@styles/color.css";
+
+@keyframes pulse {
+  0%, 100% {
+    color: color(white b(40%));
+  }
+
+  50% {
+    color: primary;
+  }
+}
+
+.container {
+  composes: flex center from "@styles/flex.css";
+  composes: center from "@styles/layout.css";
+}
+
+.h4 {
+  composes: sans semibold upcase from "@styles/type.css";
+  animation: pulse 2.5s infinite linear both;
+  color: color(white b(40%));
+  font-size: 15px;
+}

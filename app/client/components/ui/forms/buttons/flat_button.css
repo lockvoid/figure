@@ -1,0 +1,15 @@
+.primary {
+  composes: button flat flat--primary from "@styles/button.css";
+}
+
+.notice {
+  composes: button flat flat--notive from "@styles/button.css";
+}
+
+.warning {
+  composes: button flat flat--warning from "@styles/button.css";
+}
+
+.danger {
+  composes: button flat flat--danger from "@styles/button.css";
+}

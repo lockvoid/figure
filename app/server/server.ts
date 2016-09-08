@@ -81,8 +81,7 @@ app.use((req, res, next) => {
 
 if (app.get('env') === 'development') {
   app.use('/', express.static('./dist/client'));
-
-  app.use('/jspm_packages', express.static('./jspm_packages'));
+  app.use('/', express.static('./'));
 
   app.get('/config.js', (req, res) => {
     res.sendFile(`${process.cwd()}/config.js`);
@@ -134,21 +133,21 @@ app.post('/f/:formKey', wrap(async ({ params: { formKey }, body }, res) => {
 }));
 
 app.get('/home', (req, res) => {
-  res.render('home', { isAuth: req.cookies.theronAuth === 'true' });
+  res.render('pages/home', { isAuth: req.cookies.theronAuth === 'true' });
 });
 
 app.get('/thanks', (req, res) => {
-  res.render('thanks');
+  res.render('pages/thanks');
 });
 
 app.get('/', (req, res) => {
   if (req.cookies.figureAuth === 'true') {
-    res.render('app');
+    res.render('pages/app');
   } else {
-    res.render('home');
+    res.render('pages/home');
   }
 });
 
 app.get('/*', (req, res) => {
-  res.render('app');
+  res.render('pages/app');
 });

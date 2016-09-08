@@ -1,0 +1,41 @@
+@value primary from "@styles/color.css";
+
+@keyframes loading {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1.0);
+  }
+}
+
+.spinner {
+  composes: flex justifyCenter from "@styles/flex.css";
+  composes: center from "@styles/layout.css";
+
+  & > div {
+    &:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+  }
+}
+
+.spinner--white {
+  & > div {
+    background-color: white;
+  }
+}
+
+.dot {
+  animation: loading 1.4s infinite ease-in-out both;
+  background-color: primary;
+  border-radius: 100%;
+  height: 6px;
+  margin: 0 1px;
+  width: 6px;
+}

@@ -1,0 +1,9 @@
+.form {
+  border: 40px solid transparent;
+  max-width: 700px;
+}
+
+.buttons {
+  composes: flex from '@styles/flex.css';
+  margin-top: 18px;
+}

@@ -1,0 +1,20 @@
+@value primary, failure from "@styles/color.css";
+
+.default {
+  composes: flex from "@styles/flex.css";
+  composes: sans semibold upcase from "@styles/type.css";
+  color: color(white b(90%));
+  font-size: 13px;
+  height: 16px;
+  margin-bottom: 10px;
+}
+
+.focused {
+  composes: default;
+  color: primary;
+}
+
+.invalid {
+  composes: default;
+  color: failure;
+}

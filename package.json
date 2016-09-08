@@ -22,11 +22,11 @@
     "body-parser": "^1.14.1",
     "bull": "^0.7.2",
     "cookie-parser": "^1.4.1",
-    "express": "^4.13.3",
+    "express": "^4.14.0",
     "foreman": "^2.0.0-1",
     "immutable": "^3.7.6",
     "jsonwebtoken": "^5.7.0",
-    "jspm": "^0.16.32",
+    "jspm": "^0.16.39",
     "knex": "^0.10.0",
     "objection": "^0.4.0",
     "pg": "^4.5.2",
@@ -44,9 +44,12 @@
     "babel-preset-es2015": "^6.6.0",
     "del": "^2.2.0",
     "dotenv": "^2.0.0",
+    "fs-extra": "^0.30.0",
+    "glob": "^7.0.5",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.2",
     "gulp-cli": "gulpjs/gulp-cli#4.0",
+    "gulp-concat": "^2.6.0",
     "gulp-cssnano": "^2.1.0",
     "gulp-postcss": "^6.0.1",
     "gulp-preprocess": "^2.0.0",
@@ -55,17 +58,20 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.12.0",
     "gulp-uglify": "^1.5.3",
-    "jspm": "^0.16.32",
+    "jspm": "^0.16.39",
+    "postcss-modules": "^0.5.0",
     "precss": "^1.4.0",
     "preprocess": "^3.1.0",
-    "typescript": "^1.8.9",
-    "typings": "^0.7.12"
+    "typescript": "^2.0.0-dev.20160629",
+    "typings": "^1.3.1"
   },
   "jspm": {
     "dependencies": {
       "babel-polyfill": "npm:babel-polyfill@^6.7.4",
+      "css": "npm:jspm-loader-css@^1.1.0",
       "dateformat": "npm:dateformat@^1.0.12",
       "immutable": "npm:immutable@^3.7.6",
+      "json": "npm:systemjs-plugin-json@^0.1.0",
       "jwt-decode": "npm:jwt-decode@^2.0.1",
       "react": "npm:react@^0.14.8",
       "react-dom": "npm:react-dom@^0.14.8",
@@ -75,10 +81,16 @@
       "redux": "npm:redux@^3.3.1",
       "redux-form": "npm:redux-form@^4.2.2",
       "redux-saga": "npm:redux-saga@^0.9.5",
-      "redux-thunk": "npm:redux-thunk@^1.0.3",
       "theron": "npm:theron@^0.2.1"
     },
-    "devDependencies": {}
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4",
+      "plugin-babel-runtime": "npm:babel-runtime@^5.8.24",
+      "true": "npm:babel-core@^5.8.24",
+      "true-runtime": "npm:babel-runtime@^5.8.24"
+    }
   },
   "engines": {
     "node": "^5.4.0"

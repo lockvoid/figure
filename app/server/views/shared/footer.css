@@ -1,0 +1,30 @@
+/* private: */ .text {
+  composes: sans semibold from "@styles/type.css";
+  color: color(white a(60%));
+  font-size: 12px;
+}
+
+.footer {
+  background-color: color(black l(20%));
+}
+
+.container {
+  composes: flex alignCenter from "@styles/flex.css";
+  composes: normal center from "@styles/layout.css";
+  height: 50px;
+  padding: 0 25px;
+}
+
+.p {
+  composes: text;
+}
+
+.a {
+  composes: invisible from "@styles/link.css";
+  composes: text;
+  color: color(white a(85%));
+
+  &:hover {
+    color: white;
+  }
+}

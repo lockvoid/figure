@@ -1,3 +1,0 @@
-@define-mixin size $width, $height {
-  height: $height; width: $width;
-}

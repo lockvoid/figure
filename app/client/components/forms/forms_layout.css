@@ -1,0 +1,4 @@
+.container {
+  composes: flex horizontal from "@styles/flex.css";
+  composes: main from "@styles/layout.css";
+}

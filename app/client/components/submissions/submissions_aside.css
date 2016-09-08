@@ -1,0 +1,12 @@
+.container {
+  composes: flex vertical from "@styles/flex.css";
+  background-color: color(white b(5%));
+  flex: 1.5;
+  max-width: 400px;
+  min-width: 200px;
+}
+
+.excerpts {
+  flex: 1;
+  overflow-y: auto;
+}

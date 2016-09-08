@@ -1,0 +1,14 @@
+.page {
+  height: 100%;
+}
+
+.app {
+  composes: flex from "@styles/flex.css";
+  height: 100%;
+  width: 100%;
+}
+
+.js {
+  position: absolute;
+  top: -9999;
+}

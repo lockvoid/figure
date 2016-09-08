@@ -1,0 +1,15 @@
+.primary {
+  composes: button material material--primary from "@styles/button.css";
+}
+
+.notice {
+  composes: button material material--notive from "@styles/button.css";
+}
+
+.warning {
+  composes: button material material--warning from "@styles/button.css";
+}
+
+.danger {
+  composes: button material material--danger from "@styles/button.css";
+}

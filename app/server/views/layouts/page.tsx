@@ -1,7 +1,19 @@
 import * as React from 'react';
 
-import { assetPath } from '../../utils/asset_path';
 import { Metrika } from '../shared/metrika';
+import { assetPath } from '../../utils/asset_path';
+
+import * as styles from './page.css.json';
+
+const includeCss = () => {
+  if (process.env.NODE_ENV == 'production') {
+    return <link rel="stylesheet" media="screen" href={assetPath('app.css')} />;
+  }
+
+  return require('glob').sync('dist/**/*.css').map(file =>
+    <link rel="stylesheet" media="screen" href={file} key={file} />
+  );
+}
 
 export const Page = ({ title = null, children = null, className = null }) => (
   <html>
@@ -13,12 +25,15 @@ export const Page = ({ title = null, children = null, className = null }) => (
       <meta name="description" content="Painless forms for designers and developers." />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <link rel="stylesheet" media="screen" href={assetPath('app.css')} />
+      {includeCss()}
 
       /* @ifdef METRIKA_APP */ <Metrika app={/* @echo METRIKA_APP */} /> /* @endif */
+
+      <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico"/>
+      <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     </head>
 
-    <body className={className}>
+    <body className={`${styles.body} ${className}`}>
       {children}
     </body>
   </html>

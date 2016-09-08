@@ -1,0 +1,17 @@
+.container {
+  composes: flex vertical center from "@styles/flex.css";
+  composes: main center from "@styles/layout.css";
+}
+
+.h2 {
+  composes: sans regular from "@styles/type.css";
+  font-size: 70px;
+  color: color(white b(50));
+}
+
+.h3 {
+  composes: sans semibold upcase from "@styles/type.css";
+  color: color(white b(70));
+  font-size: 15px;
+  margin-top: 15px;
+}

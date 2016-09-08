@@ -1,0 +1,72 @@
+.sans {
+  font-family: "OpenSans", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+}
+
+.mono {
+  font-family: "Consolas", "Menlo", "Courier", monospace;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.semibold {
+  font-weight: 500;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.upcase {
+  text-transform: uppercase;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.truncate {
+  composes: fill from './layout.css';
+  composes: nowrap;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text {
+  line-height: 1.6;
+}
+
+.code {
+  line-height: 1.3;
+}
+
+.h1 {
+  font-size: 25px;
+}
+
+.h2 {
+  font-size: 18px;
+}
+
+.h3 {
+  font-size: 15px;
+}
+

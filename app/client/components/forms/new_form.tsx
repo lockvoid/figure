@@ -5,8 +5,9 @@ import { MapStateToProps, MapDispatchToPropsFunction } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { combineValidators, requiredValidator } from '../../utils/validators';
 import { createForm } from '../../actions/index';
-import { FieldBox } from '../shared/fieldbox';
-import { SubmitButton } from '../shared/submit_button';
+import { Flash, Group, Label, Input, Hint, Error, MaterialButton } from '../ui/forms/index';
+
+import * as styles from './new_form.css.json!';
 
 const formConfig = {
   form: 'form',
@@ -35,32 +36,30 @@ const mapDispatchToProps: MapDispatchToPropsFunction = (dispatch: Dispatch) => {
 }
 
 @reduxForm(formConfig, mapStateToProps, mapDispatchToProps)
+
 export class NewForm extends React.Component<any, any> {
   render() {
     const { fields: { name }, handleSubmit, submitting, error } = this.props;
 
     return (
-      <div className="forms new">
-        <header className="default">
-          <h1>Create a new form</h1>
-        </header>
+      <section className={styles.container}>
+        <h1 className={styles.header}>Create a new form</h1>
 
-        <wrformer>
-          <form className="default" onSubmit={handleSubmit}>
-            {error && !submitting && <div className="alert danger">{error}</div>}
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <Flash className={styles.flash} level="warning" visible={!submitting && !!error}>{error}</Flash>
 
-            <FieldBox {...name}>
-              <div className="title">Form Name</div>
-              <input type="text" {...name} />
-              <div className="hint">Now just enter a name. Setup the form later.</div>
-            </FieldBox>
+          <Group>
+            <Label field={name}>Form Name</Label>
+            <Input field={name} type="text" />
+            <Hint>Now just head with a name. Setup the form later.</Hint>
+            <Error field={name} />
+          </Group>
 
-            <div className="buttons">
-              <SubmitButton title="Continue" submitting={submitting} />
-            </div>
-          </form>
-        </wrformer>
-      </div>
+          <section className={styles.buttons}>
+            <MaterialButton submitting={submitting}>Continue</MaterialButton>
+          </section>
+        </form>
+      </section>
     );
   }
 }

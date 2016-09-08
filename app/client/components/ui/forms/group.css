@@ -1,0 +1,7 @@
+.group {
+  composes: flex vertical from "@styles/flex.css";
+
+  & + .group {
+    margin-top: 18px;
+  }
+}

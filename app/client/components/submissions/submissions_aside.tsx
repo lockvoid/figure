@@ -1,40 +1,13 @@
 import * as React from 'react';
 
-import { Link } from 'react-router';
+import { SubmissionExcerpts } from './submission_excerpts';
 
-const dateFormat = require('dateformat');
+import * as styles from './submissions_aside.css.json!';
 
-
-const SubmissionExcerpt = ({ form, submission }) => {
-  const data = JSON.parse(submission.data);
-  const [firstField, secondField] = Object.keys(data);
-
-  return (
-    <li key={submission.id}>
-      <Link to={`/forms/${form.id}/submissions/${submission.id}`} activeClassName="active">
-        <h3>
-          {firstField && data[firstField]}
-          <time>{dateFormat(new Date(submission.created_at), 'dd/mm/yy HH:MM')}</time>
-        </h3>
-
-        <div className="field">
-          {secondField && data[secondField]}
-        </div>
-      </Link>
-    </li>
-  );
-};
-
-export class SubmissionsAside extends React.Component<any, any> {
-  render() {
-    const { form, submissions } = this.props;
-
-    return (
-      <aside>
-        <ul className="excerpts">
-          { submissions.rows.map(submission => <SubmissionExcerpt form={form} submission={submission} key={submission.id} />) }
-        </ul>
-      </aside>
-    );
-  }
-}
+export const SubmissionsAside = ({ form, submissions }) => (
+  <aside className={styles.container}>
+    <ul className={styles.excerpts}>
+      { submissions.rows.map(submission => <SubmissionExcerpts form={form} submission={submission} key={submission.id} />) }
+    </ul>
+  </aside>
+);

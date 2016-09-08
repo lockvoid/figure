@@ -1,0 +1,30 @@
+@value primary, failure from "@styles/color.css";
+
+.default {
+  composes: fill center from "@styles/layout.css";
+  composes: sans regular from "@styles/type.css";
+  background-color: white;
+  border-radius: 2px;
+  border: 1px solid color(white b(20));
+  font-size: 16px;
+  height: 40px;
+  padding: 0 10px;
+  -webkit-appearance: textfield;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: color(white b(50%));
+  }
+}
+
+.focused {
+  composes: default;
+}
+
+.invalid {
+  composes: default;
+  border-color: failure;
+}
